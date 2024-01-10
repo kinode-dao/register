@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
-import UqHeader from "../components/UqHeader"
+import NecHeader from "../components/NecHeader"
 import Loader from "../components/Loader";
 import { downloadKeyfile } from "../utils/download-keyfile";
 
@@ -7,13 +7,13 @@ type SetPasswordProps = {
   direct: boolean
   pw: string,
   reset: boolean,
-  uqName: string,
+  necName: string,
   setPw: React.Dispatch<React.SetStateAction<string>>,
   appSizeOnLoad: number
   closeConnect: () => void
 }
 
-function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect }: SetPasswordProps) {
+function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect }: SetPasswordProps) {
   const [pw2, setPw2] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,14 +45,14 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
           body: JSON.stringify({
             password: pw,
             reset,
-            username: uqName,
+            username: necName,
             direct,
           })
         })
 
         const base64String = await result.json()
 
-        downloadKeyfile(uqName, base64String)
+        downloadKeyfile(necName, base64String)
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
@@ -66,11 +66,11 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
         setLoading(false);
       }
     }, 500)
-  }, [appSizeOnLoad, direct, pw, pw2, reset, uqName]);
+  }, [appSizeOnLoad, direct, pw, pw2, reset, necName]);
 
   return (
     <>
-      <UqHeader msg="Set Uqbar Node Password" openConnect={()=>{}} closeConnect={closeConnect} />
+      <NecHeader msg="Set Nectar Node Password" openConnect={() => { }} closeConnect={closeConnect} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
@@ -107,7 +107,7 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
             value={pw2}
             onChange={(e) => setPw2(e.target.value)}
           />
-          {Boolean(error) && <p style={{color: "red"}}>{error}</p>}
+          {Boolean(error) && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit">Submit</button>
         </form>
       )}

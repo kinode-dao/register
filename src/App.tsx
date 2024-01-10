@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { Navigate, BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import { hooks } from "./connectors/metamask";
 import {
-  QNS_REGISTRY_ADDRESSES,
-  DOT_UQ_ADDRESSES,
+  NDNS_REGISTRY_ADDRESSES,
+  DOT_NEC_ADDRESSES,
 } from "./constants/addresses";
 import { ChainId } from "./constants/chainId";
-import { QNSRegistryResolver, QNSRegistryResolver__factory, DotUqRegistrar, DotUqRegistrar__factory } from "./abis/types";
+import { NDNSRegistryResolver, NDNSRegistryResolver__factory, DotNecRegistrar, DotNecRegistrar__factory } from "./abis/types";
 import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
-import RegisterUqName from "./pages/RegisterUqName";
-import ClaimUqInvite from "./pages/ClaimUqInvite";
+import RegisterNecName from "./pages/RegisterNecName";
+import ClaimNecInvite from "./pages/ClaimNecInvite";
 import SetPassword from "./pages/SetPassword";
 import Login from './pages/Login'
-import Reset from './pages/ResetUqName'
-import UqHome from "./pages/UqHome"
+import Reset from './pages/ResetNecName'
+import NecHome from "./pages/NecHome"
 import ImportKeyfile from "./pages/ImportKeyfile";
 import { UnencryptedIdentity } from "./lib/types";
 
@@ -31,7 +31,7 @@ function App() {
   const [keyFileName, setKeyFileName] = useState<string>('');
   const [reset, setReset] = useState<boolean>(false);
   const [direct, setDirect] = useState<boolean>(false);
-  const [uqName, setUqName] = useState<string>('');
+  const [necName, setNecName] = useState<string>('');
   const [appSizeOnLoad, setAppSizeOnLoad] = useState<number>(0);
   const [networkingKey, setNetworkingKey] = useState<string>('');
   const [ipAddress, setIpAddress] = useState<number>(0);
@@ -41,30 +41,30 @@ function App() {
   const [navigateToLogin, setNavigateToLogin] = useState<boolean>(false)
   const [initialVisit, setInitialVisit] = useState<boolean>(!params?.initial)
 
-  const [ connectOpen, setConnectOpen ] = useState<boolean>(false);
+  const [connectOpen, setConnectOpen] = useState<boolean>(false);
   const openConnect = () => setConnectOpen(true)
   const closeConnect = () => setConnectOpen(false)
 
-  const [ dotUq, setDotUq ] = useState<DotUqRegistrar>(
-    DotUqRegistrar__factory.connect(
-      DOT_UQ_ADDRESSES[ChainId.SEPOLIA],
+  const [dotNec, setDotNec] = useState<DotNecRegistrar>(
+    DotNecRegistrar__factory.connect(
+      DOT_NEC_ADDRESSES[ChainId.SEPOLIA],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
-  const [ qns, setQns ] = useState<QNSRegistryResolver>(
-    QNSRegistryResolver__factory.connect(
-      QNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+  const [ndns, setNdns] = useState<NDNSRegistryResolver>(
+    NDNSRegistryResolver__factory.connect(
+      NDNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
-  useEffect(()=> setAppSizeOnLoad(
+  useEffect(() => setAppSizeOnLoad(
     (window.performance.getEntriesByType('navigation') as any)[0].transferSize
   ), []);
 
   useEffect(() => {
     (async () => {
       try {
-        const infoResponse = await fetch('/info', {method: 'GET'})
+        const infoResponse = await fetch('/info', { method: 'GET' })
         if (infoResponse.status > 399) {
           console.log('no info, unbooted')
           return
@@ -73,7 +73,7 @@ function App() {
         const info: UnencryptedIdentity = await infoResponse.json()
 
         if (initialVisit) {
-          setUqName(info.name)
+          setNecName(info.name)
           setRouters(info.allowed_routers)
           setNavigateToLogin(true)
           setInitialVisit(false)
@@ -88,12 +88,12 @@ function App() {
 
   useEffect(() => {
     if (provider) {
-      setDotUq(DotUqRegistrar__factory.connect(
-        DOT_UQ_ADDRESSES[ChainId.SEPOLIA],
+      setDotNec(DotNecRegistrar__factory.connect(
+        DOT_NEC_ADDRESSES[ChainId.SEPOLIA],
         provider!.getSigner())
       )
-      setQns(QNSRegistryResolver__factory.connect(
-        QNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+      setNdns(NDNSRegistryResolver__factory.connect(
+        NDNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
         provider!.getSigner())
       )
     }
@@ -106,8 +106,8 @@ function App() {
     keyFileName, setKeyFileName,
     reset, setReset,
     pw, setPw,
-    uqName, setUqName,
-    dotUq, qns,
+    necName, setNecName,
+    dotNec, ndns,
     connectOpen, openConnect, closeConnect,
     provider, appSizeOnLoad,
     networkingKey, setNetworkingKey,
@@ -120,21 +120,21 @@ function App() {
     <>
       {
         <>
-        <ConnectWallet {...props}/>
-        <Router>
-          <Routes>
-            <Route path="/" element={navigateToLogin
-              ? <Navigate to="/login" replace />
-              : <UqHome {...props} />
-            } />
-            <Route path="/claim-invite" element={<ClaimUqInvite {...props}/>} />
-            <Route path="/register-name" element={<RegisterUqName  {...props}/>} />
-            <Route path="/set-password" element={<SetPassword {...props}/>} />
-            <Route path="/reset" element={<Reset {...props}/>} />
-            <Route path="/import-keyfile" element={<ImportKeyfile {...props} />} />
-            <Route path="/login" element={<Login {...props} />} />
-          </Routes>
-        </Router>
+          <ConnectWallet {...props} />
+          <Router>
+            <Routes>
+              <Route path="/" element={navigateToLogin
+                ? <Navigate to="/login" replace />
+                : <NecHome {...props} />
+              } />
+              <Route path="/claim-invite" element={<ClaimNecInvite {...props} />} />
+              <Route path="/register-name" element={<RegisterNecName  {...props} />} />
+              <Route path="/set-password" element={<SetPassword {...props} />} />
+              <Route path="/reset" element={<Reset {...props} />} />
+              <Route path="/import-keyfile" element={<ImportKeyfile {...props} />} />
+              <Route path="/login" element={<Login {...props} />} />
+            </Routes>
+          </Router>
         </>
       }
     </>

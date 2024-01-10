@@ -3,9 +3,9 @@ import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
 import { toDNSWireFormat } from "../utils/dnsWire";
 import { BytesLike, utils } from 'ethers';
-import EnterUqName from "../components/EnterUqName";
+import EnterNecName from "../components/EnterNecName";
 import Loader from "../components/Loader";
-import UqHeader from "../components/UqHeader";
+import NecHeader from "../components/NecHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { setSepolia } from "../utils/chain";
@@ -14,16 +14,16 @@ const {
   useAccounts,
 } = hooks;
 
-interface RegisterUqNameProps extends PageProps {
+interface RegisterNecNameProps extends PageProps {
 
 }
 
-function RegisterUqName({
+function RegisterNecName({
   direct,
   setDirect,
-  setUqName,
-  dotUq,
-  qns,
+  setNecName,
+  dotNec,
+  ndns,
   openConnect,
   provider,
   closeConnect,
@@ -31,7 +31,7 @@ function RegisterUqName({
   setIpAddress,
   setPort,
   setRouters,
-}: RegisterUqNameProps) {
+}: RegisterNecNameProps) {
   let accounts = useAccounts();
   let navigate = useNavigate();
   const [loading, setLoading] = useState('');
@@ -47,7 +47,7 @@ function RegisterUqName({
 
   useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const enterUqNameProps = { name, setName, nameValidities, setNameValidities, dotUq, triggerNameCheck }
+  const enterNecNameProps = { name, setName, nameValidities, setNameValidities, dotNec, triggerNameCheck }
 
   let handleRegister = useCallback(async (e: FormEvent) => {
     e.preventDefault()
@@ -70,11 +70,11 @@ function RegisterUqName({
 
       const data: BytesLike[] = [
         direct
-          ? ( await qns.populateTransaction.setAllIp
-              ( utils.namehash(`${name}.uq`), ipAddress, port, 0, 0 , 0) ).data!
-          : ( await qns.populateTransaction.setRouters
-              ( utils.namehash(`${name}.uq`), allowed_routers.map(x => utils.namehash(x)))).data!,
-        ( await qns.populateTransaction.setKey(utils.namehash(`${name}.uq`), networking_key)).data!
+          ? (await ndns.populateTransaction.setAllIp
+            (utils.namehash(`${name}.nec`), ipAddress, port, 0, 0, 0)).data!
+          : (await ndns.populateTransaction.setRouters
+            (utils.namehash(`${name}.nec`), allowed_routers.map(x => utils.namehash(x)))).data!,
+        (await ndns.populateTransaction.setKey(utils.namehash(`${name}.nec`), networking_key)).data!
       ]
 
       setLoading('Please confirm the transaction in your wallet');
@@ -86,43 +86,43 @@ function RegisterUqName({
         throw new Error('Sepolia not set')
       }
 
-      const dnsFormat = toDNSWireFormat(`${name}.uq`);
-      const tx = await dotUq.register(
+      const dnsFormat = toDNSWireFormat(`${name}.nec`);
+      const tx = await dotNec.register(
         dnsFormat,
         accounts![0],
         data
       )
 
-      setLoading('Registering QNS ID...');
+      setLoading('Registering NDNS ID...');
 
       await tx.wait();
       setLoading('');
-      setUqName(`${name}.uq`);
+      setNecName(`${name}.nec`);
       navigate("/set-password");
     } catch {
       setLoading('');
-      alert('There was an error registering your uq-name, please try again.')
+      alert('There was an error registering your nec-name, please try again.')
     }
-  }, [name, direct, accounts, dotUq, qns, navigate, setUqName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters])
+  }, [name, direct, accounts, dotNec, ndns, navigate, setNecName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters])
 
   return (
     <>
-      <UqHeader msg="Register Uqbar Node" openConnect={openConnect} closeConnect={closeConnect} />
+      <NecHeader msg="Register Nectar Node" openConnect={openConnect} closeConnect={closeConnect} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />
         ) : (
           <>
             <div className="login-row row" style={{ marginBottom: '1em', lineHeight: 1.5 }}>
-              Set up your Uqbar node with a .uq name
+              Set up your Nectar node with a .nec name
               <div className="tooltip-container" style={{ marginTop: -4 }}>
                 <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Uqbar nodes use a .uq name in order to identify themselves to other nodes in the network</div>
+                <div className="tooltip-content">Nectar nodes use a .nec name in order to identify themselves to other nodes in the network</div>
               </div>
             </div>
-            <EnterUqName { ...enterUqNameProps } />
+            <EnterNecName {...enterNecNameProps} />
             <div className="row" style={{ marginTop: '1em' }}>
-              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus/>
+              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus />
               <label htmlFor="direct" className="direct-node-message">
                 Register as a direct node. If you are unsure leave unchecked.
 
@@ -135,9 +135,9 @@ function RegisterUqName({
               </label>
             </div>
             <button disabled={nameValidities.length !== 0} type="submit">
-              Register Uqname
+              Register Necname
             </button>
-            <Link to="/reset" style={{ color:"white", marginTop: '1em' }}>already have an uq-name?</Link>
+            <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
           </>
         )}
       </form>}
@@ -145,4 +145,4 @@ function RegisterUqName({
   )
 }
 
-export default RegisterUqName;
+export default RegisterNecName;

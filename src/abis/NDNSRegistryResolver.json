@@ -883,7 +883,7 @@
     "upgradeTo(address)": "3659cfe6",
     "upgradeToAndCall(address,bytes)": "4f1ef286"
   },
-  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"NotTLD\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TLD401\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TLDRegistrarOnly\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"ip\",\"type\":\"uint128\"}],\"name\":\"IpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"key\",\"type\":\"bytes32\"}],\"name\":\"KeyUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"name\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tld\",\"type\":\"address\"}],\"name\":\"NewTLD\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"name\",\"type\":\"bytes\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"}],\"name\":\"RecordsCleared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"routers\",\"type\":\"bytes32[]\"}],\"name\":\"RoutingUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"TcpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"UdpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"WsUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"WtUpdate\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"TLDs\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint96\",\"name\":\"_records\",\"type\":\"uint96\"}],\"name\":\"clearRecords\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getInitializedVersion\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"ip\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"udp\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"key\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"data\",\"type\":\"bytes[]\"}],\"name\":\"multicall\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"results\",\"type\":\"bytes[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes[]\",\"name\":\"data\",\"type\":\"bytes[]\"}],\"name\":\"multicallWithNodeCheck\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"results\",\"type\":\"bytes[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"nodes\",\"outputs\":[{\"internalType\":\"contract ITLDRegistrar\",\"name\":\"tld\",\"type\":\"address\"},{\"internalType\":\"uint96\",\"name\":\"records\",\"type\":\"uint96\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"fqdn\",\"type\":\"bytes\"}],\"name\":\"registerNode\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"nodeHash\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"fqdn\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"registrar\",\"type\":\"address\"}],\"name\":\"registerTLD\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"}],\"name\":\"routers\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setAllIp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setDirectInfo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"}],\"name\":\"setIp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"_key\",\"type\":\"bytes32\"}],\"name\":\"setKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"_newRouters\",\"type\":\"bytes32[]\"}],\"name\":\"setRouters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"}],\"name\":\"setTcp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setUdp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"}],\"name\":\"setWs\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"}],\"name\":\"setWt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceID\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"events\":{\"AdminChanged(address,address)\":{\"details\":\"Emitted when the admin account has changed.\"},\"BeaconUpgraded(address)\":{\"details\":\"Emitted when the beacon is changed.\"},\"Initialized(uint8)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"},\"Upgraded(address)\":{\"details\":\"Emitted when the implementation is upgraded.\"}},\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"proxiableUUID()\":{\"details\":\"Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate the implementation's compatibility when performing an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"upgradeTo(address)\":{\"custom:oz-upgrades-unsafe-allow-reachable\":\"delegatecall\",\"details\":\"Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"},\"upgradeToAndCall(address,bytes)\":{\"custom:oz-upgrades-unsafe-allow-reachable\":\"delegatecall\",\"details\":\"Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/QNSRegistryResolver.sol\":\"QNSRegistryResolver\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@ensdomains/buffer/=lib/buffer/\",\":@gnosis.pm/safe-contracts/=/lib/safe-contracts/contracts/\",\":@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/\",\":@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\",\":LayerZero/=lib/LayerZero/contracts/\",\":buffer/=lib/buffer/contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":ens-contracts/=lib/ens-contracts/contracts/\",\":erc4626-tests/=lib/openzeppelin-contracts-upgradeable/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":layer-zero/=lib/LayerZero/contracts/\",\":openzeppelin-contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":openzeppelin/=lib/openzeppelin-contracts-upgradeable/contracts/\",\":safe-contracts/=lib/safe-contracts/contracts/\"]},\"sources\":{\"lib/forge-std/src/console.sol\":{\"keccak256\":\"0x91d5413c2434ca58fd278b6e1e79fd98d10c83931cc2596a6038eee4daeb34ba\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://91ccea707361e48b9b7a161fe81f496b9932bc471e9c4e4e1e9c283f2453cc70\",\"dweb:/ipfs/QmcB66sZhQ6Kz7MUHcLE78YXRUZxoZnnxZjN6yATsbB2ec\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/access/OwnableUpgradeable.sol\":{\"keccak256\":\"0x4075622496acc77fd6d4de4cc30a8577a744d5c75afad33fdeacf1704d6eda98\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://99c8cb3cd19a44bbfb6612605affb7d8b06cee1f6aa9362a37a8672b4f7eeaf8\",\"dweb:/ipfs/QmasyxFDBUp7k5KFgfDWEzM8PYSKEq7GVznzMJ1VxVRF4B\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1967Upgradeable.sol\":{\"keccak256\":\"0x47d6e06872b12e72c79d1b5eb55842f860b5fb1207b2317c2358d2766b950a7b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ac55bf6f92fc7b90c6d79d346163a0a02bd5c648c7fede08b20e5da96d4ae2a0\",\"dweb:/ipfs/QmQoSrHhka35iKDK5iyNt8cuXXS5ANXVPjLhfsJjktB8V9\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/interfaces/draft-IERC1822Upgradeable.sol\":{\"keccak256\":\"0x77c89f893e403efc6929ba842b7ccf6534d4ffe03afe31670b4a528c0ad78c0f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://496bd9b3df2455d571018c09f0c6badd29713fdeb907c6aa09d8d28cb603f053\",\"dweb:/ipfs/QmXdJDyYs6WMwMh21dez2BYPxhSUaUYFMDtVNcn2cgFR79\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol\":{\"keccak256\":\"0x584ebdf9c1118a7c773f98788e3f3ede01982bdf8932aa06f5acc7d54876e161\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9826c7edf276ff48b99ee217358393097c30448a71d345d287c2f6961bb1f159\",\"dweb:/ipfs/QmYXBTY9wDvffGU47yMRFJ1NFyKwpbj94VHzRzhsm6R7Gz\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/beacon/IBeaconUpgradeable.sol\":{\"keccak256\":\"0x24b86ac8c005b8c654fbf6ac34a5a4f61580d7273541e83e013e89d66fbf0908\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4dbfe1a3b3b3fb64294ce41fd2ad362e7b7012208117864f42c1a67620a6d5c1\",\"dweb:/ipfs/QmVMU5tWt7zBQMmf5cpMX8UMHV86T3kFeTxBTBjFqVWfoJ\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/utils/Initializable.sol\":{\"keccak256\":\"0x89be10e757d242e9b18d5a32c9fbe2019f6d63052bbe46397a430a1d60d7f794\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f103ee2e4aecd37aac6ceefe670709cdd7613dee25fa2d4d9feaf7fc0aaa155e\",\"dweb:/ipfs/QmRiNZLoJk5k3HPMYGPGjZFd2ke1ZxjhJZkM45Ec9GH9hv\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/utils/UUPSUpgradeable.sol\":{\"keccak256\":\"0xb607cb94c27e89750f5ae2ccebcb94e654e926f6125f4fd4c6262c89875118ad\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://33e8f8d863c6943ea046fcf4972b4e815c04ab06bad195dba1d93f8ebeb8420d\",\"dweb:/ipfs/QmTQzxQTuuzPDk3eqVmYy7hv2RCXM1yt1NtubXpRbzYjaj\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/AddressUpgradeable.sol\":{\"keccak256\":\"0x9c80f545915582e63fe206c6ce27cbe85a86fc10b9cd2a0e8c9488fb7c2ee422\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://310136ad60820af4177a11a61d77a3686faf5fca4942b600e08fc940db38396b\",\"dweb:/ipfs/QmbCzMNSTL7Zi7M4UCSqBrkHtp4jjxUnGbkneCZKdR1qeq\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/ContextUpgradeable.sol\":{\"keccak256\":\"0x963ea7f0b48b032eef72fe3a7582edf78408d6f834115b9feadd673a4d5bd149\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d6520943ea55fdf5f0bafb39ed909f64de17051bc954ff3e88c9e5621412c79c\",\"dweb:/ipfs/QmWZ4rAKTQbNG2HxGs46AcTXShsVytKeLs7CUCdCSv5N7a\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/StorageSlotUpgradeable.sol\":{\"keccak256\":\"0x07ac95acad040f1fb1f6120dd0aa5f702db69446e95f82613721879d30de0908\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a9df9de7b5da1d1bd3d4b6c073d0174bc4211db60e794a321c8cb5d4eae34685\",\"dweb:/ipfs/QmWe49zj65jayrCe9jZpoWhYUZ1RiwSxyU2s7SBZnMztVy\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/ERC165Upgradeable.sol\":{\"keccak256\":\"0x9a3b990bd56d139df3e454a9edf1c64668530b5a77fc32eb063bc206f958274a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0895399d170daab2d69b4c43a0202e5a07f2e67a93b26e3354dcbedb062232f7\",\"dweb:/ipfs/QmUM1VH3XDk559Dsgh4QPvupr3YVKjz87HrSyYzzVFZbxw\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol\":{\"keccak256\":\"0xc6cef87559d0aeffdf0a99803de655938a7779ec0a3cd5d4383483ad85565a09\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://92ad7e572cf44e6b4b37631b44b62f9eb9fb1cf14d9ce51c1504d5dc7ccaf758\",\"dweb:/ipfs/QmcnbqX85tsWnUXPmtuPLE4SczME2sJaTfmqEFkuAJvWhy\"]},\"lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x5bce51e11f7d194b79ea59fe00c9e8de9fa2c5530124960f29a24d4c740a3266\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7e66dfde185df46104c11bc89d08fa0760737aa59a2b8546a656473d810a8ea4\",\"dweb:/ipfs/QmXvyqtXPaPss2PD7eqPoSao5Szm2n6UMoiG8TZZDjmChR\"]},\"lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f\",\"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy\"]},\"src/QNSRegistryResolver.sol\":{\"keccak256\":\"0xd77a304549d839cb55a4698ed745d2f3a5fb1e63bc5bc9b90bb6fc505805fcac\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://382ed41b3ee3f847bccec885746fa1e44586103abe01f7e311a7542ce68a3c92\",\"dweb:/ipfs/QmbKqFPhB5Xi5y3ALRv1f3kp3uFZaSt2QUXB7Xqjym28xJ\"]},\"src/interfaces/IMulticallable.sol\":{\"keccak256\":\"0xeb66a5f60536d1a126f793c43c7ba0ffe875b45724dd07213f53383ea83bbdba\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e7b62e12ec63a0d49944789d9082d051c5b4c1f0b565561b0b1b67dca5fb6f9f\",\"dweb:/ipfs/QmXBSCgvVkNcdhSzhNzqNn5objbQvknNCwgJTwaqciUW2n\"]},\"src/interfaces/IQNSRegistryResolver.sol\":{\"keccak256\":\"0xc4bf41534f7048a718ec4d04815eba37c1be66cf5e73f5131c3f08513d2405e7\",\"urls\":[\"bzz-raw://94c3f53e567f1b541851bb9481cc30c38167485632eb1e6b2f28eb7310ed8430\",\"dweb:/ipfs/QmPUH9Pe1aJHFCMaSqwx5ztPKnJMyKyn9U5mA8fd5bHwzV\"]},\"src/interfaces/ITLDRegistrar.sol\":{\"keccak256\":\"0x34a180ccd07a70c20aabae70b41e1eb38f31848b529722cdb8c3a42819a706be\",\"urls\":[\"bzz-raw://6b9ff090a900d614bed3f38a51919195efb6410d486fdcd7d1cc26cf373d3c09\",\"dweb:/ipfs/Qmf4f7qSN44BztYnVjudzXR6nPxTZBNMn6jcsF2U5JGk6h\"]},\"src/lib/BytesUtils.sol\":{\"keccak256\":\"0x11f24ba4ef38a0ad2c6a056f2af3513dcbd79316e24dca6aa9fe1ebfa8f14fad\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9a0ade02dff5ad00fbc11acc25a8142e0b3377823dbbd3329f49622cade58f99\",\"dweb:/ipfs/QmP2bA7r6QaC1qJv4ngmN7pEdxqQHBPc8f9cS8G1WR75NN\"]},\"src/lib/Multicallable.sol\":{\"keccak256\":\"0x37012281b43c2b39b689a84590e2a21e7a66abfb65b979f150cd535162fbfbbf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f1c7fa503bfd825945ae66c8d4ebb5e0c0b571f90687103e2c93feccb33e282c\",\"dweb:/ipfs/QmXbmu3yK5sRNoYXK4W2bW42jJXrjQgMYUeZEriru9VM4t\"]}},\"version\":1}",
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.22+commit.4fc1097e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"NotTLD\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TLD401\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TLDRegistrarOnly\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousAdmin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newAdmin\",\"type\":\"address\"}],\"name\":\"AdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beacon\",\"type\":\"address\"}],\"name\":\"BeaconUpgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"ip\",\"type\":\"uint128\"}],\"name\":\"IpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"key\",\"type\":\"bytes32\"}],\"name\":\"KeyUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"name\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"tld\",\"type\":\"address\"}],\"name\":\"NewTLD\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"name\",\"type\":\"bytes\"}],\"name\":\"NodeRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"}],\"name\":\"RecordsCleared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"routers\",\"type\":\"bytes32[]\"}],\"name\":\"RoutingUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"TcpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"UdpUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"WsUpdate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"port\",\"type\":\"uint16\"}],\"name\":\"WtUpdate\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"TLDs\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint96\",\"name\":\"_records\",\"type\":\"uint96\"}],\"name\":\"clearRecords\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getInitializedVersion\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"ip\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"udp\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"key\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"data\",\"type\":\"bytes[]\"}],\"name\":\"multicall\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"results\",\"type\":\"bytes[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes[]\",\"name\":\"data\",\"type\":\"bytes[]\"}],\"name\":\"multicallWithNodeCheck\",\"outputs\":[{\"internalType\":\"bytes[]\",\"name\":\"results\",\"type\":\"bytes[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"nodes\",\"outputs\":[{\"internalType\":\"contract ITLDRegistrar\",\"name\":\"tld\",\"type\":\"address\"},{\"internalType\":\"uint96\",\"name\":\"records\",\"type\":\"uint96\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"fqdn\",\"type\":\"bytes\"}],\"name\":\"registerNode\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"nodeHash\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"fqdn\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"registrar\",\"type\":\"address\"}],\"name\":\"registerTLD\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"}],\"name\":\"routers\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setAllIp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setDirectInfo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint128\",\"name\":\"_ip\",\"type\":\"uint128\"}],\"name\":\"setIp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"_key\",\"type\":\"bytes32\"}],\"name\":\"setKey\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32[]\",\"name\":\"_newRouters\",\"type\":\"bytes32[]\"}],\"name\":\"setRouters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_tcp\",\"type\":\"uint16\"}],\"name\":\"setTcp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_udp\",\"type\":\"uint16\"}],\"name\":\"setUdp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_ws\",\"type\":\"uint16\"}],\"name\":\"setWs\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_node\",\"type\":\"bytes32\"},{\"internalType\":\"uint16\",\"name\":\"_wt\",\"type\":\"uint16\"}],\"name\":\"setWt\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceID\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"}],\"name\":\"upgradeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"events\":{\"AdminChanged(address,address)\":{\"details\":\"Emitted when the admin account has changed.\"},\"BeaconUpgraded(address)\":{\"details\":\"Emitted when the beacon is changed.\"},\"Initialized(uint8)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"},\"Upgraded(address)\":{\"details\":\"Emitted when the implementation is upgraded.\"}},\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"proxiableUUID()\":{\"details\":\"Implementation of the ERC1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate the implementation's compatibility when performing an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"upgradeTo(address)\":{\"custom:oz-upgrades-unsafe-allow-reachable\":\"delegatecall\",\"details\":\"Upgrade the implementation of the proxy to `newImplementation`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"},\"upgradeToAndCall(address,bytes)\":{\"custom:oz-upgrades-unsafe-allow-reachable\":\"delegatecall\",\"details\":\"Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/NDNSRegistryResolver.sol\":\"NDNSRegistryResolver\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@ensdomains/buffer/=lib/buffer/\",\":@gnosis.pm/safe-contracts/=/lib/safe-contracts/contracts/\",\":@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/\",\":@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\",\":LayerZero/=lib/LayerZero/contracts/\",\":buffer/=lib/buffer/contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":ens-contracts/=lib/ens-contracts/contracts/\",\":erc4626-tests/=lib/openzeppelin-contracts-upgradeable/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":layer-zero/=lib/LayerZero/contracts/\",\":openzeppelin-contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":openzeppelin/=lib/openzeppelin-contracts-upgradeable/contracts/\",\":safe-contracts/=lib/safe-contracts/contracts/\"]},\"sources\":{\"lib/forge-std/src/console.sol\":{\"keccak256\":\"0x91d5413c2434ca58fd278b6e1e79fd98d10c83931cc2596a6038eee4daeb34ba\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://91ccea707361e48b9b7a161fe81f496b9932bc471e9c4e4e1e9c283f2453cc70\",\"dweb:/ipfs/QmcB66sZhQ6Kz7MUHcLE78YXRUZxoZnnxZjN6yATsbB2ec\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/access/OwnableUpgradeable.sol\":{\"keccak256\":\"0x4075622496acc77fd6d4de4cc30a8577a744d5c75afad33fdeacf1704d6eda98\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://99c8cb3cd19a44bbfb6612605affb7d8b06cee1f6aa9362a37a8672b4f7eeaf8\",\"dweb:/ipfs/QmasyxFDBUp7k5KFgfDWEzM8PYSKEq7GVznzMJ1VxVRF4B\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/interfaces/IERC1967Upgradeable.sol\":{\"keccak256\":\"0x47d6e06872b12e72c79d1b5eb55842f860b5fb1207b2317c2358d2766b950a7b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ac55bf6f92fc7b90c6d79d346163a0a02bd5c648c7fede08b20e5da96d4ae2a0\",\"dweb:/ipfs/QmQoSrHhka35iKDK5iyNt8cuXXS5ANXVPjLhfsJjktB8V9\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/interfaces/draft-IERC1822Upgradeable.sol\":{\"keccak256\":\"0x77c89f893e403efc6929ba842b7ccf6534d4ffe03afe31670b4a528c0ad78c0f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://496bd9b3df2455d571018c09f0c6badd29713fdeb907c6aa09d8d28cb603f053\",\"dweb:/ipfs/QmXdJDyYs6WMwMh21dez2BYPxhSUaUYFMDtVNcn2cgFR79\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol\":{\"keccak256\":\"0x584ebdf9c1118a7c773f98788e3f3ede01982bdf8932aa06f5acc7d54876e161\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9826c7edf276ff48b99ee217358393097c30448a71d345d287c2f6961bb1f159\",\"dweb:/ipfs/QmYXBTY9wDvffGU47yMRFJ1NFyKwpbj94VHzRzhsm6R7Gz\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/beacon/IBeaconUpgradeable.sol\":{\"keccak256\":\"0x24b86ac8c005b8c654fbf6ac34a5a4f61580d7273541e83e013e89d66fbf0908\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4dbfe1a3b3b3fb64294ce41fd2ad362e7b7012208117864f42c1a67620a6d5c1\",\"dweb:/ipfs/QmVMU5tWt7zBQMmf5cpMX8UMHV86T3kFeTxBTBjFqVWfoJ\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/utils/Initializable.sol\":{\"keccak256\":\"0x89be10e757d242e9b18d5a32c9fbe2019f6d63052bbe46397a430a1d60d7f794\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f103ee2e4aecd37aac6ceefe670709cdd7613dee25fa2d4d9feaf7fc0aaa155e\",\"dweb:/ipfs/QmRiNZLoJk5k3HPMYGPGjZFd2ke1ZxjhJZkM45Ec9GH9hv\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/proxy/utils/UUPSUpgradeable.sol\":{\"keccak256\":\"0xb607cb94c27e89750f5ae2ccebcb94e654e926f6125f4fd4c6262c89875118ad\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://33e8f8d863c6943ea046fcf4972b4e815c04ab06bad195dba1d93f8ebeb8420d\",\"dweb:/ipfs/QmTQzxQTuuzPDk3eqVmYy7hv2RCXM1yt1NtubXpRbzYjaj\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/AddressUpgradeable.sol\":{\"keccak256\":\"0x9c80f545915582e63fe206c6ce27cbe85a86fc10b9cd2a0e8c9488fb7c2ee422\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://310136ad60820af4177a11a61d77a3686faf5fca4942b600e08fc940db38396b\",\"dweb:/ipfs/QmbCzMNSTL7Zi7M4UCSqBrkHtp4jjxUnGbkneCZKdR1qeq\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/ContextUpgradeable.sol\":{\"keccak256\":\"0x963ea7f0b48b032eef72fe3a7582edf78408d6f834115b9feadd673a4d5bd149\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d6520943ea55fdf5f0bafb39ed909f64de17051bc954ff3e88c9e5621412c79c\",\"dweb:/ipfs/QmWZ4rAKTQbNG2HxGs46AcTXShsVytKeLs7CUCdCSv5N7a\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/StorageSlotUpgradeable.sol\":{\"keccak256\":\"0x07ac95acad040f1fb1f6120dd0aa5f702db69446e95f82613721879d30de0908\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a9df9de7b5da1d1bd3d4b6c073d0174bc4211db60e794a321c8cb5d4eae34685\",\"dweb:/ipfs/QmWe49zj65jayrCe9jZpoWhYUZ1RiwSxyU2s7SBZnMztVy\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/ERC165Upgradeable.sol\":{\"keccak256\":\"0x9a3b990bd56d139df3e454a9edf1c64668530b5a77fc32eb063bc206f958274a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0895399d170daab2d69b4c43a0202e5a07f2e67a93b26e3354dcbedb062232f7\",\"dweb:/ipfs/QmUM1VH3XDk559Dsgh4QPvupr3YVKjz87HrSyYzzVFZbxw\"]},\"lib/openzeppelin-contracts-upgradeable/contracts/utils/introspection/IERC165Upgradeable.sol\":{\"keccak256\":\"0xc6cef87559d0aeffdf0a99803de655938a7779ec0a3cd5d4383483ad85565a09\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://92ad7e572cf44e6b4b37631b44b62f9eb9fb1cf14d9ce51c1504d5dc7ccaf758\",\"dweb:/ipfs/QmcnbqX85tsWnUXPmtuPLE4SczME2sJaTfmqEFkuAJvWhy\"]},\"lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0x5bce51e11f7d194b79ea59fe00c9e8de9fa2c5530124960f29a24d4c740a3266\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7e66dfde185df46104c11bc89d08fa0760737aa59a2b8546a656473d810a8ea4\",\"dweb:/ipfs/QmXvyqtXPaPss2PD7eqPoSao5Szm2n6UMoiG8TZZDjmChR\"]},\"lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x447a5f3ddc18419d41ff92b3773fb86471b1db25773e07f877f548918a185bf1\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://be161e54f24e5c6fae81a12db1a8ae87bc5ae1b0ddc805d82a1440a68455088f\",\"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy\"]},\"src/NDNSRegistryResolver.sol\":{\"keccak256\":\"0xd77a304549d839cb55a4698ed745d2f3a5fb1e63bc5bc9b90bb6fc505805fcac\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://382ed41b3ee3f847bccec885746fa1e44586103abe01f7e311a7542ce68a3c92\",\"dweb:/ipfs/QmbKqFPhB5Xi5y3ALRv1f3kp3uFZaSt2QUXB7Xqjym28xJ\"]},\"src/interfaces/IMulticallable.sol\":{\"keccak256\":\"0xeb66a5f60536d1a126f793c43c7ba0ffe875b45724dd07213f53383ea83bbdba\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e7b62e12ec63a0d49944789d9082d051c5b4c1f0b565561b0b1b67dca5fb6f9f\",\"dweb:/ipfs/QmXBSCgvVkNcdhSzhNzqNn5objbQvknNCwgJTwaqciUW2n\"]},\"src/interfaces/INDNSRegistryResolver.sol\":{\"keccak256\":\"0xc4bf41534f7048a718ec4d04815eba37c1be66cf5e73f5131c3f08513d2405e7\",\"urls\":[\"bzz-raw://94c3f53e567f1b541851bb9481cc30c38167485632eb1e6b2f28eb7310ed8430\",\"dweb:/ipfs/QmPUH9Pe1aJHFCMaSqwx5ztPKnJMyKyn9U5mA8fd5bHwzV\"]},\"src/interfaces/ITLDRegistrar.sol\":{\"keccak256\":\"0x34a180ccd07a70c20aabae70b41e1eb38f31848b529722cdb8c3a42819a706be\",\"urls\":[\"bzz-raw://6b9ff090a900d614bed3f38a51919195efb6410d486fdcd7d1cc26cf373d3c09\",\"dweb:/ipfs/Qmf4f7qSN44BztYnVjudzXR6nPxTZBNMn6jcsF2U5JGk6h\"]},\"src/lib/BytesUtils.sol\":{\"keccak256\":\"0x11f24ba4ef38a0ad2c6a056f2af3513dcbd79316e24dca6aa9fe1ebfa8f14fad\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9a0ade02dff5ad00fbc11acc25a8142e0b3377823dbbd3329f49622cade58f99\",\"dweb:/ipfs/QmP2bA7r6QaC1qJv4ngmN7pEdxqQHBPc8f9cS8G1WR75NN\"]},\"src/lib/Multicallable.sol\":{\"keccak256\":\"0x37012281b43c2b39b689a84590e2a21e7a66abfb65b979f150cd535162fbfbbf\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f1c7fa503bfd825945ae66c8d4ebb5e0c0b571f90687103e2c93feccb33e282c\",\"dweb:/ipfs/QmXbmu3yK5sRNoYXK4W2bW42jJXrjQgMYUeZEriru9VM4t\"]}},\"version\":1}",
   "metadata": {
     "compiler": {
       "version": "0.8.22+commit.4fc1097e"
@@ -1752,7 +1752,7 @@
         "bytecodeHash": "ipfs"
       },
       "compilationTarget": {
-        "src/QNSRegistryResolver.sol": "QNSRegistryResolver"
+        "src/NDNSRegistryResolver.sol": "NDNSRegistryResolver"
       },
       "libraries": {}
     },
@@ -1877,7 +1877,7 @@
         ],
         "license": "MIT"
       },
-      "src/QNSRegistryResolver.sol": {
+      "src/NDNSRegistryResolver.sol": {
         "keccak256": "0xd77a304549d839cb55a4698ed745d2f3a5fb1e63bc5bc9b90bb6fc505805fcac",
         "urls": [
           "bzz-raw://382ed41b3ee3f847bccec885746fa1e44586103abe01f7e311a7542ce68a3c92",
@@ -1893,7 +1893,7 @@
         ],
         "license": "MIT"
       },
-      "src/interfaces/IQNSRegistryResolver.sol": {
+      "src/interfaces/INDNSRegistryResolver.sol": {
         "keccak256": "0xc4bf41534f7048a718ec4d04815eba37c1be66cf5e73f5131c3f08513d2405e7",
         "urls": [
           "bzz-raw://94c3f53e567f1b541851bb9481cc30c38167485632eb1e6b2f28eb7310ed8430",
@@ -1929,7 +1929,7 @@
     "version": 1
   },
   "ast": {
-    "absolutePath": "src/QNSRegistryResolver.sol",
+    "absolutePath": "src/NDNSRegistryResolver.sol",
     "id": 53337,
     "exportedSymbols": {
       "AddressUpgradeable": [
@@ -1971,7 +1971,7 @@
       "IP_BIT": [
         55280
       ],
-      "IQNSRegistryResolver": [
+      "INDNSRegistryResolver": [
         55490
       ],
       "ITLDRegistrar": [
@@ -1995,7 +1995,7 @@
       "OwnableUpgradeable": [
         44375
       ],
-      "QNSRegistryResolver": [
+      "NDNSRegistryResolver": [
         53336
       ],
       "ROUTED_BIT": [
@@ -2104,8 +2104,8 @@
         "nodeType": "ImportDirective",
         "src": "367:47:68",
         "nodes": [],
-        "absolutePath": "src/interfaces/IQNSRegistryResolver.sol",
-        "file": "./interfaces/IQNSRegistryResolver.sol",
+        "absolutePath": "src/interfaces/INDNSRegistryResolver.sol",
+        "file": "./interfaces/INDNSRegistryResolver.sol",
         "nameLocation": "-1:-1:-1",
         "scope": 53337,
         "sourceUnit": 55491,
@@ -2311,7 +2311,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node)"
+              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node)"
             },
             "typeName": {
               "id": 52607,
@@ -2331,7 +2331,7 @@
               "src": "890:25:68",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node)"
+                "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node)"
               },
               "valueName": "",
               "valueNameLocation": "-1:-1:-1",
@@ -2352,7 +2352,7 @@
                 "src": "910:4:68",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_Node_$55308_storage_ptr",
-                  "typeString": "struct IQNSRegistryResolver.Node"
+                  "typeString": "struct INDNSRegistryResolver.Node"
                 }
               }
             },
@@ -2491,7 +2491,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP)"
+              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP)"
             },
             "typeName": {
               "id": 52621,
@@ -2511,7 +2511,7 @@
               "src": "1035:23:68",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP)"
+                "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP)"
               },
               "valueName": "",
               "valueNameLocation": "-1:-1:-1",
@@ -2532,7 +2532,7 @@
                 "src": "1055:2:68",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_IP_$55319_storage_ptr",
-                  "typeString": "struct IQNSRegistryResolver.IP"
+                  "typeString": "struct INDNSRegistryResolver.IP"
                 }
               }
             },
@@ -2624,7 +2624,7 @@
                               "src": "1122:5:68",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                                "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                                "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                               }
                             },
                             "id": 52628,
@@ -2648,7 +2648,7 @@
                             "src": "1122:11:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Node_$55308_storage",
-                              "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                              "typeString": "struct INDNSRegistryResolver.Node storage ref"
                             }
                           },
                           "id": 52629,
@@ -2822,7 +2822,7 @@
                             "src": "1264:4:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Node_$55308_storage_ptr",
-                              "typeString": "struct IQNSRegistryResolver.Node storage pointer"
+                              "typeString": "struct INDNSRegistryResolver.Node storage pointer"
                             }
                           },
                           "id": 52650,
@@ -2984,7 +2984,7 @@
                   "storageLocation": "storage",
                   "typeDescriptions": {
                     "typeIdentifier": "t_struct$_Node_$55308_storage_ptr",
-                    "typeString": "struct IQNSRegistryResolver.Node"
+                    "typeString": "struct INDNSRegistryResolver.Node"
                   },
                   "typeName": {
                     "id": 52644,
@@ -3003,7 +3003,7 @@
                     "src": "1223:4:68",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$55308_storage_ptr",
-                      "typeString": "struct IQNSRegistryResolver.Node"
+                      "typeString": "struct INDNSRegistryResolver.Node"
                     }
                   },
                   "visibility": "internal"
@@ -3811,7 +3811,7 @@
                           "src": "1986:5:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                            "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                            "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                           }
                         },
                         "id": 52732,
@@ -3835,7 +3835,7 @@
                         "src": "1986:10:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Node_$55308_storage",
-                          "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                          "typeString": "struct INDNSRegistryResolver.Node storage ref"
                         }
                       },
                       "id": 52733,
@@ -4521,7 +4521,7 @@
                         "src": "2477:5:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                          "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                          "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                         }
                       },
                       "id": 52785,
@@ -4545,7 +4545,7 @@
                       "src": "2477:11:68",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$55308_storage",
-                        "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                        "typeString": "struct INDNSRegistryResolver.Node storage ref"
                       }
                     },
                     "nodeType": "Assignment",
@@ -4652,7 +4652,7 @@
                         "src": "2491:4:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_type$_t_struct$_Node_$55308_storage_ptr_$",
-                          "typeString": "type(struct IQNSRegistryResolver.Node storage pointer)"
+                          "typeString": "type(struct INDNSRegistryResolver.Node storage pointer)"
                         }
                       },
                       "id": 52792,
@@ -4668,13 +4668,13 @@
                       "tryCall": false,
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$55308_memory_ptr",
-                        "typeString": "struct IQNSRegistryResolver.Node memory"
+                        "typeString": "struct INDNSRegistryResolver.Node memory"
                       }
                     },
                     "src": "2477:48:68",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Node_$55308_storage",
-                      "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                      "typeString": "struct INDNSRegistryResolver.Node storage ref"
                     }
                   },
                   "id": 52794,
@@ -4996,7 +4996,7 @@
                             "src": "2774:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 52829,
@@ -5020,7 +5020,7 @@
                           "src": "2774:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 52830,
@@ -5082,7 +5082,7 @@
                             "src": "2726:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 52823,
@@ -5106,7 +5106,7 @@
                           "src": "2726:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 52824,
@@ -5495,7 +5495,7 @@
                             "src": "3071:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 52869,
@@ -5519,7 +5519,7 @@
                           "src": "3071:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 52870,
@@ -5581,7 +5581,7 @@
                             "src": "3022:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 52863,
@@ -5605,7 +5605,7 @@
                           "src": "3022:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 52864,
@@ -6099,7 +6099,7 @@
                         "src": "3488:5:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                          "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                          "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                         }
                       },
                       "id": 52919,
@@ -6123,7 +6123,7 @@
                       "src": "3488:12:68",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Node_$55308_storage",
-                        "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                        "typeString": "struct INDNSRegistryResolver.Node storage ref"
                       }
                     },
                     "id": 52920,
@@ -7032,7 +7032,7 @@
                           "src": "3871:5:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                            "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                            "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                           }
                         },
                         "id": 52989,
@@ -7056,7 +7056,7 @@
                         "src": "3871:12:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Node_$55308_storage",
-                          "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                          "typeString": "struct INDNSRegistryResolver.Node storage ref"
                         }
                       },
                       "id": 52990,
@@ -7115,7 +7115,7 @@
                         "src": "3913:2:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                          "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                          "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                         }
                       },
                       "id": 52996,
@@ -7139,7 +7139,7 @@
                       "src": "3913:9:68",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_IP_$55319_storage",
-                        "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                        "typeString": "struct INDNSRegistryResolver.IP storage ref"
                       }
                     },
                     "nodeType": "Assignment",
@@ -7238,7 +7238,7 @@
                         "src": "3925:2:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_type$_t_struct$_IP_$55319_storage_ptr_$",
-                          "typeString": "type(struct IQNSRegistryResolver.IP storage pointer)"
+                          "typeString": "type(struct INDNSRegistryResolver.IP storage pointer)"
                         }
                       },
                       "id": 53003,
@@ -7254,13 +7254,13 @@
                       "tryCall": false,
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_IP_$55319_memory_ptr",
-                        "typeString": "struct IQNSRegistryResolver.IP memory"
+                        "typeString": "struct INDNSRegistryResolver.IP memory"
                       }
                     },
                     "src": "3913:41:68",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_IP_$55319_storage",
-                      "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                      "typeString": "struct INDNSRegistryResolver.IP storage ref"
                     }
                   },
                   "id": 53005,
@@ -7881,7 +7881,7 @@
                                   "src": "4229:2:68",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                                    "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                                    "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                                   }
                                 },
                                 "id": 53044,
@@ -7905,7 +7905,7 @@
                                 "src": "4229:9:68",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_IP_$55319_storage",
-                                  "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                                  "typeString": "struct INDNSRegistryResolver.IP storage ref"
                                 }
                               },
                               "id": 53045,
@@ -7998,7 +7998,7 @@
                             "src": "4314:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53059,
@@ -8022,7 +8022,7 @@
                           "src": "4314:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53060,
@@ -8084,7 +8084,7 @@
                             "src": "4269:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53053,
@@ -8108,7 +8108,7 @@
                           "src": "4269:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53054,
@@ -8381,7 +8381,7 @@
                                   "src": "4482:2:68",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                                    "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                                    "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                                   }
                                 },
                                 "id": 53083,
@@ -8405,7 +8405,7 @@
                                 "src": "4482:9:68",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_IP_$55319_storage",
-                                  "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                                  "typeString": "struct INDNSRegistryResolver.IP storage ref"
                                 }
                               },
                               "id": 53084,
@@ -8498,7 +8498,7 @@
                             "src": "4567:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53098,
@@ -8522,7 +8522,7 @@
                           "src": "4567:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53099,
@@ -8584,7 +8584,7 @@
                             "src": "4522:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53092,
@@ -8608,7 +8608,7 @@
                           "src": "4522:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53093,
@@ -8881,7 +8881,7 @@
                                   "src": "4735:2:68",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                                    "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                                    "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                                   }
                                 },
                                 "id": 53122,
@@ -8905,7 +8905,7 @@
                                 "src": "4735:9:68",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_IP_$55319_storage",
-                                  "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                                  "typeString": "struct INDNSRegistryResolver.IP storage ref"
                                 }
                               },
                               "id": 53123,
@@ -8998,7 +8998,7 @@
                             "src": "4820:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53137,
@@ -9022,7 +9022,7 @@
                           "src": "4820:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53138,
@@ -9084,7 +9084,7 @@
                             "src": "4775:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53131,
@@ -9108,7 +9108,7 @@
                           "src": "4775:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53132,
@@ -9381,7 +9381,7 @@
                                   "src": "4990:2:68",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                                    "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                                    "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                                   }
                                 },
                                 "id": 53161,
@@ -9405,7 +9405,7 @@
                                 "src": "4990:9:68",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_IP_$55319_storage",
-                                  "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                                  "typeString": "struct INDNSRegistryResolver.IP storage ref"
                                 }
                               },
                               "id": 53162,
@@ -9498,7 +9498,7 @@
                             "src": "5078:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53176,
@@ -9522,7 +9522,7 @@
                           "src": "5078:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53177,
@@ -9584,7 +9584,7 @@
                             "src": "5032:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53170,
@@ -9608,7 +9608,7 @@
                           "src": "5032:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53171,
@@ -9881,7 +9881,7 @@
                                   "src": "5251:2:68",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_IP_$55319_storage_$",
-                                    "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.IP storage ref)"
+                                    "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.IP storage ref)"
                                   }
                                 },
                                 "id": 53200,
@@ -9905,7 +9905,7 @@
                                 "src": "5251:9:68",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_IP_$55319_storage",
-                                  "typeString": "struct IQNSRegistryResolver.IP storage ref"
+                                  "typeString": "struct INDNSRegistryResolver.IP storage ref"
                                 }
                               },
                               "id": 53201,
@@ -9998,7 +9998,7 @@
                             "src": "5339:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53215,
@@ -10022,7 +10022,7 @@
                           "src": "5339:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53216,
@@ -10084,7 +10084,7 @@
                             "src": "5293:5:68",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                              "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                              "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                             }
                           },
                           "id": 53209,
@@ -10108,7 +10108,7 @@
                           "src": "5293:12:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Node_$55308_storage",
-                            "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                            "typeString": "struct INDNSRegistryResolver.Node storage ref"
                           }
                         },
                         "id": 53210,
@@ -10368,7 +10368,7 @@
                           "src": "5520:5:68",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_bytes32_$_t_struct$_Node_$55308_storage_$",
-                            "typeString": "mapping(bytes32 => struct IQNSRegistryResolver.Node storage ref)"
+                            "typeString": "mapping(bytes32 => struct INDNSRegistryResolver.Node storage ref)"
                           }
                         },
                         "id": 53239,
@@ -10392,7 +10392,7 @@
                         "src": "5520:12:68",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Node_$55308_storage",
-                          "typeString": "struct IQNSRegistryResolver.Node storage ref"
+                          "typeString": "struct INDNSRegistryResolver.Node storage ref"
                         }
                       },
                       "id": 53240,
@@ -11506,22 +11506,22 @@
                           "arguments": [
                             {
                               "id": 53324,
-                              "name": "IQNSRegistryResolver",
+                              "name": "INDNSRegistryResolver",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 55490,
                               "src": "6431:20:68",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_contract$_IQNSRegistryResolver_$55490_$",
-                                "typeString": "type(contract IQNSRegistryResolver)"
+                                "typeIdentifier": "t_type$_t_contract$_INDNSRegistryResolver_$55490_$",
+                                "typeString": "type(contract INDNSRegistryResolver)"
                               }
                             }
                           ],
                           "expression": {
                             "argumentTypes": [
                               {
-                                "typeIdentifier": "t_type$_t_contract$_IQNSRegistryResolver_$55490_$",
-                                "typeString": "type(contract IQNSRegistryResolver)"
+                                "typeIdentifier": "t_type$_t_contract$_INDNSRegistryResolver_$55490_$",
+                                "typeString": "type(contract INDNSRegistryResolver)"
                               }
                             ],
                             "id": 53323,
@@ -11547,8 +11547,8 @@
                           "src": "6426:26:68",
                           "tryCall": false,
                           "typeDescriptions": {
-                            "typeIdentifier": "t_magic_meta_type_t_contract$_IQNSRegistryResolver_$55490",
-                            "typeString": "type(contract IQNSRegistryResolver)"
+                            "typeIdentifier": "t_magic_meta_type_t_contract$_INDNSRegistryResolver_$55490",
+                            "typeString": "type(contract INDNSRegistryResolver)"
                           }
                         },
                         "id": 53326,
@@ -11603,8 +11603,8 @@
                           "referencedDeclaration": -25,
                           "src": "6480:5:68",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_super$_QNSRegistryResolver_$53336_$",
-                            "typeString": "type(contract super QNSRegistryResolver)"
+                            "typeIdentifier": "t_type$_t_super$_NDNSRegistryResolver_$53336_$",
+                            "typeString": "type(contract super NDNSRegistryResolver)"
                           }
                         },
                         "id": 53329,
@@ -11745,7 +11745,7 @@
           {
             "baseName": {
               "id": 52587,
-              "name": "IQNSRegistryResolver",
+              "name": "INDNSRegistryResolver",
               "nameLocations": [
                 "712:20:68"
               ],
@@ -11818,7 +11818,7 @@
             "src": "785:18:68"
           }
         ],
-        "canonicalName": "QNSRegistryResolver",
+        "canonicalName": "NDNSRegistryResolver",
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
@@ -11837,7 +11837,7 @@
           55490,
           55256
         ],
-        "name": "QNSRegistryResolver",
+        "name": "NDNSRegistryResolver",
         "nameLocation": "689:19:68",
         "scope": 53337,
         "usedErrors": [

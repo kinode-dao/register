@@ -1,9 +1,9 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
-import EnterUqName from "../components/EnterUqName";
+import EnterNecName from "../components/EnterNecName";
 import Loader from "../components/Loader";
-import UqHeader from "../components/UqHeader"
+import NecHeader from "../components/NecHeader"
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 
@@ -14,9 +14,9 @@ const {
   useProvider,
 } = hooks;
 
-interface ClaimUqNameProps extends PageProps { }
+interface ClaimNecNameProps extends PageProps { }
 
-function ClaimUqInvite({ direct, setDirect, setUqName, dotUq, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect }: ClaimUqNameProps) {
+function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect }: ClaimNecNameProps) {
   const accounts = useAccounts();
   const provider = useProvider();
   const navigate = useNavigate();
@@ -33,10 +33,10 @@ function ClaimUqInvite({ direct, setDirect, setUqName, dotUq, openConnect, setNe
     document.title = "Claim Invite"
   }, [])
 
-  useEffect(()=> setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       if (invite !== "") {
 
         const url = process.env.REACT_APP_INVITE_GET + invite
@@ -85,10 +85,11 @@ function ClaimUqInvite({ direct, setDirect, setUqName, dotUq, openConnect, setNe
     try {
       response = await fetch(
         process.env.REACT_APP_BUILD_USER_OP_POST!,
-        { method: 'POST',
+        {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name+".uq",
+            name: name + ".nec",
             address: accounts![0],
             networkingKey: networking_key,
             wsIp: ipAddress,
@@ -124,12 +125,13 @@ function ClaimUqInvite({ direct, setDirect, setUqName, dotUq, openConnect, setNe
     try {
       response = await fetch(
         process.env.REACT_APP_BROADCAST_USER_OP_POST!,
-        { method: 'POST',
+        {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             userOp: data.userOperation,
             code: invite,
-            name: name+".uq",
+            name: name + ".nec",
             eoa: accounts![0]
           })
         }
@@ -145,59 +147,59 @@ function ClaimUqInvite({ direct, setDirect, setUqName, dotUq, openConnect, setNe
       setIsLoading(false);
     }
 
-    setUqName(`${name}.uq`);
+    setNecName(`${name}.nec`);
 
     navigate("/set-password");
   }
 
-  const enterUqNameProps = { name, setName, nameValidities, setNameValidities, dotUq, triggerNameCheck }
+  const enterNecNameProps = { name, setName, nameValidities, setNameValidities, dotNec, triggerNameCheck }
 
   return (
     <>
-      <UqHeader msg="Claim Uqbar Invite" openConnect={openConnect} closeConnect={closeConnect} />
+      <NecHeader msg="Claim Nectar Invite" openConnect={openConnect} closeConnect={closeConnect} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
-      {
-          isLoading? <Loader msg={loaderMsg}/> :
-          <>
-            <div className="row">
-              <h4>Set up your Uqbar node with a .uq name</h4>
-              <div className="tooltip-container">
-                <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Uqbar nodes use a .uq name in order to identify themselves to other nodes in the network</div>
+        {
+          isLoading ? <Loader msg={loaderMsg} /> :
+            <>
+              <div className="row">
+                <h4>Set up your Nectar node with a .nec name</h4>
+                <div className="tooltip-container">
+                  <div className="tooltip-button">&#8505;</div>
+                  <div className="tooltip-content">Nectar nodes use a .nec name in order to identify themselves to other nodes in the network</div>
+                </div>
               </div>
-            </div>
 
-            <div className="row" style={{ width: '100%' }}>
-              <input
-                value={invite}
-                onChange={(e) => setInvite(e.target.value)}
-                type="text"
-                required
-                name="uq-invite"
-                placeholder="invite code"
-              />
-              { inviteValidity !== "" && <div className="invite-validity">{inviteValidity}</div> }
-            </div>
+              <div className="row" style={{ width: '100%' }}>
+                <input
+                  value={invite}
+                  onChange={(e) => setInvite(e.target.value)}
+                  type="text"
+                  required
+                  name="nec-invite"
+                  placeholder="invite code"
+                />
+                {inviteValidity !== "" && <div className="invite-validity">{inviteValidity}</div>}
+              </div>
 
-            <EnterUqName { ...enterUqNameProps } />
+              <EnterNecName {...enterNecNameProps} />
 
-            <div className="row" style={{ marginTop: '1em' }}>
-              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)}/>
-              <label htmlFor="direct" className="direct-node-message">
-                Register as a direct node (only do this if you are hosting your node somewhere stable)
-              </label>
-            </div>
+              <div className="row" style={{ marginTop: '1em' }}>
+                <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} />
+                <label htmlFor="direct" className="direct-node-message">
+                  Register as a direct node (only do this if you are hosting your node somewhere stable)
+                </label>
+              </div>
 
-            <button disabled={nameValidities.length !== 0 || inviteValidity !== ''} type="submit" >
-                Register Uqname
-            </button>
+              <button disabled={nameValidities.length !== 0 || inviteValidity !== ''} type="submit" >
+                Register Necname
+              </button>
 
-            <Link to="/reset" style={{ color:"white", marginTop: '1em' }}>already have an uq-name?</Link>
-          </>
+              <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
+            </>
         }
       </form>}
     </>
   )
 }
 
-export default ClaimUqInvite;
+export default ClaimNecInvite;

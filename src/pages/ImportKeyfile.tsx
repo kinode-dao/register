@@ -1,7 +1,7 @@
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { namehash } from "ethers/lib/utils";
-import UqHeader from "../components/UqHeader";
+import NecHeader from "../components/NecHeader";
 import { PageProps } from "../lib/types";
 import Loader from "../components/Loader";
 
@@ -15,11 +15,11 @@ interface ImportKeyfileProps extends PageProps {
 function ImportKeyfile({
   direct,
   pw,
-  uqName,
+  necName,
   setDirect,
   setPw,
-  setUqName,
-  qns,
+  setNecName,
+  ndns,
   openConnect,
   appSizeOnLoad,
   ipAddress,
@@ -53,13 +53,13 @@ function ImportKeyfile({
 
   //     const data = await response.json();
 
-  //     setUqName(data.username);
+  //     setNecName(data.username);
 
   //     setPwVet(true);
 
   //     const errs = [...keyErrs];
 
-  //     const ws = await qns.ws(namehash(data.username));
+  //     const ws = await ndns.ws(namehash(data.username));
 
   //     let index = errs.indexOf(KEY_WRONG_NET_KEY);
   //     if (ws.publicKey !== data.networking_key) {
@@ -80,7 +80,7 @@ function ImportKeyfile({
   //     setPwVet(false);
   //   }
   //   setPwDebounced(true);
-  // }, [localKey, pw, keyErrs, ipAddress, qns, setUqName, setDirect]);
+  // }, [localKey, pw, keyErrs, ipAddress, ndns, setNecName, setDirect]);
 
   // const pwDebouncer = useRef<NodeJS.Timeout | null>(null);
   // useEffect(() => {
@@ -173,7 +173,7 @@ function ImportKeyfile({
 
   return (
     <>
-      <UqHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
+      <NecHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
@@ -240,7 +240,7 @@ function ImportKeyfile({
           </div>
           <p style={{ lineHeight: '1.25em', fontFamily: 'Helvetica' }}>
             Please note: if the original node was booted as a direct node (static IP), then you must run this node from the same IP.
-            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset UqName".
+            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset NecName".
           </p>
         </form>
       )}
