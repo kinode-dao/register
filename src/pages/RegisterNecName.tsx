@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import NecHeader from "../components/NecHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
-import { setSepolia } from "../utils/chain";
+import { setChain } from "../utils/chain";
 
 const {
   useAccounts,
@@ -31,6 +31,7 @@ function RegisterNecName({
   setIpAddress,
   setPort,
   setRouters,
+  nodeChainId,
 }: RegisterNecNameProps) {
   let accounts = useAccounts();
   let navigate = useNavigate();
@@ -80,7 +81,7 @@ function RegisterNecName({
       setLoading('Please confirm the transaction in your wallet');
 
       try {
-        await setSepolia();
+        await setChain(nodeChainId);
       } catch (error) {
         window.alert("You must connect to the Sepolia network to continue. Please connect and try again.");
         throw new Error('Sepolia not set')
@@ -103,11 +104,11 @@ function RegisterNecName({
       setLoading('');
       alert('There was an error registering your nec-name, please try again.')
     }
-  }, [name, direct, accounts, dotNec, ndns, navigate, setNecName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters])
+  }, [name, direct, accounts, dotNec, ndns, navigate, setNecName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
 
   return (
     <>
-      <NecHeader msg="Register Nectar Node" openConnect={openConnect} closeConnect={closeConnect} />
+      <NecHeader msg="Register Nectar Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />

@@ -7,9 +7,10 @@ type NecHomeProps = {
     provider: any
     necName: string
     closeConnect: () => void
+    nodeChainId: string
 }
 
-function NecHome({ openConnect, necName, provider, closeConnect }: NecHomeProps) {
+function NecHome({ openConnect, necName, provider, closeConnect, nodeChainId }: NecHomeProps) {
     const navigate = useNavigate()
     const inviteRedir = () => navigate('/claim-invite')
     const registerRedir = () => navigate('/register-name')
@@ -27,7 +28,7 @@ function NecHome({ openConnect, necName, provider, closeConnect }: NecHomeProps)
 
     return (
         <>
-            <NecHeader msg="Welcome to Nectar" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
+            <NecHeader msg="Welcome to Nectar" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
             <div style={{ maxWidth: 'calc(100vw - 32px)', width: 420 }}>
                 {previouslyBooted ? (
                     <button onClick={loginRedir}> Login </button>

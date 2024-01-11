@@ -37,6 +37,7 @@ function App() {
   const [ipAddress, setIpAddress] = useState<number>(0);
   const [port, setPort] = useState<number>(0);
   const [routers, setRouters] = useState<string[]>([]);
+  const [nodeChainId, setNodeChainId] = useState('')
 
   const [navigateToLogin, setNavigateToLogin] = useState<boolean>(false)
   const [initialVisit, setInitialVisit] = useState<boolean>(!params?.initial)
@@ -65,21 +66,33 @@ function App() {
     (async () => {
       try {
         const infoResponse = await fetch('/info', { method: 'GET' })
+
         if (infoResponse.status > 399) {
           console.log('no info, unbooted')
-          return
-        }
+        } else {
+          const info: UnencryptedIdentity = await infoResponse.json()
 
-        const info: UnencryptedIdentity = await infoResponse.json()
-
-        if (initialVisit) {
-          setNecName(info.name)
-          setRouters(info.allowed_routers)
-          setNavigateToLogin(true)
-          setInitialVisit(false)
+          if (initialVisit) {
+            setNecName(info.name)
+            setRouters(info.allowed_routers)
+            setNavigateToLogin(true)
+            setInitialVisit(false)
+          }
         }
       } catch {
         console.log('no info, unbooted')
+      }
+
+      try {
+        const currentChainResponse = await fetch('/current-chain', { method: 'GET' })
+
+        if (currentChainResponse.status < 400) {
+          const nodeChainId = await currentChainResponse.json()
+          setNodeChainId(nodeChainId.toLowerCase())
+          console.log('Node Chain ID:', nodeChainId)
+        }
+      } catch {
+        console.log('error getting current chain')
       }
     })()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -114,6 +127,7 @@ function App() {
     ipAddress, setIpAddress,
     port, setPort,
     routers, setRouters,
+    nodeChainId,
   }
 
   return (

@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import NecHeader from "../components/NecHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
-import { setSepolia } from "../utils/chain";
+import { setChain } from "../utils/chain";
 
 const NAME_INVALID_PUNY = "Unsupported punycode character"
 const NAME_NOT_OWNER = "Name does not belong to this wallet"
@@ -38,7 +38,8 @@ function Reset({
   setNetworkingKey,
   setIpAddress,
   setPort,
-  setRouters
+  setRouters,
+  nodeChainId,
 }: ResetProps) {
   const accounts = useAccounts();
   const provider = useProvider();
@@ -150,7 +151,7 @@ function Reset({
       ];
 
       try {
-        await setSepolia();
+        await setChain(nodeChainId);
       } catch (error) {
         window.alert("You must connect to the Sepolia network to continue. Please connect and try again.");
         throw new Error('Sepolia not set')
@@ -170,11 +171,11 @@ function Reset({
       setLoading('');
       alert('An error occurred, please try again.')
     }
-  }, [provider, necName, setReset, setDirect, navigate, openConnect, ndns, direct, setNetworkingKey, setIpAddress, setPort, setRouters])
+  }, [provider, necName, setReset, setDirect, navigate, openConnect, ndns, direct, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
 
   return (
     <>
-      <NecHeader msg="Reset Nectar Node" openConnect={openConnect} closeConnect={closeConnect} />
+      <NecHeader msg="Reset Nectar Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleResetRecords}>
         {loading ? <Loader msg={loading} /> : <>
           <div className="login-row row">

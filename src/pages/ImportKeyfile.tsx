@@ -24,6 +24,7 @@ function ImportKeyfile({
   appSizeOnLoad,
   ipAddress,
   closeConnect,
+  nodeChainId,
 }: ImportKeyfileProps) {
   const navigate = useNavigate();
 
@@ -173,7 +174,7 @@ function ImportKeyfile({
 
   return (
     <>
-      <NecHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
+      <NecHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (

@@ -9,11 +9,12 @@ type SetPasswordProps = {
   reset: boolean,
   necName: string,
   setPw: React.Dispatch<React.SetStateAction<string>>,
-  appSizeOnLoad: number
+  appSizeOnLoad: number,
+  nodeChainId: string,
   closeConnect: () => void
 }
 
-function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect }: SetPasswordProps) {
+function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect, nodeChainId }: SetPasswordProps) {
   const [pw2, setPw2] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -70,7 +71,7 @@ function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeCo
 
   return (
     <>
-      <NecHeader msg="Set Nectar Node Password" openConnect={() => { }} closeConnect={closeConnect} />
+      <NecHeader msg="Set Nectar Node Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (

@@ -29,6 +29,7 @@ export interface PageProps {
   closeConnect: () => void,
   provider?: ethers.providers.Web3Provider,
   appSizeOnLoad: number,
+  nodeChainId: string
 }
 
 export type NetworkingInfo = {

@@ -28,6 +28,7 @@ function Login({
   setRouters,
   necName,
   setNecName,
+  nodeChainId,
 }: LoginProps) {
   const provider = useProvider();
 
@@ -141,7 +142,7 @@ function Login({
 
   return (
     <>
-      <NecHeader msg="Login to Nectar" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
+      <NecHeader msg="Login to Nectar" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg={loading} />
       ) : (

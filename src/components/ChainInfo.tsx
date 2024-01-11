@@ -14,14 +14,14 @@ interface ChainInfoProps {
   account: string;
   networkName: string;
   changeConnectedAccount: () => void;
-  changeToSepolia: () => void;
+  changeToNodeChain: () => void;
 }
 
 function ChainInfo({
   account,
   networkName,
   changeConnectedAccount,
-  changeToSepolia,
+  changeToNodeChain,
 }: ChainInfoProps) {
   const chainId = useChainId();
 
@@ -83,7 +83,7 @@ function ChainInfo({
         {formatAddress(account || "")}
       </button>
       <button
-        onClick={changeToSepolia}
+        onClick={changeToNodeChain}
         className="chain-button"
         style={{ maxWidth: "27%" }}
       >

@@ -2,19 +2,20 @@ import { useWeb3React } from "@web3-react/core";
 import { hooks, metaMask } from "../connectors/metamask";
 import { useCallback, useEffect, useState } from "react";
 import Loader from "./Loader";
-import { setSepolia } from "../utils/chain";
+import { setChain } from "../utils/chain";
 import ChainInfo from "./ChainInfo";
 
 const { useIsActivating, useChainId } = hooks;
 
 type NecHeaderProps = {
     msg: string,
+    nodeChainId: string,
     openConnect: () => void,
-    closeConnect: () => void
+    closeConnect: () => void,
     hideConnect?: boolean,
 }
 
-function NecHeader({ msg, openConnect, closeConnect, hideConnect = false }: NecHeaderProps) {
+function NecHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = false }: NecHeaderProps) {
     const { account, isActive } = useWeb3React()
     const isActivating = useIsActivating();
     const chainId = useChainId();
@@ -44,26 +45,29 @@ function NecHeader({ msg, openConnect, closeConnect, hideConnect = false }: NecH
         closeConnect()
         await metaMask.activate().catch(() => { })
 
+        console.log('WHAT:', nodeChainId)
         try {
-            setSepolia()
+            setChain(nodeChainId)
         } catch (error) {
             console.error(error)
         }
-    }, [closeConnect]);
+    }, [closeConnect, nodeChainId]);
 
-    const changeToSepolia = useCallback(async () => {
-        // If Sepolia is set, just show a message
-        if (networkName === 'Sepolia') {
-            alert('You are already connected to Sepolia');
-            return;
-        }
+    const changeToNodeChain = useCallback(async () => {
+        // If correct ndetwork is set, just say that
+        if (chainId) {
+            const hexChainId = '0x' + chainId.toString(16)
+            if (hexChainId === nodeChainId) {
+                return alert(`You are already connected to ${getNetworkName(chainId.toString())}`);
+            }
 
-        try {
-            setSepolia()
-        } catch (error) {
-            console.error(error)
+            try {
+                setChain(nodeChainId)
+            } catch (error) {
+                console.error(error)
+            }
         }
-    }, [networkName]);
+    }, [chainId, nodeChainId]);
 
     const changeConnectedAccount = useCallback(async () => {
         alert('You can change your connected account in your wallet.')
@@ -83,7 +87,7 @@ function NecHeader({ msg, openConnect, closeConnect, hideConnect = false }: NecH
                             <ChainInfo
                                 account={account}
                                 networkName={networkName}
-                                changeToSepolia={changeToSepolia}
+                                changeToNodeChain={changeToNodeChain}
                                 changeConnectedAccount={changeConnectedAccount}
                             />
                         ) : (

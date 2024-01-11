@@ -6,4 +6,5 @@ export enum ChainId {
 }
 
 export const SEPOLIA_OPT_HEX = '0xaa36a7';
+export const OPTIMISM_OPT_HEX = '0xa';
 export const SEPOLIA_OPT_INT = '11155111';

@@ -1,24 +1,54 @@
-import { SEPOLIA_OPT_HEX, SEPOLIA_OPT_INT } from "../constants/chainId";
+import { SEPOLIA_OPT_HEX, OPTIMISM_OPT_HEX } from "../constants/chainId";
 
-export const SEPOLIA_DETAILS = {
-  chainId: SEPOLIA_OPT_HEX, // Replace with the correct chainId for Sepolia
-  chainName: 'Sepolia Test Network',
+export interface Chain {
+  chainId: string, // Replace with the correct chainId for Sepolia
+  chainName: string,
   nativeCurrency: {
-    name: 'Ethereum',
-    symbol: 'ETH',
-    decimals: 18
+    name: string,
+    symbol: string,
+    decimals: number
   },
-  rpcUrls: ['https://sepolia-infura.brave.com/'], // Replace with Sepolia's RPC URL
-  blockExplorerUrls: ['https://sepolia.etherscan.io'] // Replace with Sepolia's block explorer URL
-};
+  rpcUrls: string[],
+  blockExplorerUrls: string[]
+}
 
-export const setSepolia = async () => {
-  const networkId = String(await (window.ethereum as any)?.request({ method: 'net_version' }).catch(() => '0x1'))
+export const CHAIN_DETAILS: { [key: string]: Chain } = {
+  [SEPOLIA_OPT_HEX]: {
+    chainId: SEPOLIA_OPT_HEX, // Replace with the correct chainId for Sepolia
+    chainName: 'Sepolia Test Network',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpcUrls: ['https://sepolia-infura.brave.com/'], // Replace with Sepolia's RPC URL
+    blockExplorerUrls: ['https://sepolia.etherscan.io'] // Replace with Sepolia's block explorer URL
+  },
+  [OPTIMISM_OPT_HEX]: {
+    chainId: OPTIMISM_OPT_HEX, // Replace with the correct chainId for Sepolia
+    chainName: 'Optimism',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpcUrls: ['https://mainnet-optimism.brave.com/'], // Replace with Sepolia's RPC URL
+    blockExplorerUrls: ['https://optimistic.etherscan.io'] // Replace with Sepolia's block explorer URL
+  }
+}
 
-  if (networkId !== SEPOLIA_OPT_HEX && networkId !== SEPOLIA_OPT_INT) {
+export const setChain = async (chainId: string) => {
+  const networkId = '0x' + (await (window.ethereum as any)?.request({ method: 'net_version' }).catch(() => '1')).replace(/^0x/, '')
+
+  if (!CHAIN_DETAILS[chainId]) {
+    console.error(`Invalid chain ID: ${chainId}`)
+    return
+  }
+
+  if (chainId !== networkId) {
     await (window.ethereum as any)?.request({
       method: 'wallet_addEthereumChain',
-      params: [SEPOLIA_DETAILS]
+      params: [CHAIN_DETAILS[chainId]]
     })
   }
 }

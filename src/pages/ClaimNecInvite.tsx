@@ -16,7 +16,7 @@ const {
 
 interface ClaimNecNameProps extends PageProps { }
 
-function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect }: ClaimNecNameProps) {
+function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect, nodeChainId }: ClaimNecNameProps) {
   const accounts = useAccounts();
   const provider = useProvider();
   const navigate = useNavigate();
@@ -156,7 +156,7 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
 
   return (
     <>
-      <NecHeader msg="Claim Nectar Invite" openConnect={openConnect} closeConnect={closeConnect} />
+      <NecHeader msg="Claim Nectar Invite" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {
           isLoading ? <Loader msg={loaderMsg} /> :
