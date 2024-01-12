@@ -14,26 +14,26 @@ export interface Chain {
 
 export const CHAIN_DETAILS: { [key: string]: Chain } = {
   [SEPOLIA_OPT_HEX]: {
-    chainId: SEPOLIA_OPT_HEX, // Replace with the correct chainId for Sepolia
-    chainName: 'Sepolia Test Network',
+    chainId: SEPOLIA_OPT_HEX,
+    chainName: 'Sepolia',
     nativeCurrency: {
       name: 'Ether',
       symbol: 'ETH',
       decimals: 18
     },
-    rpcUrls: ['https://sepolia-infura.brave.com/'], // Replace with Sepolia's RPC URL
-    blockExplorerUrls: ['https://sepolia.etherscan.io'] // Replace with Sepolia's block explorer URL
+    rpcUrls: ['https://rpc.sepolia.org'],
+    blockExplorerUrls: ['https://sepolia.etherscan.io']
   },
   [OPTIMISM_OPT_HEX]: {
-    chainId: OPTIMISM_OPT_HEX, // Replace with the correct chainId for Sepolia
+    chainId: OPTIMISM_OPT_HEX,
     chainName: 'Optimism',
     nativeCurrency: {
       name: 'Ether',
       symbol: 'ETH',
       decimals: 18
     },
-    rpcUrls: ['https://mainnet-optimism.brave.com/'], // Replace with Sepolia's RPC URL
-    blockExplorerUrls: ['https://optimistic.etherscan.io'] // Replace with Sepolia's block explorer URL
+    rpcUrls: ['https://mainnet.optimism.io'],
+    blockExplorerUrls: ['https://optimistic.etherscan.io']
   }
 }
 
