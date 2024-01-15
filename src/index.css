@@ -104,6 +104,7 @@ button:disabled {
   font-size: 12px;
   margin: 1em;
   color: red;
+  word-break: break-all;
 }
 
 label {
