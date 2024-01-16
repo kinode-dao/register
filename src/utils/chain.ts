@@ -1,4 +1,5 @@
 import { SEPOLIA_OPT_HEX, OPTIMISM_OPT_HEX } from "../constants/chainId";
+const CHAIN_NOT_FOUND = "4902"
 
 export interface Chain {
   chainId: string, // Replace with the correct chainId for Sepolia
@@ -46,9 +47,20 @@ export const setChain = async (chainId: string) => {
   }
 
   if (chainId !== networkId) {
-    await (window.ethereum as any)?.request({
-      method: 'wallet_addEthereumChain',
-      params: [CHAIN_DETAILS[chainId]]
-    })
+    try {
+      await (window.ethereum as any)?.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId }]
+      });
+    } catch (err) {
+      if (String(err).includes(CHAIN_NOT_FOUND)) {
+        await (window.ethereum as any)?.request({
+          method: 'wallet_addEthereumChain',
+          params: [CHAIN_DETAILS[chainId]]
+        })
+      } else {
+        throw new Error(`User cancelled connection to ${chainId}`)
+      }
+    }
   }
 }
