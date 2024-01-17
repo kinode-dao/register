@@ -48,13 +48,13 @@ function App() {
 
   const [dotOs, setDotOs] = useState<DotOsRegistrar>(
     DotOsRegistrar__factory.connect(
-      DOT_OS_ADDRESSES[ChainId.SEPOLIA],
+      provider?.network?.chainId === ChainId.SEPOLIA ? DOT_OS_ADDRESSES[ChainId.SEPOLIA] : DOT_OS_ADDRESSES[ChainId.OPTIMISM],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
   const [kns, setKns] = useState<KNSRegistryResolver>(
     KNSRegistryResolver__factory.connect(
-      KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+      provider?.network?.chainId === ChainId.SEPOLIA ? KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA] : KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
@@ -100,13 +100,22 @@ function App() {
   useEffect(() => setNavigateToLogin(false), [initialVisit])
 
   useEffect(() => {
-    if (provider) {
+    if (provider?.network?.chainId === ChainId.SEPOLIA) {
       setDotOs(DotOsRegistrar__factory.connect(
         DOT_OS_ADDRESSES[ChainId.SEPOLIA],
         provider!.getSigner())
       )
       setKns(KNSRegistryResolver__factory.connect(
         KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+        provider!.getSigner())
+      )
+    } else if (provider?.network?.chainId === ChainId.OPTIMISM) {
+      setDotOs(DotOsRegistrar__factory.connect(
+        DOT_OS_ADDRESSES[ChainId.OPTIMISM],
+        provider!.getSigner())
+      )
+      setKns(KNSRegistryResolver__factory.connect(
+        KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
         provider!.getSigner())
       )
     }
