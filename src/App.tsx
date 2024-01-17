@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Navigate, BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import { hooks } from "./connectors/metamask";
 import {
@@ -46,16 +46,18 @@ function App() {
   const openConnect = () => setConnectOpen(true)
   const closeConnect = () => setConnectOpen(false)
 
+  const rpcUrl = useMemo(() => provider?.network?.chainId === ChainId.SEPOLIA ? process.env.REACT_APP_SEPOLIA_RPC_URL : process.env.REACT_APP_OPTIMISM_RPC_URL, [provider])
+
   const [dotOs, setDotOs] = useState<DotOsRegistrar>(
     DotOsRegistrar__factory.connect(
       provider?.network?.chainId === ChainId.SEPOLIA ? DOT_OS_ADDRESSES[ChainId.SEPOLIA] : DOT_OS_ADDRESSES[ChainId.OPTIMISM],
-      new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
+      new ethers.providers.JsonRpcProvider(rpcUrl))
   );
 
   const [kns, setKns] = useState<KNSRegistryResolver>(
     KNSRegistryResolver__factory.connect(
       provider?.network?.chainId === ChainId.SEPOLIA ? KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA] : KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
-      new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
+      new ethers.providers.JsonRpcProvider(rpcUrl))
   );
 
   useEffect(() => setAppSizeOnLoad(
@@ -100,25 +102,27 @@ function App() {
   useEffect(() => setNavigateToLogin(false), [initialVisit])
 
   useEffect(() => {
-    if (provider?.network?.chainId === ChainId.SEPOLIA) {
-      setDotOs(DotOsRegistrar__factory.connect(
-        DOT_OS_ADDRESSES[ChainId.SEPOLIA],
-        provider!.getSigner())
-      )
-      setKns(KNSRegistryResolver__factory.connect(
-        KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
-        provider!.getSigner())
-      )
-    } else if (provider?.network?.chainId === ChainId.OPTIMISM) {
-      setDotOs(DotOsRegistrar__factory.connect(
-        DOT_OS_ADDRESSES[ChainId.OPTIMISM],
-        provider!.getSigner())
-      )
-      setKns(KNSRegistryResolver__factory.connect(
-        KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
-        provider!.getSigner())
-      )
-    }
+    provider?.getNetwork().then(network => {
+      if (network.chainId === ChainId.SEPOLIA) {
+        setDotOs(DotOsRegistrar__factory.connect(
+          DOT_OS_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner())
+        )
+        setKns(KNSRegistryResolver__factory.connect(
+          KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner())
+        )
+      } else if (network.chainId === ChainId.OPTIMISM) {
+        setDotOs(DotOsRegistrar__factory.connect(
+          DOT_OS_ADDRESSES[ChainId.OPTIMISM],
+          provider!.getSigner())
+        )
+        setKns(KNSRegistryResolver__factory.connect(
+          KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
+          provider!.getSigner())
+        )
+      }
+    })
   }, [provider])
 
   // just pass all the props each time since components won't mind extras

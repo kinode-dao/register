@@ -2,8 +2,9 @@ import { useWeb3React } from "@web3-react/core";
 import { hooks, metaMask } from "../connectors/metamask";
 import { useCallback, useEffect, useState } from "react";
 import Loader from "./Loader";
-import { setChain } from "../utils/chain";
+import { getNetworkName, setChain } from "../utils/chain";
 import ChainInfo from "./ChainInfo";
+import { SEPOLIA_OPT_HEX } from "../constants/chainId";
 
 const { useIsActivating, useChainId } = hooks;
 
@@ -26,26 +27,10 @@ function OsHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = f
         setNetworkName(getNetworkName((chainId || 1).toString()));
     }, [chainId]);
 
-    const getNetworkName = (networkId: string) => {
-        switch (networkId) {
-            case '1':
-                return 'Ethereum'; // Ethereum Mainnet
-            case '10':
-                return 'Optimism'; // Optimism
-            case '42161':
-                return 'Arbitrum'; // Arbitrum One
-            case '11155111':
-                return 'Sepolia'; // Sepolia Testnet
-            default:
-                return 'Unknown';
-        }
-    };
-
     const connectWallet = useCallback(async () => {
         closeConnect()
         await metaMask.activate().catch(() => { })
 
-        console.log('WHAT:', nodeChainId)
         try {
             setChain(nodeChainId)
         } catch (error) {
@@ -99,9 +84,9 @@ function OsHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = f
                                 ) : (
                                     <button onClick={connectWallet}> Connect Wallet </button>
                                 )}
-                                <div style={{ textAlign: 'center', lineHeight: '1.5em', fontSize: '0.8em', marginTop: '2em' }}>
+                                {nodeChainId === SEPOLIA_OPT_HEX && <div style={{ textAlign: 'center', lineHeight: '1.5em', fontSize: '0.8em', marginTop: '2em' }}>
                                     Kinode is currently on the Sepolia Testnet, if you need testnet ETH, you can get some from the <a href="https://sepoliafaucet.com/" target="_blank" rel="noreferrer">Sepolia Faucet</a>
-                                </div>
+                                </div>}
                             </div>
                         )
                     }

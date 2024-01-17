@@ -8,15 +8,13 @@ import Loader from "../components/Loader";
 import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
-import { setChain } from "../utils/chain";
+import { getNetworkName, setChain } from "../utils/chain";
 
 const {
   useAccounts,
 } = hooks;
 
-interface RegisterOsNameProps extends PageProps {
-
-}
+interface RegisterOsNameProps extends PageProps {}
 
 function RegisterOsName({
   direct,
@@ -35,6 +33,7 @@ function RegisterOsName({
 }: RegisterOsNameProps) {
   let accounts = useAccounts();
   let navigate = useNavigate();
+  const chainName = getNetworkName(nodeChainId);
   const [loading, setLoading] = useState('');
 
   const [name, setName] = useState('')
@@ -83,8 +82,8 @@ function RegisterOsName({
       try {
         await setChain(nodeChainId);
       } catch (error) {
-        window.alert("You must connect to the Sepolia network to continue. Please connect and try again.");
-        throw new Error('Sepolia not set')
+        window.alert(`You must connect to the ${chainName} network to continue. Please connect and try again.`);
+        throw new Error(`${chainName} not set`)
       }
 
       const dnsFormat = toDNSWireFormat(`${name}.os`);
@@ -100,11 +99,12 @@ function RegisterOsName({
       setLoading('');
       setOsName(`${name}.os`);
       navigate("/set-password");
-    } catch {
+    } catch (error) {
+      console.error('Registration Error:', error)
       setLoading('');
       alert('There was an error registering your dot-os-name, please try again.')
     }
-  }, [name, direct, accounts, dotOs, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
+  }, [name, direct, accounts, dotOs, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId, chainName])
 
   return (
     <>

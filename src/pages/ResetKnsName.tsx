@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
-import { setChain } from "../utils/chain";
+import { getNetworkName, setChain } from "../utils/chain";
 
 const NAME_INVALID_PUNY = "Unsupported punycode character"
 const NAME_NOT_OWNER = "Name does not belong to this wallet"
@@ -45,6 +45,7 @@ function Reset({
   const provider = useProvider();
   const navigate = useNavigate();
 
+  const chainName = getNetworkName(nodeChainId);
   const [name, setName] = useState<string>(knsName.slice(0, -3));
   const [nameVets, setNameVets] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>('');
@@ -153,8 +154,8 @@ function Reset({
       try {
         await setChain(nodeChainId);
       } catch (error) {
-        window.alert("You must connect to the Sepolia network to continue. Please connect and try again.");
-        throw new Error('Sepolia not set')
+        window.alert(`You must connect to the ${chainName} network to continue. Please connect and try again.`);
+        throw new Error(`${chainName} not set`)
       }
 
       const tx = await kns.multicall(data)
@@ -171,7 +172,7 @@ function Reset({
       setLoading('');
       alert('An error occurred, please try again.')
     }
-  }, [provider, knsName, setReset, setDirect, navigate, openConnect, kns, direct, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
+  }, [provider, knsName, setReset, setDirect, navigate, openConnect, kns, direct, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId, chainName])
 
   return (
     <>
