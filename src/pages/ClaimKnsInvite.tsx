@@ -191,10 +191,10 @@ function ClaimOsInvite({ direct, setDirect, setOsName, dotOs, openConnect, setNe
               </div>
 
               <button disabled={nameValidities.length !== 0 || inviteValidity !== ''} type="submit" >
-                Register Osname
+                Register .os name
               </button>
 
-              <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
+              <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an dot-os-name?</Link>
             </>
         }
       </form>}

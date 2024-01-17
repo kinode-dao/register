@@ -193,7 +193,7 @@ function Reset({
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 required
-                name="nec-name"
+                name="dot-os-name"
                 placeholder="e.g. myname"
                 style={{ width: '100%', marginRight: 8, }}
               />

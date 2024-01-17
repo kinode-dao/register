@@ -102,7 +102,7 @@ function RegisterOsName({
       navigate("/set-password");
     } catch {
       setLoading('');
-      alert('There was an error registering your nec-name, please try again.')
+      alert('There was an error registering your dot-os-name, please try again.')
     }
   }, [name, direct, accounts, dotOs, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
 
@@ -136,9 +136,9 @@ function RegisterOsName({
               </label>
             </div>
             <button disabled={nameValidities.length !== 0} type="submit">
-              Register Osname
+              Register .os name
             </button>
-            <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
+            <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an dot-os-name?</Link>
           </>
         )}
       </form>}

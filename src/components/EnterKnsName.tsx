@@ -97,7 +97,7 @@ function EnterOsName({
           onChange={noDots}
           type="text"
           required
-          name="nec-name"
+          name="dot-os-name"
           placeholder="e.g. myname"
         />
         <div className="nec">.os</div>
