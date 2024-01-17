@@ -6,7 +6,7 @@ import arbitrumLogo from '../assets/arbitrum.png';
 import unknownLogo from '../assets/unknown.png';
 import Jazzicon from "./Jazzicon";
 import { hooks } from "../connectors/metamask";
-import { NDNS_REGISTRY_ADDRESSES } from '../constants/addresses';
+import { KNS_REGISTRY_ADDRESSES } from '../constants/addresses';
 
 const { useChainId } = hooks;
 
@@ -64,8 +64,8 @@ function ChainInfo({
     }
   };
 
-  const showNdnsAddress = useCallback(() => {
-    window.alert(`The NDNS Contract Address is: ${NDNS_REGISTRY_ADDRESSES[chainId || ''] || 'unavailable on ' + networkName}`)
+  const showKnsAddress = useCallback(() => {
+    window.alert(`The KNS Contract Address is: ${KNS_REGISTRY_ADDRESSES[chainId || ''] || 'unavailable on ' + networkName}`)
   }, [chainId, networkName])
 
   return (
@@ -89,9 +89,9 @@ function ChainInfo({
       >
         {generateNetworkIcon(networkName)} {networkName}
       </button>
-      {/* TODO: show NDNS contract ID in modal */}
-      <button onClick={showNdnsAddress} className="chain-button" style={{ maxWidth: "27%" }}>
-        NDNS Contract
+      {/* TODO: show KNS contract ID in modal */}
+      <button onClick={showKnsAddress} className="chain-button" style={{ maxWidth: "27%" }}>
+        KNS Contract
       </button>
     </div>
   );

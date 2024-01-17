@@ -27,7 +27,7 @@ import type {
   OnEvent,
 } from "./types/common";
 
-export interface DotNecRegistrarInterface extends utils.Interface {
+export interface DotOsRegistrarInterface extends utils.Interface {
   functions: {
     "TLD_DNS_WIRE()": FunctionFragment;
     "TLD_HASH()": FunctionFragment;
@@ -49,7 +49,7 @@ export interface DotNecRegistrarInterface extends utils.Interface {
     "ownerOf(uint256)": FunctionFragment;
     "parents(uint256)": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
-    "ndns()": FunctionFragment;
+    "kns()": FunctionFragment;
     "register(bytes,bytes[])": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "revokeControlOverSubdomain(bytes)": FunctionFragment;
@@ -87,7 +87,7 @@ export interface DotNecRegistrarInterface extends utils.Interface {
       | "ownerOf"
       | "parents"
       | "proxiableUUID"
-      | "ndns"
+      | "kns"
       | "register"
       | "renounceOwnership"
       | "revokeControlOverSubdomain"
@@ -165,7 +165,7 @@ export interface DotNecRegistrarInterface extends utils.Interface {
     functionFragment: "proxiableUUID",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "ndns", values?: undefined): string;
+  encodeFunctionData(functionFragment: "kns", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "register",
     values: [BytesLike, BytesLike[]]
@@ -266,7 +266,7 @@ export interface DotNecRegistrarInterface extends utils.Interface {
     functionFragment: "proxiableUUID",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "ndns", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "kns", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "register", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -443,12 +443,12 @@ export type WebmasterEvent = TypedEvent<
 
 export type WebmasterEventFilter = TypedEventFilter<WebmasterEvent>;
 
-export interface DotNecRegistrar extends BaseContract {
+export interface DotOsRegistrar extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: DotNecRegistrarInterface;
+  interface: DotOsRegistrarInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -517,7 +517,7 @@ export interface DotNecRegistrar extends BaseContract {
     getInitializedVersion(overrides?: CallOverrides): Promise<[number]>;
 
     initialize(
-      _ndns: string,
+      _kns: string,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -552,7 +552,7 @@ export interface DotNecRegistrar extends BaseContract {
 
     proxiableUUID(overrides?: CallOverrides): Promise<[string]>;
 
-    ndns(overrides?: CallOverrides): Promise<[string]>;
+    kns(overrides?: CallOverrides): Promise<[string]>;
 
     register(
       _name: BytesLike,
@@ -671,7 +671,7 @@ export interface DotNecRegistrar extends BaseContract {
   getInitializedVersion(overrides?: CallOverrides): Promise<number>;
 
   initialize(
-    _ndns: string,
+    _kns: string,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -703,7 +703,7 @@ export interface DotNecRegistrar extends BaseContract {
 
   proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
-  ndns(overrides?: CallOverrides): Promise<string>;
+  kns(overrides?: CallOverrides): Promise<string>;
 
   register(
     _name: BytesLike,
@@ -824,7 +824,7 @@ export interface DotNecRegistrar extends BaseContract {
 
     getInitializedVersion(overrides?: CallOverrides): Promise<number>;
 
-    initialize(_ndns: string, overrides?: CallOverrides): Promise<void>;
+    initialize(_kns: string, overrides?: CallOverrides): Promise<void>;
 
     isApprovedForAll(
       _owner: string,
@@ -854,7 +854,7 @@ export interface DotNecRegistrar extends BaseContract {
 
     proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
-    ndns(overrides?: CallOverrides): Promise<string>;
+    kns(overrides?: CallOverrides): Promise<string>;
 
     register(
       _name: BytesLike,
@@ -1061,7 +1061,7 @@ export interface DotNecRegistrar extends BaseContract {
     getInitializedVersion(overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
-      _ndns: string,
+      _kns: string,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -1093,7 +1093,7 @@ export interface DotNecRegistrar extends BaseContract {
 
     proxiableUUID(overrides?: CallOverrides): Promise<BigNumber>;
 
-    ndns(overrides?: CallOverrides): Promise<BigNumber>;
+    kns(overrides?: CallOverrides): Promise<BigNumber>;
 
     register(
       _name: BytesLike,
@@ -1221,7 +1221,7 @@ export interface DotNecRegistrar extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     initialize(
-      _ndns: string,
+      _kns: string,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
@@ -1259,7 +1259,7 @@ export interface DotNecRegistrar extends BaseContract {
 
     proxiableUUID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    ndns(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    kns(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     register(
       _name: BytesLike,

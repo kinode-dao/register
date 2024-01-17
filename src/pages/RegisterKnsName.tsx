@@ -3,9 +3,9 @@ import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
 import { toDNSWireFormat } from "../utils/dnsWire";
 import { BytesLike, utils } from 'ethers';
-import EnterNecName from "../components/EnterNecName";
+import EnterOsName from "../components/EnterKnsName";
 import Loader from "../components/Loader";
-import NecHeader from "../components/NecHeader";
+import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { setChain } from "../utils/chain";
@@ -14,16 +14,16 @@ const {
   useAccounts,
 } = hooks;
 
-interface RegisterNecNameProps extends PageProps {
+interface RegisterOsNameProps extends PageProps {
 
 }
 
-function RegisterNecName({
+function RegisterOsName({
   direct,
   setDirect,
-  setNecName,
-  dotNec,
-  ndns,
+  setOsName,
+  dotOs,
+  kns,
   openConnect,
   provider,
   closeConnect,
@@ -32,7 +32,7 @@ function RegisterNecName({
   setPort,
   setRouters,
   nodeChainId,
-}: RegisterNecNameProps) {
+}: RegisterOsNameProps) {
   let accounts = useAccounts();
   let navigate = useNavigate();
   const [loading, setLoading] = useState('');
@@ -48,7 +48,7 @@ function RegisterNecName({
 
   useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const enterNecNameProps = { name, setName, nameValidities, setNameValidities, dotNec, triggerNameCheck }
+  const enterOsNameProps = { name, setName, nameValidities, setNameValidities, dotOs, triggerNameCheck }
 
   let handleRegister = useCallback(async (e: FormEvent) => {
     e.preventDefault()
@@ -71,11 +71,11 @@ function RegisterNecName({
 
       const data: BytesLike[] = [
         direct
-          ? (await ndns.populateTransaction.setAllIp
-            (utils.namehash(`${name}.nec`), ipAddress, port, 0, 0, 0)).data!
-          : (await ndns.populateTransaction.setRouters
-            (utils.namehash(`${name}.nec`), allowed_routers.map(x => utils.namehash(x)))).data!,
-        (await ndns.populateTransaction.setKey(utils.namehash(`${name}.nec`), networking_key)).data!
+          ? (await kns.populateTransaction.setAllIp
+            (utils.namehash(`${name}.os`), ipAddress, port, 0, 0, 0)).data!
+          : (await kns.populateTransaction.setRouters
+            (utils.namehash(`${name}.os`), allowed_routers.map(x => utils.namehash(x)))).data!,
+        (await kns.populateTransaction.setKey(utils.namehash(`${name}.os`), networking_key)).data!
       ]
 
       setLoading('Please confirm the transaction in your wallet');
@@ -87,41 +87,41 @@ function RegisterNecName({
         throw new Error('Sepolia not set')
       }
 
-      const dnsFormat = toDNSWireFormat(`${name}.nec`);
-      const tx = await dotNec.register(
+      const dnsFormat = toDNSWireFormat(`${name}.os`);
+      const tx = await dotOs.register(
         dnsFormat,
         accounts![0],
         data
       )
 
-      setLoading('Registering NDNS ID...');
+      setLoading('Registering KNS ID...');
 
       await tx.wait();
       setLoading('');
-      setNecName(`${name}.nec`);
+      setOsName(`${name}.os`);
       navigate("/set-password");
     } catch {
       setLoading('');
       alert('There was an error registering your nec-name, please try again.')
     }
-  }, [name, direct, accounts, dotNec, ndns, navigate, setNecName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
+  }, [name, direct, accounts, dotOs, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
 
   return (
     <>
-      <NecHeader msg="Register Nectar Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Register Kinode Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />
         ) : (
           <>
             <div className="login-row row" style={{ marginBottom: '1em', lineHeight: 1.5 }}>
-              Set up your Nectar node with a .nec name
+              Set up your Kinode node with a .os name
               <div className="tooltip-container" style={{ marginTop: -4 }}>
                 <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Nectar nodes use a .nec name in order to identify themselves to other nodes in the network</div>
+                <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
               </div>
             </div>
-            <EnterNecName {...enterNecNameProps} />
+            <EnterOsName {...enterOsNameProps} />
             <div className="row" style={{ marginTop: '1em' }}>
               <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus />
               <label htmlFor="direct" className="direct-node-message">
@@ -136,7 +136,7 @@ function RegisterNecName({
               </label>
             </div>
             <button disabled={nameValidities.length !== 0} type="submit">
-              Register Necname
+              Register Osname
             </button>
             <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
           </>
@@ -146,4 +146,4 @@ function RegisterNecName({
   )
 }
 
-export default RegisterNecName;
+export default RegisterOsName;

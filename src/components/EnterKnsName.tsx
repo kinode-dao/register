@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { hooks } from "../connectors/metamask";
-import { DotNecRegistrar } from "../abis/types";
+import { DotOsRegistrar } from "../abis/types";
 import isValidDomain from 'is-valid-domain'
 import { hash } from 'eth-ens-namehash'
 import { toAscii } from 'idna-uts46-hx'
@@ -12,23 +12,23 @@ const {
   useProvider,
 } = hooks;
 
-type ClaimNecNameProps = {
+type ClaimOsNameProps = {
   name: string,
   setName: React.Dispatch<React.SetStateAction<string>>
   nameValidities: string[],
   setNameValidities: React.Dispatch<React.SetStateAction<string[]>>,
-  dotNec: DotNecRegistrar,
+  dotOs: DotOsRegistrar,
   triggerNameCheck: boolean
 }
 
-function EnterNecName({
+function EnterOsName({
   name,
   setName,
   nameValidities,
   setNameValidities,
-  dotNec,
+  dotOs,
   triggerNameCheck
-}: ClaimNecNameProps) {
+}: ClaimOsNameProps) {
 
   const NAME_URL = "Name must be a valid URL without subdomains (A-Z, a-z, 0-9, and punycode)"
   const NAME_LENGTH = "Name must be 9 characters or more"
@@ -56,7 +56,7 @@ function EnterNecName({
       let normalized: string
       index = validities.indexOf(NAME_INVALID_PUNY)
       try {
-        normalized = toAscii(name + ".nec")
+        normalized = toAscii(name + ".os")
         if (index != -1) validities.splice(index, 1)
       } catch (e) {
         if (index == -1) validities.push(NAME_INVALID_PUNY)
@@ -73,7 +73,7 @@ function EnterNecName({
         index = validities.indexOf(NAME_CLAIMED)
         if (validities.length == 0 || index != -1) {
           try {
-            await dotNec.ownerOf(hash(normalized))
+            await dotOs.ownerOf(hash(normalized))
             if (index == -1) validities.push(NAME_CLAIMED)
           } catch (e) {
             if (index != -1) validities.splice(index, 1)
@@ -100,7 +100,7 @@ function EnterNecName({
           name="nec-name"
           placeholder="e.g. myname"
         />
-        <div className="nec">.nec</div>
+        <div className="nec">.os</div>
       </div>
       {nameValidities.map((x, i) => <div key={i}><br /><span className="name-validity">{x}</span></div>)}
     </div>
@@ -108,4 +108,4 @@ function EnterNecName({
 
 }
 
-export default EnterNecName;
+export default EnterOsName;

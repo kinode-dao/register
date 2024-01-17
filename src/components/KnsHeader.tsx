@@ -7,7 +7,7 @@ import ChainInfo from "./ChainInfo";
 
 const { useIsActivating, useChainId } = hooks;
 
-type NecHeaderProps = {
+type OsHeaderProps = {
     msg: string,
     nodeChainId: string,
     openConnect: () => void,
@@ -15,7 +15,7 @@ type NecHeaderProps = {
     hideConnect?: boolean,
 }
 
-function NecHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = false }: NecHeaderProps) {
+function OsHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = false }: OsHeaderProps) {
     const { account, isActive } = useWeb3React()
     const isActivating = useIsActivating();
     const chainId = useChainId();
@@ -100,7 +100,7 @@ function NecHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = 
                                     <button onClick={connectWallet}> Connect Wallet </button>
                                 )}
                                 <div style={{ textAlign: 'center', lineHeight: '1.5em', fontSize: '0.8em', marginTop: '2em' }}>
-                                    Nectar is currently on the Sepolia Testnet, if you need testnet ETH, you can get some from the <a href="https://sepoliafaucet.com/" target="_blank" rel="noreferrer">Sepolia Faucet</a>
+                                    Kinode is currently on the Sepolia Testnet, if you need testnet ETH, you can get some from the <a href="https://sepoliafaucet.com/" target="_blank" rel="noreferrer">Sepolia Faucet</a>
                                 </div>
                             </div>
                         )
@@ -111,4 +111,4 @@ function NecHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = 
     )
 }
 
-export default NecHeader
+export default OsHeader

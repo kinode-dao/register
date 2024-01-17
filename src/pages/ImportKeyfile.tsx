@@ -1,7 +1,7 @@
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { namehash } from "ethers/lib/utils";
-import NecHeader from "../components/NecHeader";
+import OsHeader from "../components/KnsHeader";
 import { PageProps } from "../lib/types";
 import Loader from "../components/Loader";
 
@@ -15,11 +15,11 @@ interface ImportKeyfileProps extends PageProps {
 function ImportKeyfile({
   direct,
   pw,
-  necName,
+  knsName,
   setDirect,
   setPw,
-  setNecName,
-  ndns,
+  setOsName,
+  kns,
   openConnect,
   appSizeOnLoad,
   ipAddress,
@@ -54,13 +54,13 @@ function ImportKeyfile({
 
   //     const data = await response.json();
 
-  //     setNecName(data.username);
+  //     setOsName(data.username);
 
   //     setPwVet(true);
 
   //     const errs = [...keyErrs];
 
-  //     const ws = await ndns.ws(namehash(data.username));
+  //     const ws = await kns.ws(namehash(data.username));
 
   //     let index = errs.indexOf(KEY_WRONG_NET_KEY);
   //     if (ws.publicKey !== data.networking_key) {
@@ -81,7 +81,7 @@ function ImportKeyfile({
   //     setPwVet(false);
   //   }
   //   setPwDebounced(true);
-  // }, [localKey, pw, keyErrs, ipAddress, ndns, setNecName, setDirect]);
+  // }, [localKey, pw, keyErrs, ipAddress, kns, setOsName, setDirect]);
 
   // const pwDebouncer = useRef<NodeJS.Timeout | null>(null);
   // useEffect(() => {
@@ -174,7 +174,7 @@ function ImportKeyfile({
 
   return (
     <>
-      <NecHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
+      <OsHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
@@ -241,7 +241,7 @@ function ImportKeyfile({
           </div>
           <p style={{ lineHeight: '1.25em', fontFamily: 'Helvetica' }}>
             Please note: if the original node was booted as a direct node (static IP), then you must run this node from the same IP.
-            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset NecName".
+            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset OsName".
           </p>
         </form>
       )}

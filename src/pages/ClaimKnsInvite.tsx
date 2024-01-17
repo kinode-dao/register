@@ -1,9 +1,9 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
-import EnterNecName from "../components/EnterNecName";
+import EnterOsName from "../components/EnterKnsName";
 import Loader from "../components/Loader";
-import NecHeader from "../components/NecHeader"
+import OsHeader from "../components/KnsHeader"
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 
@@ -14,9 +14,9 @@ const {
   useProvider,
 } = hooks;
 
-interface ClaimNecNameProps extends PageProps { }
+interface ClaimOsNameProps extends PageProps { }
 
-function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect, nodeChainId }: ClaimNecNameProps) {
+function ClaimOsInvite({ direct, setDirect, setOsName, dotOs, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, closeConnect, nodeChainId }: ClaimOsNameProps) {
   const accounts = useAccounts();
   const provider = useProvider();
   const navigate = useNavigate();
@@ -89,7 +89,7 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name + ".nec",
+            name: name + ".os",
             address: accounts![0],
             networkingKey: networking_key,
             wsIp: ipAddress,
@@ -131,7 +131,7 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
           body: JSON.stringify({
             userOp: data.userOperation,
             code: invite,
-            name: name + ".nec",
+            name: name + ".os",
             eoa: accounts![0]
           })
         }
@@ -147,25 +147,25 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
       setIsLoading(false);
     }
 
-    setNecName(`${name}.nec`);
+    setOsName(`${name}.os`);
 
     navigate("/set-password");
   }
 
-  const enterNecNameProps = { name, setName, nameValidities, setNameValidities, dotNec, triggerNameCheck }
+  const enterOsNameProps = { name, setName, nameValidities, setNameValidities, dotOs, triggerNameCheck }
 
   return (
     <>
-      <NecHeader msg="Claim Nectar Invite" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Claim Kinode Invite" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {
           isLoading ? <Loader msg={loaderMsg} /> :
             <>
               <div className="row">
-                <h4>Set up your Nectar node with a .nec name</h4>
+                <h4>Set up your Kinode node with a .os name</h4>
                 <div className="tooltip-container">
                   <div className="tooltip-button">&#8505;</div>
-                  <div className="tooltip-content">Nectar nodes use a .nec name in order to identify themselves to other nodes in the network</div>
+                  <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
                 </div>
               </div>
 
@@ -181,7 +181,7 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
                 {inviteValidity !== "" && <div className="invite-validity">{inviteValidity}</div>}
               </div>
 
-              <EnterNecName {...enterNecNameProps} />
+              <EnterOsName {...enterOsNameProps} />
 
               <div className="row" style={{ marginTop: '1em' }}>
                 <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} />
@@ -191,7 +191,7 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
               </div>
 
               <button disabled={nameValidities.length !== 0 || inviteValidity !== ''} type="submit" >
-                Register Necname
+                Register Osname
               </button>
 
               <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an nec-name?</Link>
@@ -202,4 +202,4 @@ function ClaimNecInvite({ direct, setDirect, setNecName, dotNec, openConnect, se
   )
 }
 
-export default ClaimNecInvite;
+export default ClaimOsInvite;

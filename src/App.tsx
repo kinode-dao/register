@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { Navigate, BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 import { hooks } from "./connectors/metamask";
 import {
-  NDNS_REGISTRY_ADDRESSES,
-  DOT_NEC_ADDRESSES,
+  KNS_REGISTRY_ADDRESSES,
+  DOT_OS_ADDRESSES,
 } from "./constants/addresses";
 import { ChainId } from "./constants/chainId";
-import { NDNSRegistryResolver, NDNSRegistryResolver__factory, DotNecRegistrar, DotNecRegistrar__factory } from "./abis/types";
+import { KNSRegistryResolver, KNSRegistryResolver__factory, DotOsRegistrar, DotOsRegistrar__factory } from "./abis/types";
 import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
-import RegisterNecName from "./pages/RegisterNecName";
-import ClaimNecInvite from "./pages/ClaimNecInvite";
+import RegisterOsName from "./pages/RegisterKnsName";
+import ClaimOsInvite from "./pages/ClaimKnsInvite";
 import SetPassword from "./pages/SetPassword";
 import Login from './pages/Login'
-import Reset from './pages/ResetNecName'
-import NecHome from "./pages/NecHome"
+import Reset from './pages/ResetKnsName'
+import OsHome from "./pages/KinodeHome"
 import ImportKeyfile from "./pages/ImportKeyfile";
 import { UnencryptedIdentity } from "./lib/types";
 
@@ -31,7 +31,7 @@ function App() {
   const [keyFileName, setKeyFileName] = useState<string>('');
   const [reset, setReset] = useState<boolean>(false);
   const [direct, setDirect] = useState<boolean>(false);
-  const [necName, setNecName] = useState<string>('');
+  const [knsName, setOsName] = useState<string>('');
   const [appSizeOnLoad, setAppSizeOnLoad] = useState<number>(0);
   const [networkingKey, setNetworkingKey] = useState<string>('');
   const [ipAddress, setIpAddress] = useState<number>(0);
@@ -46,15 +46,15 @@ function App() {
   const openConnect = () => setConnectOpen(true)
   const closeConnect = () => setConnectOpen(false)
 
-  const [dotNec, setDotNec] = useState<DotNecRegistrar>(
-    DotNecRegistrar__factory.connect(
-      DOT_NEC_ADDRESSES[ChainId.SEPOLIA],
+  const [dotOs, setDotOs] = useState<DotOsRegistrar>(
+    DotOsRegistrar__factory.connect(
+      DOT_OS_ADDRESSES[ChainId.SEPOLIA],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
-  const [ndns, setNdns] = useState<NDNSRegistryResolver>(
-    NDNSRegistryResolver__factory.connect(
-      NDNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+  const [kns, setKns] = useState<KNSRegistryResolver>(
+    KNSRegistryResolver__factory.connect(
+      KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
       new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL))
   );
 
@@ -73,7 +73,7 @@ function App() {
           const info: UnencryptedIdentity = await infoResponse.json()
 
           if (initialVisit) {
-            setNecName(info.name)
+            setOsName(info.name)
             setRouters(info.allowed_routers)
             setNavigateToLogin(true)
             setInitialVisit(false)
@@ -101,12 +101,12 @@ function App() {
 
   useEffect(() => {
     if (provider) {
-      setDotNec(DotNecRegistrar__factory.connect(
-        DOT_NEC_ADDRESSES[ChainId.SEPOLIA],
+      setDotOs(DotOsRegistrar__factory.connect(
+        DOT_OS_ADDRESSES[ChainId.SEPOLIA],
         provider!.getSigner())
       )
-      setNdns(NDNSRegistryResolver__factory.connect(
-        NDNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+      setKns(KNSRegistryResolver__factory.connect(
+        KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
         provider!.getSigner())
       )
     }
@@ -119,8 +119,8 @@ function App() {
     keyFileName, setKeyFileName,
     reset, setReset,
     pw, setPw,
-    necName, setNecName,
-    dotNec, ndns,
+    knsName, setOsName,
+    dotOs, kns,
     connectOpen, openConnect, closeConnect,
     provider, appSizeOnLoad,
     networkingKey, setNetworkingKey,
@@ -139,10 +139,10 @@ function App() {
             <Routes>
               <Route path="/" element={navigateToLogin
                 ? <Navigate to="/login" replace />
-                : <NecHome {...props} />
+                : <OsHome {...props} />
               } />
-              <Route path="/claim-invite" element={<ClaimNecInvite {...props} />} />
-              <Route path="/register-name" element={<RegisterNecName  {...props} />} />
+              <Route path="/claim-invite" element={<ClaimOsInvite {...props} />} />
+              <Route path="/register-name" element={<RegisterOsName  {...props} />} />
               <Route path="/set-password" element={<SetPassword {...props} />} />
               <Route path="/reset" element={<Reset {...props} />} />
               <Route path="/import-keyfile" element={<ImportKeyfile {...props} />} />

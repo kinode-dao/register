@@ -6,7 +6,7 @@ import { toAscii } from 'idna-uts46-hx'
 import { hash } from 'eth-ens-namehash'
 import isValidDomain from 'is-valid-domain'
 import Loader from "../components/Loader";
-import NecHeader from "../components/NecHeader";
+import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { setChain } from "../utils/chain";
@@ -29,10 +29,10 @@ function Reset({
   direct,
   setDirect,
   setReset,
-  necName,
-  setNecName,
-  dotNec,
-  ndns,
+  knsName,
+  setOsName,
+  dotOs,
+  kns,
   openConnect,
   closeConnect,
   setNetworkingKey,
@@ -45,7 +45,7 @@ function Reset({
   const provider = useProvider();
   const navigate = useNavigate();
 
-  const [name, setName] = useState<string>(necName.slice(0, -3));
+  const [name, setName] = useState<string>(knsName.slice(0, -3));
   const [nameVets, setNameVets] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>('');
 
@@ -77,7 +77,7 @@ function Reset({
       let normalized: string
       index = vets.indexOf(NAME_INVALID_PUNY)
       try {
-        normalized = toAscii(name + ".nec")
+        normalized = toAscii(name + ".os")
         if (index !== -1) vets.splice(index, 1)
       } catch (e) {
         if (index === -1) vets.push(NAME_INVALID_PUNY)
@@ -93,7 +93,7 @@ function Reset({
 
         try {
 
-          const owner = await dotNec.ownerOf(hash(normalized))
+          const owner = await dotOs.ownerOf(hash(normalized))
 
           index = vets.indexOf(NAME_NOT_OWNER)
           if (owner === accounts![0] && index !== -1)
@@ -112,7 +112,7 @@ function Reset({
         }
 
         if (nameVets.length === 0)
-          setNecName(normalized)
+          setOsName(normalized)
 
       }
 
@@ -143,11 +143,11 @@ function Reset({
 
       const data = [
         direct
-          ? (await ndns.populateTransaction.setAllIp
-            (namehash(necName), ipAddress, port, 0, 0, 0)).data!
-          : (await ndns.populateTransaction.setRouters
-            (namehash(necName), allowed_routers.map(x => namehash(x)))).data!,
-        (await ndns.populateTransaction.setKey(namehash(necName), networking_key)).data!,
+          ? (await kns.populateTransaction.setAllIp
+            (namehash(knsName), ipAddress, port, 0, 0, 0)).data!
+          : (await kns.populateTransaction.setRouters
+            (namehash(knsName), allowed_routers.map(x => namehash(x)))).data!,
+        (await kns.populateTransaction.setKey(namehash(knsName), networking_key)).data!,
       ];
 
       try {
@@ -157,7 +157,7 @@ function Reset({
         throw new Error('Sepolia not set')
       }
 
-      const tx = await ndns.multicall(data)
+      const tx = await kns.multicall(data)
 
       setLoading("Resetting Networking Information...");
 
@@ -171,18 +171,18 @@ function Reset({
       setLoading('');
       alert('An error occurred, please try again.')
     }
-  }, [provider, necName, setReset, setDirect, navigate, openConnect, ndns, direct, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
+  }, [provider, knsName, setReset, setDirect, navigate, openConnect, kns, direct, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId])
 
   return (
     <>
-      <NecHeader msg="Reset Nectar Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Reset Kinode Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleResetRecords}>
         {loading ? <Loader msg={loading} /> : <>
           <div className="login-row row">
-            Enter .nec Name
+            Enter .os Name
             <div className="tooltip-container">
               <div className="tooltip-button">&#8505;</div>
-              <div className="tooltip-content">Nectar nodes use a .nec name in order to identify themselves to other nodes in the network</div>
+              <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
             </div>
           </div>
 
@@ -197,7 +197,7 @@ function Reset({
                 placeholder="e.g. myname"
                 style={{ width: '100%', marginRight: 8, }}
               />
-              .nec
+              .os
             </div>
             {nameVets.map((x, i) => <span key={i} className="name-err">{x}</span>)}
           </div>

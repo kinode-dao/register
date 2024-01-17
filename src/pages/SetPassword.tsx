@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
-import NecHeader from "../components/NecHeader"
+import OsHeader from "../components/KnsHeader"
 import Loader from "../components/Loader";
 import { downloadKeyfile } from "../utils/download-keyfile";
 
@@ -7,14 +7,14 @@ type SetPasswordProps = {
   direct: boolean
   pw: string,
   reset: boolean,
-  necName: string,
+  knsName: string,
   setPw: React.Dispatch<React.SetStateAction<string>>,
   appSizeOnLoad: number,
   nodeChainId: string,
   closeConnect: () => void
 }
 
-function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect, nodeChainId }: SetPasswordProps) {
+function SetPassword({ knsName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect, nodeChainId }: SetPasswordProps) {
   const [pw2, setPw2] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,14 +46,14 @@ function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeCo
           body: JSON.stringify({
             password: pw,
             reset,
-            username: necName,
+            username: knsName,
             direct,
           })
         })
 
         const base64String = await result.json()
 
-        downloadKeyfile(necName, base64String)
+        downloadKeyfile(knsName, base64String)
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
@@ -67,11 +67,11 @@ function SetPassword({ necName, direct, pw, reset, setPw, appSizeOnLoad, closeCo
         setLoading(false);
       }
     }, 500)
-  }, [appSizeOnLoad, direct, pw, pw2, reset, necName]);
+  }, [appSizeOnLoad, direct, pw, pw2, reset, knsName]);
 
   return (
     <>
-      <NecHeader msg="Set Nectar Node Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Set Kinode Node Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (

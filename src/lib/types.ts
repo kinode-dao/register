@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { NDNSRegistryResolver, DotNecRegistrar } from "../abis/types";
+import { KNSRegistryResolver, DotOsRegistrar } from "../abis/types";
 
 export interface PageProps {
   networkingKey: string,
@@ -12,8 +12,8 @@ export interface PageProps {
   setRouters: React.Dispatch<React.SetStateAction<string[]>>,
   direct: boolean,
   setDirect: React.Dispatch<React.SetStateAction<boolean>>,
-  necName: string,
-  setNecName: React.Dispatch<React.SetStateAction<string>>,
+  knsName: string,
+  setOsName: React.Dispatch<React.SetStateAction<string>>,
 
   key: string,
   keyFileName: string,
@@ -22,8 +22,8 @@ export interface PageProps {
   setReset: React.Dispatch<React.SetStateAction<boolean>>,
   pw: string,
   setPw: React.Dispatch<React.SetStateAction<string>>,
-  dotNec: DotNecRegistrar,
-  ndns: NDNSRegistryResolver,
+  dotOs: DotOsRegistrar,
+  kns: KNSRegistryResolver,
   connectOpen: boolean,
   openConnect: () => void,
   closeConnect: () => void,

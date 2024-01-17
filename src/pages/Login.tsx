@@ -2,7 +2,7 @@ import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import { namehash } from "ethers/lib/utils";
 import { BytesLike } from "ethers";
 
-import NecHeader from "../components/NecHeader";
+import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps, UnencryptedIdentity } from "../lib/types";
 import Loader from "../components/Loader";
 import { hooks } from "../connectors/metamask";
@@ -11,21 +11,21 @@ import { downloadKeyfile } from "../utils/download-keyfile";
 
 const { useProvider } = hooks;
 
-interface LoginProps extends PageProps {}
+interface LoginProps extends PageProps { }
 
 function Login({
   direct,
   setDirect,
   pw,
   setPw,
-  ndns,
+  kns,
   openConnect,
   appSizeOnLoad,
   closeConnect,
   routers,
   setRouters,
-  necName,
-  setNecName,
+  knsName,
+  setOsName,
   nodeChainId,
 }: LoginProps) {
   const provider = useProvider();
@@ -45,8 +45,8 @@ function Login({
           res.json()
         )) as UnencryptedIdentity;
         setRouters(infoData.allowed_routers);
-        setNecName(infoData.name);
-      } catch {}
+        setOsName(infoData.name);
+      } catch { }
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -95,24 +95,24 @@ function Login({
           const data: BytesLike[] = [
             direct
               ? (
-                  await ndns.populateTransaction.setAllIp(
-                    namehash(necName),
-                    ipAddress,
-                    port,
-                    0,
-                    0,
-                    0
-                  )
-                ).data!
+                await kns.populateTransaction.setAllIp(
+                  namehash(knsName),
+                  ipAddress,
+                  port,
+                  0,
+                  0,
+                  0
+                )
+              ).data!
               : (
-                  await ndns.populateTransaction.setRouters(
-                    namehash(necName),
-                    allowed_routers.map((x) => namehash(x))
-                  )
-                ).data!,
+                await kns.populateTransaction.setRouters(
+                  namehash(knsName),
+                  allowed_routers.map((x) => namehash(x))
+                )
+              ).data!,
             (
-              await ndns.populateTransaction.setKey(
-                namehash(necName),
+              await kns.populateTransaction.setKey(
+                namehash(knsName),
                 networking_key
               )
             ).data!,
@@ -120,7 +120,7 @@ function Login({
 
           setLoading("Please confirm the transaction");
 
-          const tx = await ndns.multicall(data);
+          const tx = await kns.multicall(data);
 
           setLoading("Resetting Networking Information...");
 
@@ -147,7 +147,7 @@ function Login({
 
         if (reset) {
           const base64String = await result.json();
-          downloadKeyfile(necName, base64String);
+          downloadKeyfile(knsName, base64String);
         }
 
         const interval = setInterval(async () => {
@@ -169,15 +169,15 @@ function Login({
         setLoading("");
       }
     },
-    [pw, appSizeOnLoad, reset, direct, necName, provider, openConnect, ndns]
+    [pw, appSizeOnLoad, reset, direct, knsName, provider, openConnect, kns]
   );
 
   const isDirect = Boolean(routers?.length === 0);
 
   return (
     <>
-      <NecHeader
-        msg="Login to Nectar"
+      <OsHeader
+        msg="Login to Kinode"
         openConnect={openConnect}
         closeConnect={closeConnect}
         hideConnect={!showReset}
@@ -189,7 +189,7 @@ function Login({
         <form id="signup-form" className="col" onSubmit={handleLogin}>
           <div className="login-row col" style={{ marginLeft: "0.4em" }}>
             {" "}
-            Login as {necName}{" "}
+            Login as {knsName}{" "}
           </div>
           <div className="login-row row" style={{ marginTop: "1em" }}>
             {" "}
