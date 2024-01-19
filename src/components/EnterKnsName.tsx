@@ -100,7 +100,7 @@ function EnterOsName({
           name="dot-os-name"
           placeholder="e.g. myname"
         />
-        <div className="nec">.os</div>
+        <div className="os">.os</div>
       </div>
       {nameValidities.map((x, i) => <div key={i}><br /><span className="name-validity">{x}</span></div>)}
     </div>

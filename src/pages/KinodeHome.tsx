@@ -29,18 +29,18 @@ function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: O
     return (
         <>
             <OsHeader msg="Welcome to Kinode" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
-            <div style={{ maxWidth: 'calc(100vw - 32px)', width: 420 }}>
+            <div style={{ maxWidth: 'calc(100vw - 32px)', width: 460 }}>
                 {previouslyBooted ? (
                     <button onClick={loginRedir}> Login </button>
                 ) : (
                     <>
-                        {!hasNetwork && <h4 style={{ marginBottom: '0.5em', fontSize: '0.8em' }}>
+                        {!hasNetwork && <h3 style={{ marginBottom: '0.5em', fontSize: '0.8em' }}>
                             You must install a Web3 wallet extension like Metamask in order to register or reset a username.
-                        </h4>}
-                        {hasNetwork && <h4 style={{ marginBottom: '0.5em' }}>New here? Register a username to get started</h4>}
+                        </h3>}
+                        {hasNetwork && <h3 style={{ margin: '0 0 0.5em' }}>New here? Register a username to get started</h3>}
                         <button disabled={!hasNetwork} onClick={registerRedir}> Register Kinode Name </button>
                         <br />
-                        <h4 style={{ marginBottom: '0.5em' }}>Other options</h4>
+                        <h3 style={{ marginBottom: '0.5em' }}>Other options</h3>
                         <button disabled={!hasNetwork} onClick={inviteRedir}> Claim Kinode Invite </button>
                         <button disabled={!hasNetwork} onClick={resetRedir}> Reset Kinode Name </button>
                         <button onClick={importKeyfileRedir}> Import Keyfile </button>

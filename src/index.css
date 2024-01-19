@@ -1,33 +1,26 @@
 :root {
-  --nec-vlightpurple: #d9dcfc;
-  --nec-lightpurple: #c7cafa;
-  --nec-purple: #727bf2;
-  --nec-darkpurple: #5761ef;
-  --midnightpurp: #0a1170;
-  --forgottenpurp: #45475e;
-  --nec-lightpink: #f3ced2;
-  --nec-pink: #dd7c8a;
-  --nec-darkpink: #cd3c52;
-  --blush: #d55d6f;
-  --celeste: #adebe5;
-  --lturq: #6bdbd0;
-  --turq: #3acfc0;
-  --celadon: #21897e;
-  --deep-jungle: #14524c;
-  --old-mint: #659792;
-  --washed-gray: rgba(0, 0, 0, 0.03);
-  --light-gray: rgb(203, 203, 203);
-  --medium-gray: rgb(101, 101, 101);
-  --dark-gray: rgba(0, 0, 0, 0.5);
-  --charcoal: #333;
+  --k-red: #a30101;
+  --k-darkred: #4d0c0c;
+  --k-lightred: #dd0207;
+  --k-petal: #e94f33;
+  --k-lightpetal: #f0907f;
+  --k-yellow: #e6b95e;
+  --k-beige: #e5c4a1;
+  --k-green: #0f6f4c;
+  --k-darkgreen: #29322f;
+  --k-lightgreen: #a0a271;
+  --k-mediumgreen: #424031;
+  --k-black: #281b13;
+
+  --medium-gray: rgb(101,101,101);
 }
 
 body {
   margin: 0;
   padding: 0;
   font-size: 16px;
-  font-family: "Press Start 2P";
-  background-color: #027;
+  font-family: Montserrat, sans-serif;
+  background-color: var(--k-green);
   color: white;
 }
 
@@ -67,27 +60,28 @@ button {
   width: 100%;
   padding: 0.75em 1em;
   margin-bottom: 0.5em;
-  border: 1px solid var(--nec-pink);
+  border: 1px solid var(--k-yellow);
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: var(--nec-pink);
+  background-color: var(--k-yellow);
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.125em;
   transition: all 0.1s;
-  box-shadow: 0 1px 2px var(--nec-darkpink);
-  font-family: "Press Start 2P";
-  color: white;
+  box-shadow: 0 1px 2px var(--k-beige);
+  color: black;
   margin-top: 1em;
 }
 
 button:hover {
-  background-color: var(--nec-darkpink);
-  border: 1px solid var(--nec-darkpink);
+  background-color: var(--k-beige);
+  border: 1px solid var(--k-beige);
 }
 
 button:disabled {
   background-color: var(--medium-gray);
   border: 1px solid var(--medium-gray);
+  box-shadow: 0 1px 2px var(--medium-gray);
+  color: white;
   cursor: not-allowed;
 }
 
@@ -136,6 +130,7 @@ label {
   font-size: 16px;
   line-height: 0.5em;
   margin-left: 0.5em;
+  padding: 4px 2px 0;
 }
 
 .tooltip-content {
@@ -261,10 +256,10 @@ label {
 }
 /*
 .connect-modal {
-  font-family: "Press Start 2P";
-  background-color: var(--nec-lightpurple);
-  background: var(--nec-lightpurple);
-  border: 1px solid var(--nec-pink);
+  font-family: "Montserrat, sans-serif";
+  background-color: var(--k-yellow);
+  background: var(--k-yellow);
+  border: 1px solid var(--k-yellow);
   border-radius: 4px;
   padding: 1em;
   box-sizing: border-box;
@@ -319,15 +314,15 @@ label {
 }
 
 .more-info-direct:hover {
-  color: var(--nec-darkpink);
+  color: var(--k-beige);
 }
 
 a {
-  color: var(--nec-pink);
+  color: var(--k-yellow);
 }
 
 a:hover {
-  color: var(--nec-darkpink);
+  color: var(--k-beige);
 }
 
 .reset-networking {
@@ -340,7 +335,7 @@ a:hover {
 }
 
 .reset-networking:hover {
-  color: var(--nec-darkpink);
+  color: var(--k-beige);
 }
 
 .name-err {
@@ -354,7 +349,7 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   background-color: white;
-  color: var(--nec-pink);
+  color: var(--k-yellow);
   padding: 0.4em 0.25em;
   display: flex;
   flex-direction: row;
@@ -365,8 +360,8 @@ a:hover {
 }
 
 .chain-button:hover {
-  background-color: var(--nec-lightpurple);
-  color: var(--nec-darkpink);
+  background-color: var(--k-yellow);
+  color: white;
 }
 
 .chain-button.monospace {
@@ -377,4 +372,8 @@ a:hover {
   width: 1.5em;
   height: 1.5em;
   margin-right: 0.5em;
+}
+
+.os {
+  margin-left: 0.2em;
 }

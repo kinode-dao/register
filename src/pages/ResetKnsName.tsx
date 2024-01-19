@@ -179,13 +179,13 @@ function Reset({
       <OsHeader msg="Reset Kinode Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleResetRecords}>
         {loading ? <Loader msg={loading} /> : <>
-          <div className="login-row row">
+          <h3 className="login-row row">
             Enter .os Name
             <div className="tooltip-container">
               <div className="tooltip-button">&#8505;</div>
-              <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
+              <div className="tooltip-content" style={{ fontSize: 16 }}>Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
             </div>
-          </div>
+          </h3>
 
           <div className="col" style={{ width: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginBottom: '0.5em' }}>

@@ -179,7 +179,7 @@ function ImportKeyfile({
         <Loader msg="Setting up node..." />
       ) : (
         <form id="signup-form" className="col" onSubmit={handleImportKeyfile}>
-          <div className="login-row row"> 1. Upload Keyfile </div>
+          <h3 className="login-row row" style={{ marginBottom: '-0.5em' }}> 1. Upload Keyfile </h3>
 
           <div
             style={{
@@ -204,7 +204,7 @@ function ImportKeyfile({
             />
           </div>
 
-          <div className="login-row row" style={{ marginTop: '1em' }}> 2. Enter Password </div>
+          <h3 className="login-row row" style={{ marginTop: '1em' }}> 2. Enter Password </h3>
 
           <input
             style={{ width: '100%' }}
