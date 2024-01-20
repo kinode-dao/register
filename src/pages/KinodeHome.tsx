@@ -34,7 +34,7 @@ function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: O
                     <button onClick={loginRedir}> Login </button>
                 ) : (
                     <>
-                        {!hasNetwork && <h3 style={{ marginBottom: '0.5em', fontSize: '0.8em' }}>
+                        {!hasNetwork && <h3 style={{ marginBottom: '0.5em' }}>
                             You must install a Web3 wallet extension like Metamask in order to register or reset a username.
                         </h3>}
                         {hasNetwork && <h3 style={{ margin: '0 0 0.5em' }}>New here? Register a username to get started</h3>}

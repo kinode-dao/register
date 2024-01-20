@@ -162,10 +162,10 @@ function ClaimOsInvite({ direct, setDirect, setOsName, dotOs, openConnect, setNe
           isLoading ? <Loader msg={loaderMsg} /> :
             <>
               <div className="row">
-                <h3>Set up your Kinode node with a .os name</h3>
+                <h3>Set up your Kinode with a .os name</h3>
                 <div className="tooltip-container">
                   <div className="tooltip-button">&#8505;</div>
-                  <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
+                  <div className="tooltip-content">Kinodes use a .os name in order to identify themselves to other nodes in the network</div>
                 </div>
               </div>
 

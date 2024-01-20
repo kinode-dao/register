@@ -108,17 +108,17 @@ function RegisterOsName({
 
   return (
     <>
-      <OsHeader msg="Register Kinode Node" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Register Kinode Name" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />
         ) : (
           <>
             <div className="login-row row" style={{ marginBottom: '1em', lineHeight: 1.5 }}>
-              Set up your Kinode node with a .os name
+              Set up your Kinode with a .os name
               <div className="tooltip-container" style={{ marginTop: -4 }}>
                 <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Kinode nodes use a .os name in order to identify themselves to other nodes in the network</div>
+                <div className="tooltip-content">Kinodes use a .os name in order to identify themselves to other nodes in the network</div>
               </div>
             </div>
             <EnterOsName {...enterOsNameProps} />

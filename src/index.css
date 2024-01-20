@@ -102,7 +102,6 @@ button:disabled {
 }
 
 label {
-  font-size: 0.8em;
 }
 
 .login-row {
@@ -133,6 +132,21 @@ label {
   padding: 4px 2px 0;
 }
 
+.tooltip-button.chain {
+  border: 2px solid white;
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0;
+  padding: 0;
+  margin-left: 1em;
+}
+
+.tooltip-button.chain img {
+  width: 100%;
+  height: 100%;
+}
+
 .tooltip-content {
   visibility: hidden;
   background-color: #555;
@@ -147,9 +161,10 @@ label {
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
-  font-family: sans-serif;
   line-height: 1.5em;
   min-width: 200px;
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .tooltip-content::after {
@@ -166,6 +181,10 @@ label {
 .tooltip-container:hover .tooltip-content {
   visibility: visible;
   opacity: 1;
+}
+
+.sepolia {
+  filter: grayscale(100%);
 }
 
 #signup-form {
@@ -330,8 +349,7 @@ a:hover {
   cursor: pointer;
   text-decoration: underline;
   width: 100%;
-  font-size: 0.8em;
-  margin-left: 1em;
+  margin-left: 0.5em;
 }
 
 .reset-networking:hover {
@@ -340,7 +358,6 @@ a:hover {
 
 .name-err {
   color: red;
-  font-size: 0.8em;
   line-height: 1.5em;
   margin-bottom: 1em;
 }

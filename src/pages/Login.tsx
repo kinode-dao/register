@@ -187,10 +187,10 @@ function Login({
         <Loader msg={loading} />
       ) : (
         <form id="signup-form" className="col" onSubmit={handleLogin}>
-          <div className="login-row col" style={{ marginLeft: "0.4em" }}>
+          <h3 className="login-row col" style={{ marginLeft: "0.4em" }}>
             {" "}
             Login as {knsName}{" "}
-          </div>
+          </h3>
           <div className="login-row row" style={{ marginTop: "1em" }}>
             {" "}
             Enter Password{" "}
@@ -223,8 +223,7 @@ function Login({
             <div
               className="login-row col"
               style={{
-                marginLeft: "0.4em",
-                fontSize: "0.8em",
+                marginLeft: "0.2em",
                 lineHeight: 1.5,
               }}
             >

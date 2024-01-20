@@ -71,7 +71,7 @@ function SetPassword({ knsName, direct, pw, reset, setPw, appSizeOnLoad, closeCo
 
   return (
     <>
-      <OsHeader msg="Set Kinode Node Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader msg="Set Kinode Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (

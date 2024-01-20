@@ -4,8 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import Loader from "./Loader";
 import { getNetworkName, setChain } from "../utils/chain";
 import ChainInfo from "./ChainInfo";
-import { SEPOLIA_OPT_HEX } from "../constants/chainId";
+import { OPTIMISM_OPT_HEX, SEPOLIA_OPT_HEX } from "../constants/chainId";
 import kinode_logo from '../assets/kinode-logo.png';
+import sepoliaLogo from '../assets/sepolia.png';
+import optimismLogo from '../assets/optimism.png';
 
 const { useIsActivating, useChainId } = hooks;
 
@@ -64,8 +66,31 @@ function OsHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = f
         <>
             <div id="signup-form-header" className="col" >
                 <h1 className="row" style={{ display: 'flex', flexDirection: 'row' }}>
-                    <img alt="icon" style={{ margin: "0 1em 0.2em 0", height: 60, width: 60 }} src={kinode_logo} />
+                    <img alt="icon" style={{ margin: "0 0.5em 0.2em 0", height: 60, width: 60 }} src={kinode_logo} />
                     {msg}
+                    {(nodeChainId === SEPOLIA_OPT_HEX || nodeChainId === OPTIMISM_OPT_HEX) && (
+                        <div className="tooltip-container">
+                            <div className="tooltip-button chain">
+                                {nodeChainId === SEPOLIA_OPT_HEX ? (
+                                    <img alt="sepolia" src={sepoliaLogo} className="sepolia" />
+                                ) : nodeChainId === OPTIMISM_OPT_HEX ? (
+                                    <img alt="optimism" src={optimismLogo} />
+                                ) : null}
+                            </div>
+                            <div className="tooltip-content">
+                                {nodeChainId === SEPOLIA_OPT_HEX ? (
+                                    <div style={{ textAlign: 'center', lineHeight: '1.5em', maxWidth: 450 }}>
+                                        Your Kinode is currently pointed at Sepolia. To point at Optimism, boot without the "--testnet" flag.
+                                    </div>
+                                ) : nodeChainId === OPTIMISM_OPT_HEX ? (
+                                    <div style={{ textAlign: 'center', lineHeight: '1.5em', maxWidth: 450 }}>
+                                        Your Kinode is currently pointed at Optimism. To point at Sepolia, boot with the "--testnet" flag.
+                                    </div>
+                                ) : null}
+                            </div>
+                        </div>
+                    )}
+
                 </h1>
                 {!hideConnect && <div style={{ minWidth: '50vw', width: 400, justifyContent: 'center', display: 'flex', }}>
                     {isActive && account
@@ -85,7 +110,7 @@ function OsHeader({ msg, openConnect, closeConnect, nodeChainId, hideConnect = f
                                 ) : (
                                     <button onClick={connectWallet}> Connect Wallet </button>
                                 )}
-                                {nodeChainId === SEPOLIA_OPT_HEX && <div style={{ textAlign: 'center', lineHeight: '1.5em', fontSize: '0.8em', marginTop: '2em' }}>
+                                {nodeChainId === SEPOLIA_OPT_HEX && <div style={{ textAlign: 'center', lineHeight: '1.5em', marginTop: '2em', maxWidth: 450 }}>
                                     Kinode is currently on the Sepolia Testnet, if you need testnet ETH, you can get some from the <a href="https://sepoliafaucet.com/" target="_blank" rel="noreferrer">Sepolia Faucet</a>
                                 </div>}
                             </div>
