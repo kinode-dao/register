@@ -59,7 +59,8 @@ export const getNetworkName = (networkId: string) => {
 };
 
 export const setChain = async (chainId: string) => {
-  const networkId = '0x' + (await (window.ethereum as any)?.request({ method: 'net_version' }).catch(() => '1')).replace(/^0x/, '')
+  let networkId = await (window.ethereum as any)?.request({ method: 'net_version' }).catch(() => '1')
+  networkId = '0x' + (typeof networkId === 'string' ? networkId.replace(/^0x/, '') : networkId.toString(16))
 
   if (!CHAIN_DETAILS[chainId]) {
     console.error(`Invalid chain ID: ${chainId}`)
@@ -79,6 +80,7 @@ export const setChain = async (chainId: string) => {
           params: [CHAIN_DETAILS[chainId]]
         })
       } else {
+        window.alert(`You must enable the ${getNetworkName(chainId)} network in your wallet.`)
         throw new Error(`User cancelled connection to ${chainId}`)
       }
     }
