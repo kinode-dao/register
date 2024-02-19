@@ -152,7 +152,7 @@ function Login({
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
-          if (Number(res.headers.get("content-length")) !== appSizeOnLoad) {
+          if (res.status < 300  && Number(res.headers.get("content-length")) !== appSizeOnLoad) {
             clearInterval(interval);
             window.location.replace("/");
           }
