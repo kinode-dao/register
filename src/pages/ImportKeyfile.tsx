@@ -1,7 +1,7 @@
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { namehash } from "ethers/lib/utils";
-import UqHeader from "../components/UqHeader";
+import OsHeader from "../components/KnsHeader";
 import { PageProps } from "../lib/types";
 import Loader from "../components/Loader";
 
@@ -15,15 +15,16 @@ interface ImportKeyfileProps extends PageProps {
 function ImportKeyfile({
   direct,
   pw,
-  uqName,
+  knsName,
   setDirect,
   setPw,
-  setUqName,
-  qns,
+  setOsName,
+  kns,
   openConnect,
   appSizeOnLoad,
   ipAddress,
   closeConnect,
+  nodeChainId,
 }: ImportKeyfileProps) {
   const navigate = useNavigate();
 
@@ -53,13 +54,13 @@ function ImportKeyfile({
 
   //     const data = await response.json();
 
-  //     setUqName(data.username);
+  //     setOsName(data.username);
 
   //     setPwVet(true);
 
   //     const errs = [...keyErrs];
 
-  //     const ws = await qns.ws(namehash(data.username));
+  //     const ws = await kns.ws(namehash(data.username));
 
   //     let index = errs.indexOf(KEY_WRONG_NET_KEY);
   //     if (ws.publicKey !== data.networking_key) {
@@ -80,7 +81,7 @@ function ImportKeyfile({
   //     setPwVet(false);
   //   }
   //   setPwDebounced(true);
-  // }, [localKey, pw, keyErrs, ipAddress, qns, setUqName, setDirect]);
+  // }, [localKey, pw, keyErrs, ipAddress, kns, setOsName, setDirect]);
 
   // const pwDebouncer = useRef<NodeJS.Timeout | null>(null);
   // useEffect(() => {
@@ -159,7 +160,7 @@ function ImportKeyfile({
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
-          if (Number(res.headers.get('content-length')) !== appSizeOnLoad) {
+          if (res.status < 300 && Number(res.headers.get('content-length')) !== appSizeOnLoad) {
             clearInterval(interval);
             window.location.replace("/");
           }
@@ -173,12 +174,12 @@ function ImportKeyfile({
 
   return (
     <>
-      <UqHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect />
+      <OsHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
         <form id="signup-form" className="col" onSubmit={handleImportKeyfile}>
-          <div className="login-row row"> 1. Upload Keyfile </div>
+          <h3 className="login-row row" style={{ marginBottom: '-0.5em' }}> 1. Upload Keyfile </h3>
 
           <div
             style={{
@@ -203,7 +204,7 @@ function ImportKeyfile({
             />
           </div>
 
-          <div className="login-row row" style={{ marginTop: '1em' }}> 2. Enter Password </div>
+          <h3 className="login-row row" style={{ marginTop: '1em' }}> 2. Enter Password </h3>
 
           <input
             style={{ width: '100%' }}
@@ -240,7 +241,7 @@ function ImportKeyfile({
           </div>
           <p style={{ lineHeight: '1.25em', fontFamily: 'Helvetica' }}>
             Please note: if the original node was booted as a direct node (static IP), then you must run this node from the same IP.
-            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset UqName".
+            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset OsName".
           </p>
         </form>
       )}

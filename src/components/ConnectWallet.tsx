@@ -18,14 +18,14 @@ export default function ConnectWallet({ connectOpen, closeConnect }: ConnectWall
 
   const connect = useCallback(async () => {
     closeConnect()
-    await metaMask.activate().catch(() => {})
+    await metaMask.activate().catch(() => { })
 
     try {
       const networkId = String(await (window.ethereum as any)?.request({ method: 'net_version' }).catch(() => '0x1'))
 
       if (networkId !== SEPOLIA_OPT_HEX && networkId !== SEPOLIA_OPT_INT) {
         const SEPOLIA_DETAILS = {
-          chainId: '0xaa36a7', // Replace with the correct chainId for Sepolia
+          chainId: '0xaa36a7',
           chainName: 'Sepolia Test Network',
           nativeCurrency: {
             name: 'Ethereum',

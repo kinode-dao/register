@@ -3,27 +3,25 @@ import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
 import { toDNSWireFormat } from "../utils/dnsWire";
 import { BytesLike, utils } from 'ethers';
-import EnterUqName from "../components/EnterUqName";
+import EnterOsName from "../components/EnterKnsName";
 import Loader from "../components/Loader";
-import UqHeader from "../components/UqHeader";
+import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
-import { setSepolia } from "../utils/chain";
+import { getNetworkName, setChain } from "../utils/chain";
 
 const {
   useAccounts,
 } = hooks;
 
-interface RegisterUqNameProps extends PageProps {
+interface RegisterOsNameProps extends PageProps {}
 
-}
-
-function RegisterUqName({
+function RegisterOsName({
   direct,
   setDirect,
-  setUqName,
-  dotUq,
-  qns,
+  setOsName,
+  dotOs,
+  kns,
   openConnect,
   provider,
   closeConnect,
@@ -31,9 +29,11 @@ function RegisterUqName({
   setIpAddress,
   setPort,
   setRouters,
-}: RegisterUqNameProps) {
+  nodeChainId,
+}: RegisterOsNameProps) {
   let accounts = useAccounts();
   let navigate = useNavigate();
+  const chainName = getNetworkName(nodeChainId);
   const [loading, setLoading] = useState('');
 
   const [name, setName] = useState('')
@@ -47,7 +47,7 @@ function RegisterUqName({
 
   useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const enterUqNameProps = { name, setName, nameValidities, setNameValidities, dotUq, triggerNameCheck }
+  const enterOsNameProps = { name, setName, nameValidities, setNameValidities, dotOs, triggerNameCheck }
 
   let handleRegister = useCallback(async (e: FormEvent) => {
     e.preventDefault()
@@ -70,59 +70,60 @@ function RegisterUqName({
 
       const data: BytesLike[] = [
         direct
-          ? ( await qns.populateTransaction.setAllIp
-              ( utils.namehash(`${name}.uq`), ipAddress, port, 0, 0 , 0) ).data!
-          : ( await qns.populateTransaction.setRouters
-              ( utils.namehash(`${name}.uq`), allowed_routers.map(x => utils.namehash(x)))).data!,
-        ( await qns.populateTransaction.setKey(utils.namehash(`${name}.uq`), networking_key)).data!
+          ? (await kns.populateTransaction.setAllIp
+            (utils.namehash(`${name}.os`), ipAddress, port, 0, 0, 0)).data!
+          : (await kns.populateTransaction.setRouters
+            (utils.namehash(`${name}.os`), allowed_routers.map(x => utils.namehash(x)))).data!,
+        (await kns.populateTransaction.setKey(utils.namehash(`${name}.os`), networking_key)).data!
       ]
 
       setLoading('Please confirm the transaction in your wallet');
 
       try {
-        await setSepolia();
+        await setChain(nodeChainId);
       } catch (error) {
-        window.alert("You must connect to the Sepolia network to continue. Please connect and try again.");
-        throw new Error('Sepolia not set')
+        window.alert(`You must connect to the ${chainName} network to continue. Please connect and try again.`);
+        throw new Error(`${chainName} not set`)
       }
 
-      const dnsFormat = toDNSWireFormat(`${name}.uq`);
-      const tx = await dotUq.register(
+      const dnsFormat = toDNSWireFormat(`${name}.os`);
+      const tx = await dotOs.register(
         dnsFormat,
         accounts![0],
         data
       )
 
-      setLoading('Registering QNS ID...');
+      setLoading('Registering KNS ID...');
 
       await tx.wait();
       setLoading('');
-      setUqName(`${name}.uq`);
+      setOsName(`${name}.os`);
       navigate("/set-password");
-    } catch {
+    } catch (error) {
+      console.error('Registration Error:', error)
       setLoading('');
-      alert('There was an error registering your uq-name, please try again.')
+      alert('There was an error registering your dot-os-name, please try again.')
     }
-  }, [name, direct, accounts, dotUq, qns, navigate, setUqName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters])
+  }, [name, direct, accounts, dotOs, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId, chainName])
 
   return (
     <>
-      <UqHeader msg="Register Uqbar Node" openConnect={openConnect} closeConnect={closeConnect} />
+      <OsHeader msg="Register Kinode Name" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />
         ) : (
           <>
             <div className="login-row row" style={{ marginBottom: '1em', lineHeight: 1.5 }}>
-              Set up your Uqbar node with a .uq name
+              Set up your Kinode with a .os name
               <div className="tooltip-container" style={{ marginTop: -4 }}>
                 <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Uqbar nodes use a .uq name in order to identify themselves to other nodes in the network</div>
+                <div className="tooltip-content">Kinodes use a .os name in order to identify themselves to other nodes in the network</div>
               </div>
             </div>
-            <EnterUqName { ...enterUqNameProps } />
+            <EnterOsName {...enterOsNameProps} />
             <div className="row" style={{ marginTop: '1em' }}>
-              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus/>
+              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus />
               <label htmlFor="direct" className="direct-node-message">
                 Register as a direct node. If you are unsure leave unchecked.
 
@@ -135,9 +136,9 @@ function RegisterUqName({
               </label>
             </div>
             <button disabled={nameValidities.length !== 0} type="submit">
-              Register Uqname
+              Register .os name
             </button>
-            <Link to="/reset" style={{ color:"white", marginTop: '1em' }}>already have an uq-name?</Link>
+            <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an dot-os-name?</Link>
           </>
         )}
       </form>}
@@ -145,4 +146,4 @@ function RegisterUqName({
   )
 }
 
-export default RegisterUqName;
+export default RegisterOsName;

@@ -6,7 +6,7 @@ import arbitrumLogo from '../assets/arbitrum.png';
 import unknownLogo from '../assets/unknown.png';
 import Jazzicon from "./Jazzicon";
 import { hooks } from "../connectors/metamask";
-import { QNS_REGISTRY_ADDRESSES } from '../constants/addresses';
+import { KNS_REGISTRY_ADDRESSES } from '../constants/addresses';
 
 const { useChainId } = hooks;
 
@@ -14,14 +14,14 @@ interface ChainInfoProps {
   account: string;
   networkName: string;
   changeConnectedAccount: () => void;
-  changeToSepolia: () => void;
+  changeToNodeChain: () => void;
 }
 
 function ChainInfo({
   account,
   networkName,
   changeConnectedAccount,
-  changeToSepolia,
+  changeToNodeChain,
 }: ChainInfoProps) {
   const chainId = useChainId();
 
@@ -64,8 +64,8 @@ function ChainInfo({
     }
   };
 
-  const showQnsAddress = useCallback(() => {
-    window.alert(`The QNS Contract Address is: ${QNS_REGISTRY_ADDRESSES[chainId || ''] || 'unavailable on ' + networkName}`)
+  const showKnsAddress = useCallback(() => {
+    window.alert(`The KNS Contract Address is: ${KNS_REGISTRY_ADDRESSES[chainId || ''] || 'unavailable on ' + networkName}`)
   }, [chainId, networkName])
 
   return (
@@ -83,15 +83,15 @@ function ChainInfo({
         {formatAddress(account || "")}
       </button>
       <button
-        onClick={changeToSepolia}
+        onClick={changeToNodeChain}
         className="chain-button"
         style={{ maxWidth: "27%" }}
       >
         {generateNetworkIcon(networkName)} {networkName}
       </button>
-      {/* TODO: show QNS contract ID in modal */}
-      <button onClick={showQnsAddress} className="chain-button" style={{ maxWidth: "27%" }}>
-        QNS Contract
+      {/* TODO: show KNS contract ID in modal */}
+      <button onClick={showKnsAddress} className="chain-button" style={{ maxWidth: "27%" }}>
+        KNS Contract
       </button>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
-import UqHeader from "../components/UqHeader"
+import OsHeader from "../components/KnsHeader"
 import Loader from "../components/Loader";
 import { downloadKeyfile } from "../utils/download-keyfile";
 
@@ -7,13 +7,14 @@ type SetPasswordProps = {
   direct: boolean
   pw: string,
   reset: boolean,
-  uqName: string,
+  knsName: string,
   setPw: React.Dispatch<React.SetStateAction<string>>,
-  appSizeOnLoad: number
+  appSizeOnLoad: number,
+  nodeChainId: string,
   closeConnect: () => void
 }
 
-function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect }: SetPasswordProps) {
+function SetPassword({ knsName, direct, pw, reset, setPw, appSizeOnLoad, closeConnect, nodeChainId }: SetPasswordProps) {
   const [pw2, setPw2] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,18 +46,19 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
           body: JSON.stringify({
             password: pw,
             reset,
-            username: uqName,
+            username: knsName,
             direct,
           })
         })
 
         const base64String = await result.json()
 
-        downloadKeyfile(uqName, base64String)
+        downloadKeyfile(knsName, base64String)
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
-          if (Number(res.headers.get('content-length')) !== appSizeOnLoad) {
+
+          if (res.status < 300 && Number(res.headers.get('content-length')) !== appSizeOnLoad) {
             clearInterval(interval);
             window.location.replace("/");
           }
@@ -66,11 +68,11 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
         setLoading(false);
       }
     }, 500)
-  }, [appSizeOnLoad, direct, pw, pw2, reset, uqName]);
+  }, [appSizeOnLoad, direct, pw, pw2, reset, knsName]);
 
   return (
     <>
-      <UqHeader msg="Set Uqbar Node Password" openConnect={()=>{}} closeConnect={closeConnect} />
+      <OsHeader msg="Set Kinode Password" openConnect={() => { }} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
@@ -107,7 +109,7 @@ function SetPassword({ uqName, direct, pw, reset, setPw, appSizeOnLoad, closeCon
             value={pw2}
             onChange={(e) => setPw2(e.target.value)}
           />
-          {Boolean(error) && <p style={{color: "red"}}>{error}</p>}
+          {Boolean(error) && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit">Submit</button>
         </form>
       )}
