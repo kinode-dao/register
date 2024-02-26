@@ -1,6 +1,11 @@
-import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
-import { namehash } from "ethers/lib/utils";
 import OsHeader from "../components/KnsHeader";
 import { PageProps } from "../lib/types";
 import Loader from "../components/Loader";
@@ -8,9 +13,7 @@ import Loader from "../components/Loader";
 const KEY_WRONG_NET_KEY = "Keyfile does not match public key";
 const KEY_WRONG_IP = "IP Address does not match records";
 
-interface ImportKeyfileProps extends PageProps {
-
-}
+interface ImportKeyfileProps extends PageProps {}
 
 function ImportKeyfile({
   direct,
@@ -32,14 +35,14 @@ function ImportKeyfile({
   const [localKeyFileName, setLocalKeyFileName] = useState<string>("");
   const [keyErrs, setKeyErrs] = useState<string[]>([]);
 
-  const [pwErr, setPwErr] = useState<string>('');
+  const [pwErr, setPwErr] = useState<string>("");
   const [pwVet, setPwVet] = useState<boolean>(false);
   const [pwDebounced, setPwDebounced] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = "Import Keyfile"
-  }, [])
+    document.title = "Import Keyfile";
+  }, []);
 
   // const handlePassword = useCallback(async () => {
   //   try {
@@ -100,7 +103,6 @@ function ImportKeyfile({
 
   // }, [pw])
 
-
   // for if we check router validity in future
   // const KEY_BAD_ROUTERS = "Routers from records are offline"
 
@@ -124,78 +126,95 @@ function ImportKeyfile({
     keyfileInputRef.current?.click();
   }, []);
 
-  const handleImportKeyfile = useCallback(async (e: FormEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleImportKeyfile = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    setLoading(true);
+      setLoading(true);
 
-    try {
-      if (keyErrs.length === 0 && localKey !== "") {
-        const response = await fetch("/vet-keyfile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            keyfile: localKey,
-            password: pw,
-          }),
-        });
+      try {
+        if (keyErrs.length === 0 && localKey !== "") {
+          const response = await fetch("/vet-keyfile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              keyfile: localKey,
+              password: pw,
+            }),
+          });
 
-        if (response.status > 399) {
-          throw new Error("Incorrect password");
-        }
-
-        const result = await fetch("/import-keyfile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            keyfile: localKey,
-            password: pw,
-          }),
-        });
-
-        if (result.status > 399) {
-          throw new Error("Incorrect password");
-        }
-
-        const interval = setInterval(async () => {
-          const res = await fetch("/");
-          if (res.status < 300 && Number(res.headers.get('content-length')) !== appSizeOnLoad) {
-            clearInterval(interval);
-            window.location.replace("/");
+          if (response.status > 399) {
+            throw new Error("Incorrect password");
           }
-        }, 2000);
+
+          const result = await fetch("/import-keyfile", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              keyfile: localKey,
+              password: pw,
+            }),
+          });
+
+          if (result.status > 399) {
+            throw new Error("Incorrect password");
+          }
+
+          const interval = setInterval(async () => {
+            const res = await fetch("/");
+            if (
+              res.status < 300 &&
+              Number(res.headers.get("content-length")) !== appSizeOnLoad
+            ) {
+              clearInterval(interval);
+              window.location.replace("/");
+            }
+          }, 2000);
+        }
+      } catch {
+        window.alert("An error occurred, please try again.");
+        setLoading(false);
       }
-    } catch {
-      window.alert('An error occurred, please try again.')
-      setLoading(false);
-    }
-  }, [localKey, pw, keyErrs, appSizeOnLoad]);
+    },
+    [localKey, pw, keyErrs, appSizeOnLoad]
+  );
 
   return (
     <>
-      <OsHeader msg="Import Keyfile" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
+      <OsHeader
+        header={<h3>Import Keyfile</h3>}
+        openConnect={openConnect}
+        closeConnect={closeConnect}
+        hideConnect
+        nodeChainId={nodeChainId}
+      />
       {loading ? (
         <Loader msg="Setting up node..." />
       ) : (
         <form id="signup-form" className="col" onSubmit={handleImportKeyfile}>
-          <h3 className="login-row row" style={{ marginBottom: '-0.5em' }}> 1. Upload Keyfile </h3>
-
           <div
             style={{
-              margin: ".5em 0",
-              alignSelf: 'flex-start',
+              alignSelf: "flex-start",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              width: '100%'
+              width: "100%",
             }}
           >
-            {Boolean(localKeyFileName) && <p style={{ textDecoration: 'underline' }}>
+            <h4 className="login-row row" style={{ marginBottom: "0.5em" }}>
               {" "}
-              {localKeyFileName ? localKeyFileName : ".keyfile"}{" "}
-            </p>}
-            <button type="button" onClick={handleKeyUploadClick}>{localKeyFileName ? "Change" : "Select"} Keyfile</button>
+              1. Upload Keyfile{" "}
+            </h4>
+            {Boolean(localKeyFileName) && (
+              <h5 style={{ textDecoration: "underline", marginBottom: "0.5em" }}>
+                {" "}
+                {localKeyFileName ? localKeyFileName : ".keyfile"}{" "}
+              </h5>
+            )}
+            <button type="button" onClick={handleKeyUploadClick}>
+              {localKeyFileName ? "Change" : "Select"} Keyfile
+            </button>
             <input
               ref={keyfileInputRef}
               style={{ display: "none" }}
@@ -204,34 +223,39 @@ function ImportKeyfile({
             />
           </div>
 
-          <h3 className="login-row row" style={{ marginTop: '1em' }}> 2. Enter Password </h3>
-
-          <input
-            style={{ width: '100%' }}
-            type="password"
-            id="password"
-            required
-            minLength={6}
-            name="password"
-            placeholder="Min 6 characters"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          />
-
-          {pwErr && (
-            <div className="row">
+          <div className="col" style={{ width: "100%" }}>
+            <h4 className="login-row row" style={{ marginBottom: "0.5em" }}>
               {" "}
-              <p style={{ color: "red" }}> {pwErr} </p>{" "}
-            </div>
-          )}
-          {pwDebounced && !pwVet && 6 <= pw.length && (
-            <div className="row">
-              {" "}
-              <p style={{ color: "red" }}> Password is incorrect </p>{" "}
-            </div>
-          )}
+              2. Enter Password{" "}
+            </h4>
 
-          <div className="col" style={{ width: '100%' }}>
+            <input
+              style={{ width: "100%" }}
+              type="password"
+              id="password"
+              required
+              minLength={6}
+              name="password"
+              placeholder="Min 6 characters"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+            />
+
+            {pwErr && (
+              <div className="row">
+                {" "}
+                <p style={{ color: "red" }}> {pwErr} </p>{" "}
+              </div>
+            )}
+            {pwDebounced && !pwVet && 6 <= pw.length && (
+              <div className="row">
+                {" "}
+                <p style={{ color: "red" }}> Password is incorrect </p>{" "}
+              </div>
+            )}
+          </div>
+
+          <div className="col" style={{ width: "100%" }}>
             {keyErrs.map((x, i) => (
               <span key={i} className="key-err">
                 {x}
@@ -239,9 +263,11 @@ function ImportKeyfile({
             ))}
             <button type="submit"> Import Keyfile </button>
           </div>
-          <p style={{ lineHeight: '1.25em', fontFamily: 'Helvetica' }}>
-            Please note: if the original node was booted as a direct node (static IP), then you must run this node from the same IP.
-            If not, you will have networking issues. If you need to change the network options, please go back and select "Reset OsName".
+          <p style={{ lineHeight: "1.25em", fontFamily: "Helvetica" }}>
+            Please note: if the original node was booted as a direct node
+            (static IP), then you must run this node from the same IP. If not,
+            you will have networking issues. If you need to change the network
+            options, please go back and select "Reset OsName".
           </p>
         </form>
       )}

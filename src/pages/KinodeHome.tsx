@@ -1,6 +1,8 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import OsHeader from "../components/KnsHeader"
-import { useEffect } from "react"
+import {ReactComponent as Logo} from "../assets/logo.svg";
+import {ReactComponent as NameLogo} from "../assets/kinode.svg"
 
 type OsHomeProps = {
     openConnect: () => void
@@ -28,21 +30,24 @@ function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: O
 
     return (
         <>
-            <OsHeader msg="Welcome to Kinode" openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} />
-            <div style={{ maxWidth: 'calc(100vw - 32px)', width: 460 }}>
+            <OsHeader header={<>
+                <h3>Welcome to</h3>
+                <NameLogo style={{ height: 36 }} />
+                <Logo style={{ height: 42, marginTop: 8 }} />
+            </>} openConnect={openConnect} closeConnect={closeConnect} hideConnect nodeChainId={nodeChainId} nameLogo />
+            <div className="col" style={{ maxWidth: 'calc(100vw - 32px)', width: 460, gap: 20 }}>
                 {previouslyBooted ? (
                     <button onClick={loginRedir}> Login </button>
                 ) : (
                     <>
-                        {!hasNetwork && <h3 style={{ marginBottom: '0.5em' }}>
+                        {!hasNetwork && <h4 style={{ alignSelf: 'flex-start' }}>
                             You must install a Web3 wallet extension like Metamask in order to register or reset a username.
-                        </h3>}
-                        {hasNetwork && <h3 style={{ margin: '0 0 0.5em' }}>New here? Register a username to get started</h3>}
-                        <button disabled={!hasNetwork} onClick={registerRedir}> Register Kinode Name </button>
-                        <br />
-                        <h3 style={{ marginBottom: '0.5em' }}>Other options</h3>
-                        <button disabled={!hasNetwork} onClick={inviteRedir}> Claim Kinode Invite </button>
-                        <button disabled={!hasNetwork} onClick={resetRedir}> Reset Kinode Name </button>
+                        </h4>}
+                        {hasNetwork && <h4 style={{ alignSelf: 'flex-start' }}>New here? Register a username to get started</h4>}
+                        <button disabled={!hasNetwork} onClick={registerRedir} className="alt"> Register Kinode Name </button>
+                        <h4 style={{ alignSelf: 'flex-start' }}>Other options</h4>
+                        <button disabled={!hasNetwork} onClick={inviteRedir} className="alt"> Claim Kinode Invite </button>
+                        <button disabled={!hasNetwork} onClick={resetRedir} className="alt"> Reset Kinode Name </button>
                         <button onClick={importKeyfileRedir}> Import Keyfile </button>
                     </>
                 )}
