@@ -4,11 +4,29 @@ import { hooks } from "./connectors/metamask";
 import {
   KNS_REGISTRY_ADDRESSES,
   DOT_OS_ADDRESSES,
+  ENS_REGISTRY_ADDRESSES,
+  NAMEWRAPPER_ADDRESSES,
+  KNS_ENS_ENTRY_ADDRESSES,
+  KNS_ENS_EXIT_ADDRESSES,
 } from "./constants/addresses";
 import { ChainId } from "./constants/chainId";
-import { KNSRegistryResolver, KNSRegistryResolver__factory, DotOsRegistrar, DotOsRegistrar__factory } from "./abis/types";
+import { 
+  KNSRegistryResolver, 
+  KNSRegistryResolver__factory, 
+  DotOsRegistrar, 
+  DotOsRegistrar__factory, 
+  KNSEnsEntry, 
+  KNSEnsEntry__factory, 
+  KNSEnsExit, 
+  KNSEnsExit__factory, 
+  NameWrapper, 
+  NameWrapper__factory, 
+  ENSRegistry,
+  ENSRegistry__factory 
+} from "./abis/types";
 import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
+import RegisterEthName from "./pages/RegisterEthName";
 import RegisterOsName from "./pages/RegisterKnsName";
 import ClaimOsInvite from "./pages/ClaimKnsInvite";
 import SetPassword from "./pages/SetPassword";
@@ -60,6 +78,30 @@ function App() {
       new ethers.providers.JsonRpcProvider(rpcUrl))
   );
 
+  const [knsEnsEntry, setKnsEnsEntry] = useState<KNSEnsEntry>(
+    KNSEnsEntry__factory.connect(
+      provider?.network?.chainId === ChainId.SEPOLIA ? KNS_ENS_ENTRY_ADDRESSES[ChainId.SEPOLIA] : KNS_ENS_ENTRY_ADDRESSES[ChainId.MAINNET],
+      new ethers.providers.JsonRpcProvider(rpcUrl))
+  );
+
+  const [knsEnsExit, setKnsEnsExit] = useState<KNSEnsExit>(
+    KNSEnsExit__factory.connect(
+      provider?.network?.chainId === ChainId.SEPOLIA ? KNS_ENS_EXIT_ADDRESSES[ChainId.SEPOLIA] : KNS_ENS_EXIT_ADDRESSES[ChainId.OPTIMISM],
+      new ethers.providers.JsonRpcProvider(rpcUrl))
+  );
+
+  const [nameWrapper, setNameWrapper] = useState<NameWrapper>(
+    NameWrapper__factory.connect(
+      provider?.network?.chainId === ChainId.SEPOLIA ? NAMEWRAPPER_ADDRESSES[ChainId.SEPOLIA] : NAMEWRAPPER_ADDRESSES[ChainId.MAINNET],
+      new ethers.providers.JsonRpcProvider(rpcUrl))
+  );
+
+  const [ensRegistry, setEnsRegistry] = useState<ENSRegistry>(
+    ENSRegistry__factory.connect(
+      provider?.network?.chainId === ChainId.SEPOLIA ? ENS_REGISTRY_ADDRESSES[ChainId.SEPOLIA] : ENS_REGISTRY_ADDRESSES[ChainId.MAINNET],
+      new ethers.providers.JsonRpcProvider(rpcUrl))
+  );
+
   useEffect(() => setAppSizeOnLoad(
     (window.performance.getEntriesByType('navigation') as any)[0].transferSize
   ), []);
@@ -101,17 +143,40 @@ function App() {
 
   useEffect(() => setNavigateToLogin(false), [initialVisit])
 
+  // TODO: When we are in production, when a user wants to 
+  // register with a .ETH name, they will need to switch to
+  // mainnet to make the call. Afterwards, they will need to
+  // switch back to Optimism and poll for the event to know
+  // that the message has arrived and they have an entry in 
+  // the PKI
   useEffect(() => {
     provider?.getNetwork().then(network => {
       if (network.chainId === ChainId.SEPOLIA) {
         setDotOs(DotOsRegistrar__factory.connect(
           DOT_OS_ADDRESSES[ChainId.SEPOLIA],
-          provider!.getSigner())
-        )
+          provider!.getSigner()
+        ))
         setKns(KNSRegistryResolver__factory.connect(
           KNS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
-          provider!.getSigner())
-        )
+          provider!.getSigner()
+        ))
+        setKnsEnsEntry(KNSEnsEntry__factory.connect(
+          KNS_ENS_ENTRY_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner()
+        ))
+        setKnsEnsExit(KNSEnsExit__factory.connect(
+          KNS_ENS_EXIT_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner()
+        ))
+        setNameWrapper(NameWrapper__factory.connect(
+          NAMEWRAPPER_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner()
+        ))
+        setEnsRegistry(ENSRegistry__factory.connect(
+          ENS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner()
+        ))
+
       } else if (network.chainId === ChainId.OPTIMISM) {
         setDotOs(DotOsRegistrar__factory.connect(
           DOT_OS_ADDRESSES[ChainId.OPTIMISM],
@@ -121,9 +186,30 @@ function App() {
           KNS_REGISTRY_ADDRESSES[ChainId.OPTIMISM],
           provider!.getSigner())
         )
+        setKnsEnsExit(KNSEnsExit__factory.connect(
+          KNS_ENS_EXIT_ADDRESSES[ChainId.SEPOLIA],
+          provider!.getSigner()
+        ))
+        setKnsEnsEntry(KNSEnsEntry__factory.connect(
+          KNS_ENS_ENTRY_ADDRESSES[ChainId.SEPOLIA],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+        ))
+        setNameWrapper(NameWrapper__factory.connect(
+          NAMEWRAPPER_ADDRESSES[ChainId.SEPOLIA],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+        ))
+        setEnsRegistry(ENSRegistry__factory.connect(
+          ENS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+        ))
+      } else if (network.chainId === ChainId.MAINNET) {
+        // TODO: See above TODO...
       }
     })
   }, [provider])
+
+  const knsEnsEntryNetwork = ChainId.SEPOLIA;
+  const knsEnsExitNetwork = ChainId.SEPOLIA;
 
   // just pass all the props each time since components won't mind extras
   const props = {
@@ -134,6 +220,9 @@ function App() {
     pw, setPw,
     knsName, setOsName,
     dotOs, kns,
+    knsEnsEntryNetwork, knsEnsExitNetwork,
+    knsEnsEntry, knsEnsExit,
+    nameWrapper, ensRegistry,
     connectOpen, openConnect, closeConnect,
     provider, appSizeOnLoad,
     networkingKey, setNetworkingKey,
@@ -156,6 +245,7 @@ function App() {
               } />
               <Route path="/claim-invite" element={<ClaimOsInvite {...props} />} />
               <Route path="/register-name" element={<RegisterOsName  {...props} />} />
+              <Route path="/register-eth-name" element={<RegisterEthName {...props} />} />
               <Route path="/set-password" element={<SetPassword {...props} />} />
               <Route path="/reset" element={<Reset {...props} />} />
               <Route path="/import-keyfile" element={<ImportKeyfile {...props} />} />

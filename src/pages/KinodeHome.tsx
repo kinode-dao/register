@@ -15,6 +15,7 @@ type OsHomeProps = {
 function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: OsHomeProps) {
     const navigate = useNavigate()
     const inviteRedir = () => navigate('/claim-invite')
+    const registerEthRedir = () => navigate('/register-eth-name')
     const registerRedir = () => navigate('/register-name')
     const resetRedir = () => navigate('/reset')
     const importKeyfileRedir = () => navigate('/import-keyfile')
@@ -46,6 +47,7 @@ function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: O
                         {hasNetwork && <h4 style={{ alignSelf: 'flex-start' }}>New here? Register a username to get started</h4>}
                         <button disabled={!hasNetwork} onClick={registerRedir} className="alt"> Register Kinode Name </button>
                         <h4 style={{ alignSelf: 'flex-start' }}>Other options</h4>
+                        <button disabled={!hasNetwork} onClick={registerEthRedir} className="alt"> Register ENS Name </button>
                         <button disabled={!hasNetwork} onClick={inviteRedir} className="alt"> Claim Kinode Invite </button>
                         <button disabled={!hasNetwork} onClick={resetRedir} className="alt"> Reset Kinode Name </button>
                         <button onClick={importKeyfileRedir}> Import Keyfile </button>

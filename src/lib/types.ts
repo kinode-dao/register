@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { KNSRegistryResolver, DotOsRegistrar } from "../abis/types";
+import { KNSEnsEntry, KNSEnsExit, NameWrapper, ENSRegistry, KNSRegistryResolver, DotOsRegistrar } from "../abis/types";
 
 export interface PageProps {
   networkingKey: string,
@@ -24,6 +24,11 @@ export interface PageProps {
   setPw: React.Dispatch<React.SetStateAction<string>>,
   dotOs: DotOsRegistrar,
   kns: KNSRegistryResolver,
+  knsEnsEntryNetwork: number,
+  knsEnsEntry: KNSEnsEntry,
+  knsEnsExit: KNSEnsExit,
+  nameWrapper: NameWrapper,
+  ensRegistry: ENSRegistry,
   connectOpen: boolean,
   openConnect: () => void,
   closeConnect: () => void,
