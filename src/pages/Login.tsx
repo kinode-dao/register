@@ -216,14 +216,14 @@ function Login({
               onChange={(e) => setPw(e.target.value)}
               autoFocus
             />
+            {keyErrs.map((x, i) => (
+              <div key={i} className="key-err">
+                {x}
+              </div>
+            ))}
           </div>
 
           <div className="col" style={{ width: "100%", lineHeight: 1.5 }}>
-            {keyErrs.map((x, i) => (
-              <span key={i} className="key-err">
-                {x}
-              </span>
-            ))}
             <button type="submit"> {reset ? "Reset & " : ""} Login </button>
             {/* <button onClick={(e) => {
                 e.stopPropagation();
