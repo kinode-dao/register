@@ -77,7 +77,7 @@ function EnterEthName({
 
             let owner = await ensRegistry.owner(hash(normalized))
 
-            if (owner == nameWrapper.address) 
+            if (owner == nameWrapper.address)
               owner = await nameWrapper.ownerOf(hash(normalized))
 
             if (owner != userAddress) {
@@ -108,7 +108,7 @@ function EnterEthName({
           name="dot-os-name"
           placeholder="e.g. myname"
         />
-        <div className="os">.os</div>
+        <div className="os">.eth</div>
       </div>
       {nameValidities.map((x, i) => <div key={i}><br /><span className="name-validity">{x}</span></div>)}
     </div>

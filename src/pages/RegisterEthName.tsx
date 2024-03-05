@@ -2,18 +2,18 @@ import React, { useState, useEffect, FormEvent, useCallback } from "react";
 import { hooks } from "../connectors/metamask";
 import { Link, useNavigate } from "react-router-dom";
 import { toDNSWireFormat } from "../utils/dnsWire";
-import { BytesLike, utils } from 'ethers';
+import { BytesLike, utils } from "ethers";
 import EnterEthName from "../components/EnterEthName";
 import Loader from "../components/Loader";
 import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { getNetworkName, setChain } from "../utils/chain";
-import { hash } from 'eth-ens-namehash'
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { hash } from "eth-ens-namehash";
+import { ReactComponent as NameLogo } from "../assets/kinode.svg";
 import DirectCheckbox from "../components/DirectCheckbox";
 
-const { useAccounts, } = hooks;
+const { useAccounts } = hooks;
 
 interface RegisterOsNameProps extends PageProps {}
 
@@ -38,123 +38,178 @@ function RegisterEthName({
   let accounts = useAccounts();
   let navigate = useNavigate();
   const chainName = getNetworkName(nodeChainId);
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState("");
 
-  const [name, setName] = useState('')
-  const [nameValidities, setNameValidities] = useState<string[]>([])
+  const [name, setName] = useState("");
+  const [nameValidities, setNameValidities] = useState<string[]>([]);
 
-  const [triggerNameCheck, setTriggerNameCheck] = useState<boolean>(false)
+  const [triggerNameCheck, setTriggerNameCheck] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = "Register"
-  }, [])
+    document.title = "Register";
+  }, []);
 
-  useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => setTriggerNameCheck(!triggerNameCheck), [provider]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const enterEthNameProps = { 
-    name, 
-    setName, 
-    nameValidities, 
-    setNameValidities, 
-    nameWrapper, 
+  const enterEthNameProps = {
+    name,
+    setName,
+    nameValidities,
+    setNameValidities,
+    nameWrapper,
     ensRegistry,
-    triggerNameCheck 
-  }
+    triggerNameCheck,
+  };
 
-  let handleRegister = useCallback(async (e: FormEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  let handleRegister = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (!provider) return openConnect()
-
-    try {
-      setLoading('Please confirm the transaction in your wallet');
-
-      const { networking_key, ws_routing: [ip_address, port], allowed_routers } =
-        (await fetch('/generate-networking-info', { method: 'POST' }).then(res => res.json())) as NetworkingInfo
-
-      const ipAddress = ipToNumber(ip_address)
-
-      setNetworkingKey(networking_key)
-      setIpAddress(ipAddress)
-      setPort(port)
-      setRouters(allowed_routers)
-
-      const data: BytesLike[] = [
-        direct
-          ? (await kns.populateTransaction.setAllIp
-            (utils.namehash(`${name}.eth`), ipAddress, port, 0, 0, 0)).data!
-          : (await kns.populateTransaction.setRouters
-            (utils.namehash(`${name}.eth`), allowed_routers.map(x => utils.namehash(x)))).data!,
-        (await kns.populateTransaction.setKey(utils.namehash(`${name}.eth`), networking_key)).data!
-      ]
-
-      setLoading('Please confirm the transaction in your wallet');
-
-      console.log("node chain id", nodeChainId);
+      if (!provider) return openConnect();
 
       try {
-        await setChain(nodeChainId);
-      } catch (error) {
-        window.alert(`You must connect to the ${chainName} network to continue. Please connect and try again.`);
-        throw new Error(`${chainName} not set`)
-      }
+        setLoading("Please confirm the transaction in your wallet");
 
-      const dnsFormat = toDNSWireFormat(`${name}.eth`);
-      const namehash = hash(`${name}.eth`)
-      const tx = await knsEnsEntry.setKNSRecords(
-        dnsFormat,
-        data
-      )
+        const {
+          networking_key,
+          ws_routing: [ip_address, port],
+          allowed_routers,
+        } = (await fetch("/generate-networking-info", { method: "POST" }).then(
+          (res) => res.json()
+        )) as NetworkingInfo;
 
-      const onRegistered = (node: any, name: any) => {
-        if (node == namehash) {
-          kns.off("NodeRegistered", onRegistered)
-          setLoading('');
-          setOsName(`${name}.eth`);
-          navigate("/set-password");
+        const ipAddress = ipToNumber(ip_address);
+
+        setNetworkingKey(networking_key);
+        setIpAddress(ipAddress);
+        setPort(port);
+        setRouters(allowed_routers);
+
+        const cleanedName = name.trim().replace(".eth", "");
+
+        try {
+          await setChain(nodeChainId);
+        } catch (error) {
+          window.alert(
+            `You must connect to the ${chainName} network to continue. Please connect and try again.`
+          );
+          throw new Error(`${chainName} not set`);
         }
+
+        const data: BytesLike[] = [
+          direct
+            ? (
+                await kns.populateTransaction.setAllIp(
+                  utils.namehash(`${cleanedName}.eth`),
+                  ipAddress,
+                  port,
+                  0,
+                  0,
+                  0
+                )
+              ).data!
+            : (
+                await kns.populateTransaction.setRouters(
+                  utils.namehash(`${cleanedName}.eth`),
+                  allowed_routers.map((x) => utils.namehash(x))
+                )
+              ).data!,
+          (
+            await kns.populateTransaction.setKey(
+              utils.namehash(`${cleanedName}.eth`),
+              networking_key
+            )
+          ).data!,
+        ];
+
+        setLoading("Please confirm the transaction in your wallet");
+
+        console.log("node chain id", nodeChainId);
+
+        const dnsFormat = toDNSWireFormat(`${cleanedName}.eth`);
+        const namehash = hash(`${cleanedName}.eth`);
+        const tx = await knsEnsEntry.setKNSRecords(dnsFormat, data);
+
+        const onRegistered = (node: any, name: any) => {
+          if (node == namehash) {
+            kns.off("NodeRegistered", onRegistered);
+            setLoading("");
+            setOsName(`${cleanedName}.eth`);
+            navigate("/set-password");
+          }
+        };
+
+        setLoading("Registering ETH ID on Kinode...");
+        kns.on("NodeRegistered", onRegistered);
+        await tx.wait();
+      } catch (error) {
+        console.error("Registration Error:", error);
+        setLoading("");
+        alert(
+          "There was an error registering your dot-os-name, please try again."
+        );
       }
-
-      setLoading('Registering ETH ID on Kinode...');
-      kns.on("NodeRegistered", onRegistered)
-      await tx.wait();
-
-    } catch (error) {
-      console.error('Registration Error:', error)
-      setLoading('');
-      alert('There was an error registering your dot-os-name, please try again.')
-    }
-
-  }, [name, direct, accounts, kns, navigate, setOsName, provider, openConnect, setNetworkingKey, setIpAddress, setPort, setRouters, nodeChainId, chainName])
+    },
+    [
+      name,
+      direct,
+      accounts,
+      kns,
+      navigate,
+      setOsName,
+      provider,
+      openConnect,
+      setNetworkingKey,
+      setIpAddress,
+      setPort,
+      setRouters,
+      nodeChainId,
+      chainName,
+    ]
+  );
 
   return (
     <>
-      <OsHeader header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
-        Register
-        <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
-        Name
-      </h3>} openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
-      {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
-        {loading ? (
-          <Loader msg={loading} />
-        ) : (
-          <>
-            <div style={{ width: '100%' }}>
-              <label className="login-row row" style={{ lineHeight: 1.5 }}>
-                Set up your Kinode with a .eth name
-              </label>
-              <EnterEthName {...enterEthNameProps} />
-            </div>
-            <DirectCheckbox {...{ direct, setDirect }} />
-            <button disabled={nameValidities.length !== 0} type="submit">
-              Register .eth name
-            </button>
-          </>
-        )}
-      </form>}
+      <OsHeader
+        header={
+          <h3
+            className="row"
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            Register
+            <NameLogo
+              style={{ height: 28, width: "auto", margin: "0 16px -3px" }}
+            />
+            Name
+          </h3>
+        }
+        openConnect={openConnect}
+        closeConnect={closeConnect}
+        nodeChainId={nodeChainId}
+      />
+      {Boolean(provider) && (
+        <form id="signup-form" className="col" onSubmit={handleRegister}>
+          {loading ? (
+            <Loader msg={loading} />
+          ) : (
+            <>
+              <div style={{ width: "100%" }}>
+                <label className="login-row row" style={{ lineHeight: 1.5 }}>
+                  Set up your Kinode with a .eth name
+                </label>
+                <EnterEthName {...enterEthNameProps} />
+              </div>
+              <DirectCheckbox {...{ direct, setDirect }} />
+              <button disabled={nameValidities.length !== 0} type="submit">
+                Register .eth name
+              </button>
+            </>
+          )}
+        </form>
+      )}
     </>
-  )
+  );
 }
 
 export default RegisterEthName;
