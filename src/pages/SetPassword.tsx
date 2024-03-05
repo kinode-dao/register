@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
 import OsHeader from "../components/KnsHeader";
 import Loader from "../components/Loader";
-import { utils } from "ethers";
+import { utils, providers } from "ethers";
 import { downloadKeyfile } from "../utils/download-keyfile";
 import { ReactComponent as NameLogo } from "../assets/kinode.svg"
 
@@ -9,6 +9,7 @@ type SetPasswordProps = {
   direct: boolean;
   pw: string;
   reset: boolean;
+  provider?: providers.Web3Provider,
   knsName: string;
   setPw: React.Dispatch<React.SetStateAction<string>>;
   appSizeOnLoad: number;
@@ -21,6 +22,7 @@ function SetPassword({
   direct,
   pw,
   reset,
+  provider,
   setPw,
   appSizeOnLoad,
   closeConnect,
@@ -50,6 +52,19 @@ function SetPassword({
       setTimeout(async () => {
         setLoading(true);
         let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
+        let signer = await provider?.getSigner();
+        let owner = await signer?.getAddress();
+
+        let timestamp = Date.now();
+
+        let sig_data = JSON.stringify({
+          username: knsName,
+          password: hashed_password,
+          timestamp,
+        });
+
+        let signature = await signer?.signMessage(utils.toUtf8Bytes(sig_data));
+
 
         try {
           const result = await fetch("/boot", {
@@ -61,6 +76,9 @@ function SetPassword({
               reset,
               username: knsName,
               direct,
+              owner,
+              timestamp,
+              signature,
             }),
           });
           const base64String = await result.json();
