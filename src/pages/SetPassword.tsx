@@ -1,8 +1,9 @@
 import React, { useState, useEffect, FormEvent, useCallback } from "react";
 import OsHeader from "../components/KnsHeader";
 import Loader from "../components/Loader";
+import { utils } from "ethers";
 import { downloadKeyfile } from "../utils/download-keyfile";
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { ReactComponent as NameLogo } from "../assets/kinode.svg"
 
 type SetPasswordProps = {
   direct: boolean;
@@ -48,6 +49,7 @@ function SetPassword({
 
       setTimeout(async () => {
         setLoading(true);
+        let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
 
         try {
           const result = await fetch("/boot", {
@@ -55,13 +57,12 @@ function SetPassword({
             headers: { "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify({
-              password: pw,
+              password: hashed_password,
               reset,
               username: knsName,
               direct,
             }),
           });
-
           const base64String = await result.json();
 
           downloadKeyfile(knsName, base64String);
@@ -90,11 +91,11 @@ function SetPassword({
     <>
       <OsHeader
         header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
-        Set
-        <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
-        Password
-      </h3>}
-        openConnect={() => {}}
+          Set
+          <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
+          Password
+        </h3>}
+        openConnect={() => { }}
         closeConnect={closeConnect}
         nodeChainId={nodeChainId}
       />
