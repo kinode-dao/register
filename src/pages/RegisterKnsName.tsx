@@ -9,6 +9,8 @@ import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { getNetworkName, setChain } from "../utils/chain";
+import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import DirectCheckbox from "../components/DirectCheckbox";
 
 const {
   useAccounts,
@@ -108,37 +110,31 @@ function RegisterOsName({
 
   return (
     <>
-      <OsHeader msg="Register Kinode Name" openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
+      <OsHeader header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
+        Register
+        <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
+        Name
+      </h3>} openConnect={openConnect} closeConnect={closeConnect} nodeChainId={nodeChainId} />
       {Boolean(provider) && <form id="signup-form" className="col" onSubmit={handleRegister}>
         {loading ? (
           <Loader msg={loading} />
         ) : (
           <>
-            <div className="login-row row" style={{ marginBottom: '1em', lineHeight: 1.5 }}>
-              Set up your Kinode with a .os name
-              <div className="tooltip-container" style={{ marginTop: -4 }}>
-                <div className="tooltip-button">&#8505;</div>
-                <div className="tooltip-content">Kinodes use a .os name in order to identify themselves to other nodes in the network</div>
-              </div>
-            </div>
-            <EnterOsName {...enterOsNameProps} />
-            <div className="row" style={{ marginTop: '1em' }}>
-              <input type="checkbox" id="direct" name="direct" checked={direct} onChange={(e) => setDirect(e.target.checked)} autoFocus />
-              <label htmlFor="direct" className="direct-node-message">
-                Register as a direct node. If you are unsure leave unchecked.
-
-                <div className="tooltip-container">
+            <div style={{ width: '100%' }}>
+              <label className="login-row row" style={{ lineHeight: 1.5 }}>
+                Set up your Kinode with a .os name
+                <div className="tooltip-container" style={{ marginTop: -4 }}>
                   <div className="tooltip-button">&#8505;</div>
-                  <div className="tooltip-content">A direct node publishes its own networking information on-chain: IP, port, so on.
-                    An indirect node relies on the service of routers, which are themselves direct nodes.
-                    Only register a direct node if you know what you’re doing and have a public, static IP address.</div>
+                  <div className="tooltip-content">Kinodes use a .os name in order to identify themselves to other nodes in the network</div>
                 </div>
               </label>
+              <EnterOsName {...enterOsNameProps} />
             </div>
+            <DirectCheckbox {...{ direct, setDirect }} />
             <button disabled={nameValidities.length !== 0} type="submit">
               Register .os name
             </button>
-            <Link to="/reset" style={{ color: "white", marginTop: '1em' }}>already have an dot-os-name?</Link>
+            <Link to="/reset">already have an dot-os-name?</Link>
           </>
         )}
       </form>}

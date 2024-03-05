@@ -8,10 +8,12 @@ import Loader from "../components/Loader";
 import { hooks } from "../connectors/metamask";
 import { ipToNumber } from "../utils/ipToNumber";
 import { downloadKeyfile } from "../utils/download-keyfile";
+import DirectCheckbox from "../components/DirectCheckbox";
+import {ReactComponent as NameLogo} from "../assets/kinode.svg"
 
 const { useProvider } = hooks;
 
-interface LoginProps extends PageProps { }
+interface LoginProps extends PageProps {}
 
 function Login({
   direct,
@@ -46,7 +48,7 @@ function Login({
         )) as UnencryptedIdentity;
         setRouters(infoData.allowed_routers);
         setOsName(infoData.name);
-      } catch { }
+      } catch {}
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -95,21 +97,21 @@ function Login({
           const data: BytesLike[] = [
             direct
               ? (
-                await kns.populateTransaction.setAllIp(
-                  namehash(knsName),
-                  ipAddress,
-                  port,
-                  0,
-                  0,
-                  0
-                )
-              ).data!
+                  await kns.populateTransaction.setAllIp(
+                    namehash(knsName),
+                    ipAddress,
+                    port,
+                    0,
+                    0,
+                    0
+                  )
+                ).data!
               : (
-                await kns.populateTransaction.setRouters(
-                  namehash(knsName),
-                  allowed_routers.map((x) => namehash(x))
-                )
-              ).data!,
+                  await kns.populateTransaction.setRouters(
+                    namehash(knsName),
+                    allowed_routers.map((x) => namehash(x))
+                  )
+                ).data!,
             (
               await kns.populateTransaction.setKey(
                 namehash(knsName),
@@ -152,7 +154,10 @@ function Login({
 
         const interval = setInterval(async () => {
           const res = await fetch("/");
-          if (res.status < 300  && Number(res.headers.get("content-length")) !== appSizeOnLoad) {
+          if (
+            res.status < 300 &&
+            Number(res.headers.get("content-length")) !== appSizeOnLoad
+          ) {
             clearInterval(interval);
             window.location.replace("/");
           }
@@ -177,7 +182,10 @@ function Login({
   return (
     <>
       <OsHeader
-        msg="Login to Kinode"
+        header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
+        Login to
+        <NameLogo style={{ height: 28, width: "auto", margin: "0 0 -3px 16px" }} />
+      </h3>}
         openConnect={openConnect}
         closeConnect={closeConnect}
         hideConnect={!showReset}
@@ -187,33 +195,35 @@ function Login({
         <Loader msg={loading} />
       ) : (
         <form id="signup-form" className="col" onSubmit={handleLogin}>
-          <h3 className="login-row col" style={{ marginLeft: "0.4em" }}>
-            {" "}
-            Login as {knsName}{" "}
-          </h3>
-          <div className="login-row row" style={{ marginTop: "1em" }}>
-            {" "}
-            Enter Password{" "}
+          <div style={{ width: "100%" }}>
+            <div className="login-row row" style={{fontSize: 20, marginBottom: "1em"}}>
+              {" "}
+              Login as {knsName}{" "}
+            </div>
+            <label className="login-row row" style={{ marginBottom: "1em" }}>
+              {" "}
+              Enter Password{" "}
+            </label>
+            <input
+              style={{ width: "100%" }}
+              type="password"
+              id="password"
+              required
+              minLength={6}
+              name="password"
+              placeholder="Min 6 characters"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              autoFocus
+            />
+            {keyErrs.map((x, i) => (
+              <div key={i} className="key-err">
+                {x}
+              </div>
+            ))}
           </div>
-          <input
-            style={{ width: "100%" }}
-            type="password"
-            id="password"
-            required
-            minLength={6}
-            name="password"
-            placeholder="Min 6 characters"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-            autoFocus
-          />
 
           <div className="col" style={{ width: "100%", lineHeight: 1.5 }}>
-            {keyErrs.map((x, i) => (
-              <span key={i} className="key-err">
-                {x}
-              </span>
-            ))}
             <button type="submit"> {reset ? "Reset & " : ""} Login </button>
             {/* <button onClick={(e) => {
                 e.stopPropagation();
@@ -239,50 +249,42 @@ function Login({
               Reset Networking Info
             </div>
             {showReset && (
-              <>
-                <div className="row" style={{ marginTop: "1em" }}>
-                  <input
-                    type="checkbox"
-                    id="reset"
-                    name="reset"
-                    checked={reset}
-                    onChange={(e) => setReset(e.target.checked)}
-                  />
+              <div
+                className="col"
+                style={{ width: "100%", gap: 16, marginTop: 16 }}
+              >
+                <div className="row" style={{ width: "100%" }}>
+                  <div style={{ position: "relative" }}>
+                    <input
+                      type="checkbox"
+                      id="reset"
+                      name="reset"
+                      checked={reset}
+                      onChange={(e) => setReset(e.target.checked)}
+                      autoFocus
+                    />
+                    {reset && (
+                      <span
+                        onClick={() => setReset(false)}
+                        className="checkmark"
+                      >
+                        &#10003;
+                      </span>
+                    )}
+                  </div>
                   <label htmlFor="reset" className="direct-node-message">
                     Reset networking keys and publish on-chain
-                    <div className="tooltip-container">
-                      <div className="tooltip-button">&#8505;</div>
-                      <div className="tooltip-content">
-                        This will update your networking keys and publish the
-                        new info on-chain
-                      </div>
-                    </div>
                   </label>
-                </div>
-                <div className="row" style={{ marginTop: "1em" }}>
-                  <input
-                    type="checkbox"
-                    id="direct"
-                    name="direct"
-                    checked={direct}
-                    onChange={(e) => setDirect(e.target.checked)}
-                  />
-                  <label htmlFor="direct" className="direct-node-message">
-                    Register as a direct node. If you are unsure leave
-                    unchecked.
-                    <div className="tooltip-container">
-                      <div className="tooltip-button">&#8505;</div>
-                      <div className="tooltip-content">
-                        A direct node publishes its own networking information
-                        on-chain: IP, port, so on. An indirect node relies on
-                        the service of routers, which are themselves direct
-                        nodes. Only register a direct node if you know what
-                        you’re doing and have a public, static IP address.
-                      </div>
+                  <div className="tooltip-container">
+                    <div className="tooltip-button">&#8505;</div>
+                    <div className="tooltip-content">
+                      This will update your networking keys and publish the new
+                      info on-chain
                     </div>
-                  </label>
+                  </div>
                 </div>
-              </>
+                <DirectCheckbox {...{ direct, setDirect }} />
+              </div>
             )}
           </div>
         </form>

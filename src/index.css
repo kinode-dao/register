@@ -1,27 +1,31 @@
 :root {
-  --k-red: #a30101;
-  --k-darkred: #4d0c0c;
-  --k-lightred: #dd0207;
-  --k-petal: #e94f33;
-  --k-lightpetal: #f0907f;
-  --k-yellow: #e6b95e;
-  --k-beige: #e5c4a1;
-  --k-green: #0f6f4c;
-  --k-darkgreen: #29322f;
-  --k-lightgreen: #a0a271;
-  --k-mediumgreen: #424031;
-  --k-black: #281b13;
+  --text-light: #FFF5D9;
+  --text-dark: #22211F;
+  --text-orange: #FF7533;
+  --orange-light: #F36822;
+  --orange-medium: #F35422;
 
-  --medium-gray: rgb(101,101,101);
+  --medium-gray: 7E7E7E;
+  --gray-button: rgba(253, 245, 220, 0.25);
+  --input-background: rgba(243, 84, 34, 0.25); /* orange-medium */
 }
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 2em;
   font-size: 16px;
-  font-family: Montserrat, sans-serif;
-  background-color: var(--k-green);
-  color: white;
+  background-color: var(--gray-button);
+  color: var(--text-light);
+  font-weight: 400;
+  background: url('./assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, a, button, input {
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 h1,
@@ -31,6 +35,27 @@ h4,
 h5,
 h6 {
   line-height: 1.5em;
+  font-weight: 500;
+  margin: 0;
+}
+
+h1 {
+  font-size: 64px;
+}
+h2 {
+  font-size: 48px;
+}
+h3 {
+  font-size: 36px;
+}
+h4 {
+  font-size: 24px;
+}
+h5 {
+  font-size: 20px;
+}
+h6 {
+  font-size: 16px;
 }
 
 .col {
@@ -45,67 +70,117 @@ h6 {
   align-items: center;
 }
 
+input {
+  all: unset;
+}
+input[type="text"],
+input[type="password"],
+input[type="checkbox"] {
+  padding: 1em;
+  border: 1px solid var(--orange-medium);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1em;
+  background-color: var(--input-background);
+  color: var(--text-light);
+}
 input[type="text"],
 input[type="password"] {
   width: 100%;
-  padding: 0.5em 0.75em;
-  margin-bottom: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 1em;
+}
+input[type="checkbox"] {
+  padding: 0.25em 0.8em;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked {
+  background-color: var(--orange-medium);
+}
+.checkmark {
+  position: absolute;
+  left: 4px;
+  font-size: 24px;
+  top: -5px;
+  cursor: pointer;
+}
+::placeholder {
+  color: var(--text-light);
+}
+::-webkit-input-placeholder::placeholder {
+  color: var(--text-light);
+}
+::-moz-placeholder::placeholder {
+  color: var(--text-light);
+}
+::-ms-input-placeholder {
+  color: var(--text-light);
+}
+label {
+  font-size: 20px;
 }
 
 button {
   width: 100%;
   padding: 0.75em 1em;
-  margin-bottom: 0.5em;
-  border: 1px solid var(--k-yellow);
-  border-radius: 4px;
+  margin: 0;
+  font-weight: 500;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--orange-medium);
+  /* border-image: linear-gradient(to right, var(--orange-medium), var(--orange-light)); */
+  border-radius: 8px;
+  background: var(--orange-medium);
   box-sizing: border-box;
-  background-color: var(--k-yellow);
   cursor: pointer;
   font-size: 1.125em;
   transition: all 0.1s;
-  box-shadow: 0 1px 2px var(--k-beige);
-  color: black;
-  margin-top: 1em;
+  box-shadow: 0 1px 2px var(--orange-light);
+  color: var(--text-light);
+}
+
+button.alt {
+  background-color: var(--text-light);
+  color: var(--text-dark);
+  border-color: var(--text-light);
+  box-shadow: 0 1px 2px var(--text-light);
 }
 
 button:hover {
-  background-color: var(--k-beige);
-  border: 1px solid var(--k-beige);
+  opacity: 0.9;
+  box-shadow: none;
 }
 
 button:disabled {
   background-color: var(--medium-gray);
   border: 1px solid var(--medium-gray);
   box-shadow: 0 1px 2px var(--medium-gray);
-  color: white;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
+
+
+
+
+
+
+
+
 #signup-page {
-  width: 100%;
-  height: 100%;
   flex: 1;
   display: flex;
-  padding: 2em;
-  max-width: calc(100vw - 4em);
+  justify-content: center;
+  padding-bottom: 2em;
 }
 
 .key-err {
-  font-size: 12px;
-  margin: 1em;
+  margin-top: 0.5em;
+  font-size: 20px;
   color: red;
   word-break: break-all;
-}
-
-label {
+  text-align: center;
 }
 
 .login-row {
-  margin: 0.5em;
   align-self: flex-start;
 }
 
@@ -166,6 +241,10 @@ label {
   font-weight: 500;
   font-size: 1rem;
 }
+.tooltip-content.left {
+  right: 0;
+  left: unset;
+}
 
 .tooltip-content::after {
   content: "";
@@ -191,6 +270,7 @@ label {
   width: calc(420px + 2em);
   max-width: calc(100vw - 2em);
   padding: 1em;
+  gap: 32px;
 }
 
 #signup-form-header {
@@ -273,22 +353,6 @@ label {
     transform: rotate(360deg);
   }
 }
-/*
-.connect-modal {
-  font-family: "Montserrat, sans-serif";
-  background-color: var(--k-yellow);
-  background: var(--k-yellow);
-  border: 1px solid var(--k-yellow);
-  border-radius: 4px;
-  padding: 1em;
-  box-sizing: border-box;
-  width: 50%;
-  height: 30%;
-  margin: auto;
-  overflow: auto;
-  top: 10%;
-  left: 25%;
-} */
 
 .connect-modal {
   display: flex;
@@ -319,7 +383,7 @@ label {
 
 .direct-node-message {
   line-height: 1.5em;
-  margin-left: 1em;
+  margin-left: 2em;
 }
 
 .name-validity {
@@ -333,15 +397,16 @@ label {
 }
 
 .more-info-direct:hover {
-  color: var(--k-beige);
+  color: var(--orange-light);
 }
 
 a {
-  color: var(--k-yellow);
+  color: var(--orange-medium);
+  text-decoration: none;
 }
 
 a:hover {
-  color: var(--k-beige);
+  color: var(--orange-light);
 }
 
 .reset-networking {
@@ -350,10 +415,11 @@ a:hover {
   text-decoration: underline;
   width: 100%;
   margin-left: 0.5em;
+  font-size: 1.25em;
 }
 
 .reset-networking:hover {
-  color: var(--k-beige);
+  color: var(--orange-light);
 }
 
 .name-err {
@@ -363,10 +429,12 @@ a:hover {
 }
 
 .chain-button {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  background-color: white;
-  color: var(--k-yellow);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+  background-color: var(--gray-button);
+  border: none;
+  box-shadow: none;
+  color: var(--text-light);
   padding: 0.4em 0.25em;
   display: flex;
   flex-direction: row;
@@ -377,8 +445,7 @@ a:hover {
 }
 
 .chain-button:hover {
-  background-color: var(--k-yellow);
-  color: white;
+  opacity: 0.9;
 }
 
 .chain-button.monospace {
