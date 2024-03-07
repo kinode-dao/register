@@ -54,7 +54,7 @@ function SetPassword({
         let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
         let signer = await provider?.getSigner();
         let owner = await signer?.getAddress();
-
+        let chain_id = await signer?.getChainId();
         let timestamp = Date.now();
 
         let sig_data = JSON.stringify({
@@ -63,10 +63,10 @@ function SetPassword({
           timestamp,
           direct,
           reset,
+          chain_id,
         });
 
         let signature = await signer?.signMessage(utils.toUtf8Bytes(sig_data));
-
 
         try {
           const result = await fetch("/boot", {
@@ -81,6 +81,7 @@ function SetPassword({
               owner,
               timestamp,
               signature,
+              chain_id,
             }),
           });
           const base64String = await result.json();
