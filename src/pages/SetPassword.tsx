@@ -59,8 +59,10 @@ function SetPassword({
 
         let sig_data = JSON.stringify({
           username: knsName,
-          password: hashed_password,
+          password_hash: hashed_password,
           timestamp,
+          direct,
+          reset,
         });
 
         let signature = await signer?.signMessage(utils.toUtf8Bytes(sig_data));
@@ -72,7 +74,7 @@ function SetPassword({
             headers: { "Content-Type": "application/json" },
             credentials: "include",
             body: JSON.stringify({
-              password: hashed_password,
+              password_hash: hashed_password,
               reset,
               username: knsName,
               direct,

@@ -76,7 +76,7 @@ function Login({
           const response = await fetch("/vet-keyfile", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ password: hashed_password, keyfile: "" }),
+            body: JSON.stringify({ password_hash: hashed_password, keyfile: "" }),
           });
 
           if (response.status > 399) {
@@ -141,8 +141,8 @@ function Login({
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: reset
-              ? JSON.stringify({ password: hashed_password, direct })
-              : JSON.stringify({ password: hashed_password }),
+              ? JSON.stringify({ password_hash: hashed_password, direct })
+              : JSON.stringify({ password_hash: hashed_password }),
           }
         );
 
