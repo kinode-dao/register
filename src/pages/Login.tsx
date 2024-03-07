@@ -10,6 +10,7 @@ import { ipToNumber } from "../utils/ipToNumber";
 import { downloadKeyfile } from "../utils/download-keyfile";
 import DirectCheckbox from "../components/DirectCheckbox";
 import { ReactComponent as NameLogo } from "../assets/kinode.svg"
+import { useNavigate } from "react-router-dom";
 
 const { useProvider } = hooks;
 
@@ -31,6 +32,7 @@ function Login({
   nodeChainId,
 }: LoginProps) {
   const provider = useProvider();
+  const navigate = useNavigate()
 
   const [keyErrs, setKeyErrs] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>("");
@@ -251,6 +253,14 @@ function Login({
             >
               Reset Networking Info
             </div>
+            <div
+              className="reset-networking"
+              onClick={() => {
+                navigate('/reset')
+              }}
+            >
+              Reset Node & Password
+            </div>
             {showReset && (
               <div
                 className="col"
@@ -290,8 +300,9 @@ function Login({
               </div>
             )}
           </div>
-        </form>
-      )}
+        </form >
+      )
+      }
     </>
   );
 }
