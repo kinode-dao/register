@@ -256,7 +256,7 @@ function Login({
             <div
               className="reset-networking"
               onClick={() => {
-                navigate('/reset')
+                navigate('/reset-node')
               }}
             >
               Reset Node & Password
