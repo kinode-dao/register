@@ -10,19 +10,19 @@ import {
   KNS_ENS_EXIT_ADDRESSES,
 } from "./constants/addresses";
 import { ChainId } from "./constants/chainId";
-import { 
-  KNSRegistryResolver, 
-  KNSRegistryResolver__factory, 
-  DotOsRegistrar, 
-  DotOsRegistrar__factory, 
-  KNSEnsEntry, 
-  KNSEnsEntry__factory, 
-  KNSEnsExit, 
-  KNSEnsExit__factory, 
-  NameWrapper, 
-  NameWrapper__factory, 
+import {
+  KNSRegistryResolver,
+  KNSRegistryResolver__factory,
+  DotOsRegistrar,
+  DotOsRegistrar__factory,
+  KNSEnsEntry,
+  KNSEnsEntry__factory,
+  KNSEnsExit,
+  KNSEnsExit__factory,
+  NameWrapper,
+  NameWrapper__factory,
   ENSRegistry,
-  ENSRegistry__factory 
+  ENSRegistry__factory
 } from "./abis/types";
 import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
@@ -144,12 +144,6 @@ function App() {
 
   useEffect(() => setNavigateToLogin(false), [initialVisit])
 
-  // TODO: When we are in production, when a user wants to 
-  // register with a .ETH name, they will need to switch to
-  // mainnet to make the call. Afterwards, they will need to
-  // switch back to Optimism and poll for the event to know
-  // that the message has arrived and they have an entry in 
-  // the PKI
   useEffect(() => {
     provider?.getNetwork().then(network => {
       if (network.chainId === ChainId.SEPOLIA) {
@@ -178,7 +172,7 @@ function App() {
           provider!.getSigner()
         ))
 
-      } else if (network.chainId === ChainId.OPTIMISM) {
+      } else if (network.chainId === ChainId.OPTIMISM || network.chainId === ChainId.MAINNET) {
         setDotOs(DotOsRegistrar__factory.connect(
           DOT_OS_ADDRESSES[ChainId.OPTIMISM],
           provider!.getSigner())
@@ -188,23 +182,21 @@ function App() {
           provider!.getSigner())
         )
         setKnsEnsExit(KNSEnsExit__factory.connect(
-          KNS_ENS_EXIT_ADDRESSES[ChainId.SEPOLIA],
+          KNS_ENS_EXIT_ADDRESSES[ChainId.OPTIMISM],
           provider!.getSigner()
         ))
         setKnsEnsEntry(KNSEnsEntry__factory.connect(
-          KNS_ENS_ENTRY_ADDRESSES[ChainId.SEPOLIA],
-          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+          KNS_ENS_ENTRY_ADDRESSES[ChainId.MAINNET],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_MAINNET_RPC_URL)
         ))
         setNameWrapper(NameWrapper__factory.connect(
-          NAMEWRAPPER_ADDRESSES[ChainId.SEPOLIA],
-          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+          NAMEWRAPPER_ADDRESSES[ChainId.MAINNET],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_MAINNET_RPC_URL)
         ))
         setEnsRegistry(ENSRegistry__factory.connect(
-          ENS_REGISTRY_ADDRESSES[ChainId.SEPOLIA],
-          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_SEPOLIA_RPC_URL)
+          ENS_REGISTRY_ADDRESSES[ChainId.MAINNET],
+          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_MAINNET_RPC_URL)
         ))
-      } else if (network.chainId === ChainId.MAINNET) {
-        // TODO: See above TODO...
       }
     })
   }, [provider])

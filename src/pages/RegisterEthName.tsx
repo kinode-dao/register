@@ -12,6 +12,7 @@ import { getNetworkName, setChain } from "../utils/chain";
 import { hash } from "eth-ens-namehash";
 import { ReactComponent as NameLogo } from "../assets/kinode.svg";
 import DirectCheckbox from "../components/DirectCheckbox";
+import { MAINNET_OPT_HEX, OPTIMISM_OPT_HEX } from "../constants/chainId";
 
 const { useAccounts } = hooks;
 
@@ -88,13 +89,15 @@ function RegisterEthName({
 
         const cleanedName = name.trim().replace(".eth", "");
 
+        const targetChainId = nodeChainId === OPTIMISM_OPT_HEX ? MAINNET_OPT_HEX : nodeChainId;
+
         try {
-          await setChain(nodeChainId);
+          await setChain(targetChainId);
         } catch (error) {
           window.alert(
-            `You must connect to the ${chainName} network to continue. Please connect and try again.`
+            `You must connect to the ${getNetworkName(targetChainId)} network to continue. Please connect and try again.`
           );
-          throw new Error(`${chainName} not set`);
+          throw new Error(`${getNetworkName(targetChainId)} not connected`);
         }
 
         const data: BytesLike[] = [
@@ -132,13 +135,15 @@ function RegisterEthName({
         const tx = await knsEnsEntry.setKNSRecords(dnsFormat, data);
 
         const onRegistered = (node: any, name: any) => {
-          if (node == namehash) {
+          if (node === namehash) {
             kns.off("NodeRegistered", onRegistered);
             setLoading("");
             setOsName(`${cleanedName}.eth`);
             navigate("/set-password");
           }
         };
+
+        await setChain(nodeChainId);
 
         setLoading("Registering ETH ID on Kinode...");
         kns.on("NodeRegistered", onRegistered);
