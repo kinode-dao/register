@@ -16,7 +16,7 @@ import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { getNetworkName, setChain } from "../utils/chain";
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { ReactComponent as NameLogo } from "../assets/kinode.svg"
 
 const NAME_INVALID_PUNY = "Unsupported punycode character";
 const NAME_NOT_OWNER = "Name does not belong to this wallet";
@@ -26,7 +26,7 @@ const NAME_URL =
 
 const { useAccounts, useProvider } = hooks;
 
-interface ResetProps extends PageProps {}
+interface ResetProps extends PageProps { }
 
 function Reset({
   direct,
@@ -142,21 +142,21 @@ function Reset({
         const data = [
           direct
             ? (
-                await kns.populateTransaction.setAllIp(
-                  namehash(knsName),
-                  ipAddress,
-                  port,
-                  0,
-                  0,
-                  0
-                )
-              ).data!
+              await kns.populateTransaction.setAllIp(
+                namehash(knsName),
+                ipAddress,
+                port,
+                0,
+                0,
+                0
+              )
+            ).data!
             : (
-                await kns.populateTransaction.setRouters(
-                  namehash(knsName),
-                  allowed_routers.map((x) => namehash(x))
-                )
-              ).data!,
+              await kns.populateTransaction.setRouters(
+                namehash(knsName),
+                allowed_routers.map((x) => namehash(x))
+              )
+            ).data!,
           (
             await kns.populateTransaction.setKey(
               namehash(knsName),
@@ -210,10 +210,10 @@ function Reset({
   return (
     <>
       <OsHeader header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
-          Reset
-          <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
-          Name
-        </h3>}
+        Reset
+        <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
+        Name
+      </h3>}
         openConnect={openConnect}
         closeConnect={closeConnect}
         nodeChainId={nodeChainId}
@@ -225,16 +225,16 @@ function Reset({
           ) : (
             <>
               <div className="col" style={{ width: "100%" }}>
-              <h5 className="login-row row" style={{marginBottom: 8}}>
-                Enter .os Name
-                <div className="tooltip-container">
-                  <div className="tooltip-button">&#8505;</div>
-                  <div className="tooltip-content" style={{ fontSize: 16 }}>
-                    Kinodes use a .os name in order to identify themselves to
-                    other nodes in the network
+                <h5 className="login-row row" style={{ marginBottom: 8 }}>
+                  Enter .os Name
+                  <div className="tooltip-container">
+                    <div className="tooltip-button">&#8505;</div>
+                    <div className="tooltip-content" style={{ fontSize: 16 }}>
+                      Kinodes use a .os name in order to identify themselves to
+                      other nodes in the network
+                    </div>
                   </div>
-                </div>
-              </h5>
+                </h5>
                 <div
                   style={{
                     display: "flex",
@@ -295,7 +295,7 @@ function Reset({
                 </div>
               </div>
 
-              <button type="submit"> Reset Networking Keys </button>
+              <button type="submit"> Reset Node </button>
             </>
           )}
         </form>

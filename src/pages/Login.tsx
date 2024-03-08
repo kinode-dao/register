@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import { namehash } from "ethers/lib/utils";
-import { BytesLike } from "ethers";
+import { BytesLike, utils } from "ethers";
 
 import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps, UnencryptedIdentity } from "../lib/types";
@@ -9,11 +9,12 @@ import { hooks } from "../connectors/metamask";
 import { ipToNumber } from "../utils/ipToNumber";
 import { downloadKeyfile } from "../utils/download-keyfile";
 import DirectCheckbox from "../components/DirectCheckbox";
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { ReactComponent as NameLogo } from "../assets/kinode.svg"
+import { useNavigate } from "react-router-dom";
 
 const { useProvider } = hooks;
 
-interface LoginProps extends PageProps {}
+interface LoginProps extends PageProps { }
 
 function Login({
   direct,
@@ -31,6 +32,7 @@ function Login({
   nodeChainId,
 }: LoginProps) {
   const provider = useProvider();
+  const navigate = useNavigate()
 
   const [keyErrs, setKeyErrs] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>("");
@@ -48,7 +50,7 @@ function Login({
         )) as UnencryptedIdentity;
         setRouters(infoData.allowed_routers);
         setOsName(infoData.name);
-      } catch {}
+      } catch { }
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -70,11 +72,13 @@ function Login({
 
           setLoading("Checking password...");
 
+          let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
+
           // Replace this with network key generation
           const response = await fetch("/vet-keyfile", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ password: pw, keyfile: "" }),
+            body: JSON.stringify({ password_hash: hashed_password, keyfile: "" }),
           });
 
           if (response.status > 399) {
@@ -97,21 +101,21 @@ function Login({
           const data: BytesLike[] = [
             direct
               ? (
-                  await kns.populateTransaction.setAllIp(
-                    namehash(knsName),
-                    ipAddress,
-                    port,
-                    0,
-                    0,
-                    0
-                  )
-                ).data!
+                await kns.populateTransaction.setAllIp(
+                  namehash(knsName),
+                  ipAddress,
+                  port,
+                  0,
+                  0,
+                  0
+                )
+              ).data!
               : (
-                  await kns.populateTransaction.setRouters(
-                    namehash(knsName),
-                    allowed_routers.map((x) => namehash(x))
-                  )
-                ).data!,
+                await kns.populateTransaction.setRouters(
+                  namehash(knsName),
+                  allowed_routers.map((x) => namehash(x))
+                )
+              ).data!,
             (
               await kns.populateTransaction.setKey(
                 namehash(knsName),
@@ -130,6 +134,7 @@ function Login({
         }
 
         setLoading("Logging in...");
+        let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
 
         // Login or confirm new keys
         const result = await fetch(
@@ -138,8 +143,8 @@ function Login({
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: reset
-              ? JSON.stringify({ password: pw, direct })
-              : JSON.stringify({ password: pw }),
+              ? JSON.stringify({ password_hash: hashed_password, direct })
+              : JSON.stringify({ password_hash: hashed_password }),
           }
         );
 
@@ -183,9 +188,9 @@ function Login({
     <>
       <OsHeader
         header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
-        Login to
-        <NameLogo style={{ height: 28, width: "auto", margin: "0 0 -3px 16px" }} />
-      </h3>}
+          Login to
+          <NameLogo style={{ height: 28, width: "auto", margin: "0 0 -3px 16px" }} />
+        </h3>}
         openConnect={openConnect}
         closeConnect={closeConnect}
         hideConnect={!showReset}
@@ -196,7 +201,7 @@ function Login({
       ) : (
         <form id="signup-form" className="col" onSubmit={handleLogin}>
           <div style={{ width: "100%" }}>
-            <div className="login-row row" style={{fontSize: 20, marginBottom: "1em"}}>
+            <div className="login-row row" style={{ fontSize: 20, marginBottom: "1em" }}>
               {" "}
               Login as {knsName}{" "}
             </div>
@@ -248,6 +253,14 @@ function Login({
             >
               Reset Networking Info
             </div>
+            <div
+              className="reset-networking"
+              onClick={() => {
+                navigate('/reset-node')
+              }}
+            >
+              Reset Node & Password
+            </div>
             {showReset && (
               <div
                 className="col"
@@ -287,8 +300,9 @@ function Login({
               </div>
             )}
           </div>
-        </form>
-      )}
+        </form >
+      )
+      }
     </>
   );
 }

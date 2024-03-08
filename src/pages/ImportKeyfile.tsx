@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { utils } from "ethers";
 import OsHeader from "../components/KnsHeader";
 import { PageProps } from "../lib/types";
 import Loader from "../components/Loader";
@@ -13,7 +14,7 @@ import Loader from "../components/Loader";
 const KEY_WRONG_NET_KEY = "Keyfile does not match public key";
 const KEY_WRONG_IP = "IP Address does not match records";
 
-interface ImportKeyfileProps extends PageProps {}
+interface ImportKeyfileProps extends PageProps { }
 
 function ImportKeyfile({
   direct,
@@ -135,12 +136,14 @@ function ImportKeyfile({
 
       try {
         if (keyErrs.length === 0 && localKey !== "") {
+          let hashed_password = utils.sha256(utils.toUtf8Bytes(pw));
+
           const response = await fetch("/vet-keyfile", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               keyfile: localKey,
-              password: pw,
+              password: hashed_password,
             }),
           });
 
@@ -153,7 +156,7 @@ function ImportKeyfile({
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               keyfile: localKey,
-              password: pw,
+              password: hashed_password,
             }),
           });
 

@@ -9,14 +9,14 @@ import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import { getNetworkName, setChain } from "../utils/chain";
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { ReactComponent as NameLogo } from "../assets/kinode.svg"
 import DirectCheckbox from "../components/DirectCheckbox";
 
 const {
   useAccounts,
 } = hooks;
 
-interface RegisterOsNameProps extends PageProps {}
+interface RegisterOsNameProps extends PageProps { }
 
 function RegisterOsName({
   direct,
