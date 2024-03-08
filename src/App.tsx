@@ -33,6 +33,7 @@ import SetPassword from "./pages/SetPassword";
 import Login from './pages/Login'
 import Reset from './pages/ResetKnsName'
 import OsHome from "./pages/KinodeHome"
+import ResetNode from "./pages/ResetNode";
 import ImportKeyfile from "./pages/ImportKeyfile";
 import { UnencryptedIdentity } from "./lib/types";
 
@@ -248,6 +249,7 @@ function App() {
               <Route path="/register-eth-name" element={<RegisterEthName {...props} />} />
               <Route path="/set-password" element={<SetPassword {...props} />} />
               <Route path="/reset" element={<Reset {...props} />} />
+              <Route path="/reset-node" element={<ResetNode {...props} />} />
               <Route path="/import-keyfile" element={<ImportKeyfile {...props} />} />
               <Route path="/login" element={<Login {...props} />} />
             </Routes>

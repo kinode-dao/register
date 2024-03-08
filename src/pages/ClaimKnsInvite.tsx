@@ -7,13 +7,13 @@ import OsHeader from "../components/KnsHeader";
 import { NetworkingInfo, PageProps } from "../lib/types";
 import { ipToNumber } from "../utils/ipToNumber";
 import DirectCheckbox from "../components/DirectCheckbox";
-import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { ReactComponent as NameLogo } from "../assets/kinode.svg"
 
 global.Buffer = global.Buffer || require("buffer").Buffer;
 
 const { useAccounts, useProvider } = hooks;
 
-interface ClaimOsNameProps extends PageProps {}
+interface ClaimOsNameProps extends PageProps { }
 
 function ClaimOsInvite({
   direct,
@@ -170,10 +170,10 @@ function ClaimOsInvite({
     <>
       <OsHeader
         header={<h3 className="row" style={{ justifyContent: "center", alignItems: "center" }}>
-        Claim
-        <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
-        Invite
-      </h3>}
+          Claim
+          <NameLogo style={{ height: 28, width: "auto", margin: "0 16px -3px" }} />
+          Invite
+        </h3>}
         openConnect={openConnect}
         closeConnect={closeConnect}
         nodeChainId={nodeChainId}
