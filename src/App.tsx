@@ -82,7 +82,8 @@ function App() {
   const [knsEnsEntry, setKnsEnsEntry] = useState<KNSEnsEntry>(
     KNSEnsEntry__factory.connect(
       provider?.network?.chainId === ChainId.SEPOLIA ? KNS_ENS_ENTRY_ADDRESSES[ChainId.SEPOLIA] : KNS_ENS_ENTRY_ADDRESSES[ChainId.MAINNET],
-      new ethers.providers.JsonRpcProvider(rpcUrl))
+      // set rpc url based on chain id
+      new ethers.providers.JsonRpcProvider(provider?.network?.chainId === ChainId.SEPOLIA ? process.env.REACT_APP_SEPOLIA_RPC_URL : process.env.REACT_APP_MAINNET_RPC_URL))
   );
 
   const [knsEnsExit, setKnsEnsExit] = useState<KNSEnsExit>(
@@ -187,7 +188,7 @@ function App() {
         ))
         setKnsEnsEntry(KNSEnsEntry__factory.connect(
           KNS_ENS_ENTRY_ADDRESSES[ChainId.MAINNET],
-          new ethers.providers.JsonRpcProvider(process.env.REACT_APP_MAINNET_RPC_URL)
+          provider!.getSigner()
         ))
         setNameWrapper(NameWrapper__factory.connect(
           NAMEWRAPPER_ADDRESSES[ChainId.MAINNET],

@@ -16,7 +16,7 @@ import { MAINNET_OPT_HEX, OPTIMISM_OPT_HEX } from "../constants/chainId";
 
 const { useAccounts } = hooks;
 
-interface RegisterOsNameProps extends PageProps {}
+interface RegisterOsNameProps extends PageProps { }
 
 function RegisterEthName({
   direct,
@@ -103,21 +103,21 @@ function RegisterEthName({
         const data: BytesLike[] = [
           direct
             ? (
-                await kns.populateTransaction.setAllIp(
-                  utils.namehash(`${cleanedName}.eth`),
-                  ipAddress,
-                  port,
-                  0,
-                  0,
-                  0
-                )
-              ).data!
+              await kns.populateTransaction.setAllIp(
+                utils.namehash(`${cleanedName}.eth`),
+                ipAddress,
+                port,
+                0,
+                0,
+                0
+              )
+            ).data!
             : (
-                await kns.populateTransaction.setRouters(
-                  utils.namehash(`${cleanedName}.eth`),
-                  allowed_routers.map((x) => utils.namehash(x))
-                )
-              ).data!,
+              await kns.populateTransaction.setRouters(
+                utils.namehash(`${cleanedName}.eth`),
+                allowed_routers.map((x) => utils.namehash(x))
+              )
+            ).data!,
           (
             await kns.populateTransaction.setKey(
               utils.namehash(`${cleanedName}.eth`),
@@ -128,11 +128,12 @@ function RegisterEthName({
 
         setLoading("Please confirm the transaction in your wallet");
 
-        console.log("node chain id", nodeChainId);
+        // console.log("node chain id", nodeChainId);
 
         const dnsFormat = toDNSWireFormat(`${cleanedName}.eth`);
         const namehash = hash(`${cleanedName}.eth`);
-        const tx = await knsEnsEntry.setKNSRecords(dnsFormat, data);
+
+        const tx = await knsEnsEntry.setKNSRecords(dnsFormat, data, { gasLimit: 300000 });
 
         const onRegistered = (node: any, name: any) => {
           if (node === namehash) {
@@ -145,14 +146,14 @@ function RegisterEthName({
 
         await setChain(nodeChainId);
 
-        setLoading("Registering ETH ID on Kinode...");
+        setLoading(`Registering ${cleanedName}.eth on Kinode... this may take a few minutes.`);
         kns.on("NodeRegistered", onRegistered);
         await tx.wait();
       } catch (error) {
         console.error("Registration Error:", error);
         setLoading("");
         alert(
-          "There was an error registering your dot-os-name, please try again."
+          "There was an error linking your ENS name, please try again."
         );
       }
     },

@@ -1,4 +1,4 @@
-import { SEPOLIA_OPT_HEX, OPTIMISM_OPT_HEX } from "../constants/chainId";
+import { SEPOLIA_OPT_HEX, OPTIMISM_OPT_HEX, MAINNET_OPT_HEX } from "../constants/chainId";
 const CHAIN_NOT_FOUND = "4902"
 
 export interface Chain {
@@ -35,26 +35,37 @@ export const CHAIN_DETAILS: { [key: string]: Chain } = {
     },
     rpcUrls: ['https://mainnet.optimism.io'],
     blockExplorerUrls: ['https://optimistic.etherscan.io']
+  },
+  [MAINNET_OPT_HEX]: {
+    chainId: MAINNET_OPT_HEX,
+    chainName: 'Ethereum',
+    nativeCurrency: {
+      name: 'Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpcUrls: ['https://ethereum-rpc.publicnode.com'],
+    blockExplorerUrls: ['https://etherscan.io']
   }
 }
 
 export const getNetworkName = (networkId: string) => {
   switch (networkId) {
-      case '1':
-      case '0x1':
-          return 'Ethereum'; // Ethereum Mainnet
-      case '10':
-      case 'a':
-      case '0xa':
-          return 'Optimism'; // Optimism
-      case '42161':
-          return 'Arbitrum'; // Arbitrum One
-      case '11155111':
-      case 'aa36a7':
-      case '0xaa36a7':
-          return 'Sepolia'; // Sepolia Testnet
-      default:
-          return 'Unknown';
+    case '1':
+    case '0x1':
+      return 'Ethereum'; // Ethereum Mainnet
+    case '10':
+    case 'a':
+    case '0xa':
+      return 'Optimism'; // Optimism
+    case '42161':
+      return 'Arbitrum'; // Arbitrum One
+    case '11155111':
+    case 'aa36a7':
+    case '0xaa36a7':
+      return 'Sepolia'; // Sepolia Testnet
+    default:
+      return 'Unknown';
   }
 };
 
