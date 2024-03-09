@@ -192,7 +192,7 @@ function RegisterEthName({
         }
         openConnect={openConnect}
         closeConnect={closeConnect}
-        nodeChainId={nodeChainId}
+        nodeChainId={nodeChainId === OPTIMISM_OPT_HEX ? MAINNET_OPT_HEX : nodeChainId}
       />
       {Boolean(provider) && (
         <form id="signup-form" className="col" onSubmit={handleRegister}>
