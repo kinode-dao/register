@@ -221,6 +221,9 @@ function Login({
               onChange={(e) => setPw(e.target.value)}
               autoFocus
             />
+          </div>
+
+          <div className="col" style={{ width: "100%", lineHeight: 1.5 }}>
             {keyErrs.map((x, i) => (
               <div key={i} className="key-err">
                 {x}

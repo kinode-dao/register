@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import OsHeader from "../components/KnsHeader"
 import {ReactComponent as Logo} from "../assets/logo.svg";
 import {ReactComponent as NameLogo} from "../assets/kinode.svg"
+import { OPTIMISM_OPT_HEX } from "../constants/chainId";
 
 type OsHomeProps = {
     openConnect: () => void
@@ -15,6 +16,7 @@ type OsHomeProps = {
 function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: OsHomeProps) {
     const navigate = useNavigate()
     const inviteRedir = () => navigate('/claim-invite')
+    const registerEthRedir = () => navigate('/register-eth-name')
     const registerRedir = () => navigate('/register-name')
     const resetRedir = () => navigate('/reset')
     const importKeyfileRedir = () => navigate('/import-keyfile')
@@ -46,6 +48,7 @@ function OsHome({ openConnect, knsName, provider, closeConnect, nodeChainId }: O
                         {hasNetwork && <h4 style={{ alignSelf: 'flex-start' }}>New here? Register a username to get started</h4>}
                         <button disabled={!hasNetwork} onClick={registerRedir} className="alt"> Register Kinode Name </button>
                         <h4 style={{ alignSelf: 'flex-start' }}>Other options</h4>
+                        {nodeChainId !== OPTIMISM_OPT_HEX && <button disabled={!hasNetwork} onClick={registerEthRedir} className="alt"> Register ENS Name </button>}
                         <button disabled={!hasNetwork} onClick={inviteRedir} className="alt"> Claim Kinode Invite </button>
                         <button disabled={!hasNetwork} onClick={resetRedir} className="alt"> Reset Kinode Name </button>
                         <button onClick={importKeyfileRedir}> Import Keyfile </button>
