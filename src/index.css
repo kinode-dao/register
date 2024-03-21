@@ -91,6 +91,7 @@ input[type="password"] {
 input[type="checkbox"] {
   padding: 0.25em 0.8em;
   cursor: pointer;
+  height: 28px;
 }
 input[type="checkbox"]:checked {
   background-color: var(--orange-medium);
@@ -99,7 +100,7 @@ input[type="checkbox"]:checked {
   position: absolute;
   left: 4px;
   font-size: 24px;
-  top: -5px;
+  top: -1px;
   cursor: pointer;
 }
 ::placeholder {
