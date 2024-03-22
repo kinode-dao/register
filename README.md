@@ -1,4 +1,7 @@
-# Register
+# [DEPRECATED] Register
+
+**This app has been moved to [kinode core](http://github.com/kinode-dao/kinode).**
+
 This app is compiled and put into the root directory of every Kinode node for login and registration. It handles all on-chain KNS registration flows
 
 ## Development
